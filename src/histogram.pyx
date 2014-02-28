@@ -28,14 +28,14 @@ __author__ = "Jerome Kieffer"
 __date__ = "20130711"
 
 import cython
-from cython.parallel cimport prange
+#from cython.parallel cimport range
 import numpy
 cimport numpy
 import sys
 
 from libc.stdlib cimport free, calloc,malloc
 from libc.math cimport floor,fabs
-from openmp cimport omp_set_num_threads, omp_get_max_threads, omp_get_thread_num
+#from openmp cimport omp_set_num_threads, omp_get_max_threads, omp_get_thread_num
 EPS32 = (1.0 + numpy.finfo(numpy.float32).eps)
 
 @cython.cdivision(True)
@@ -46,7 +46,7 @@ def histogram(numpy.ndarray pos not None, \
               long bins=100,
               bin_range=None,
               pixelSize_in_Pos=None,
-              nthread=None,
+              nthread=1   ,
               double dummy=0.0):
     """
     Calculates histogram of pos weighted by weights
@@ -93,14 +93,16 @@ def histogram(numpy.ndarray pos not None, \
 
     cdef long   bin = 0
     cdef long   i, idx, t, dest = 0
-    if nthread is not None:
-        if isinstance(nthread, int) and (nthread > 0):
-            omp_set_num_threads(< int > nthread)
+    #if nthread is not None:
+    #    if isinstance(nthread, int) and (nthread > 0):
+    #        omp_set_num_threads(< int > nthread)
     #multi-threaded version of this algorithm fails on MacOSX
-    if sys.platform == "darwin":  
-         omp_set_num_threads(< int > 1)
-    cdef double * bigCount = < double *> calloc(bins * omp_get_max_threads(), sizeof(double))
-    cdef double * bigData = < double *> calloc(bins * omp_get_max_threads(), sizeof(double))
+    #if sys.platform == "darwin":  
+    #     omp_set_num_threads(< int > 1)
+    #cdef double * bigCount = < double *> calloc(bins * omp_get_max_threads(), sizeof(double))
+    #cdef double * bigData = < double *> calloc(bins * omp_get_max_threads(), sizeof(double))
+    cdef double * bigCount = < double *> calloc(bins * 1, sizeof(double))
+    cdef double * bigData = < double *> calloc(bins * 1, sizeof(double))
     if pixelSize_in_Pos is None:
         dbin = 0.5
         inv_dbin2 = 4.0
@@ -118,7 +120,7 @@ def histogram(numpy.ndarray pos not None, \
         inv_dbin2 = 0.0
 
     with nogil:
-        for i in prange(size):
+        for i in range(size):
             d = cdata[i]
             a = cpos[i]
             if (a < bin_edge_min) or (a > bin_edge_max):
@@ -126,7 +128,7 @@ def histogram(numpy.ndarray pos not None, \
             fbin = (a - bin_edge_min) * inv_bin_width
             ffbin = floor(fbin)
             bin = < long > ffbin
-            dest = omp_get_thread_num() * bins + bin
+            dest = bin #omp_get_thread_num() * bins + bin
             dInt = 1.0
             if  bin > 0 :
                 dtmp = ffbin - (fbin - dbin)
@@ -146,11 +148,11 @@ def histogram(numpy.ndarray pos not None, \
             bigCount[dest] += dInt
             bigData[dest] += d * dInt
 
-        for idx in prange(bins):
+        for idx in range(bins):
             outPos[idx] = bin_edge_min + (0.5 +< double > idx) * bin_width
             tmp_count = 0.0
             tmp_data = 0.0
-            for t in range(omp_get_max_threads()):
+            for t in range(1):#omp_get_max_threads()):
                 dest = t * bins + idx
                 tmp_count += bigCount[dest]
                 tmp_data += bigData[dest]
@@ -222,9 +224,9 @@ def histogram2d(numpy.ndarray pos0 not None,
 
     edges0 = numpy.linspace(min0+(0.5/idp0),max0-(0.5/idp0),bin0)
     edges1 = numpy.linspace(min1+(0.5/idp1),max1-(0.5/idp1),bin1)
-    if nthread is not None:
-        if isinstance(nthread, int) and (nthread > 0):
-            omp_set_num_threads(< int > nthread)
+    #if nthread is not None:
+    #    if isinstance(nthread, int) and (nthread > 0):
+    #        omp_set_num_threads(< int > nthread)
     with nogil:
         for i in range(size):
             p0 = cpos0[i]
@@ -318,7 +320,7 @@ def histogram2d(numpy.ndarray pos0 not None,
             outCount[b0, b1] += rest
             outData[b0, b1] += d * rest
 
-        for i in prange(bin0):
+        for i in range(bin0):
             for j in range(bin1):
                 if outCount[i, j] > epsilon:
                     outMerge[i, j] += outData[i, j] / outCount[i, j]

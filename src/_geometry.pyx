@@ -28,7 +28,7 @@
 import cython
 cimport numpy
 import numpy
-from cython.parallel cimport prange
+#from cython.parallel cimport range
 from libc.math cimport sin, cos, atan2, sqrt, M_PI
 
 
@@ -112,7 +112,7 @@ def calc_tth(double L, double rot1, double rot2, double rot3,
     cdef double[:] c1 = numpy.ascontiguousarray(pos1.ravel(),dtype=numpy.float64)
     cdef double[:] c2 = numpy.ascontiguousarray(pos2.ravel(),dtype=numpy.float64)
     cdef numpy.ndarray[numpy.float64_t, ndim = 1] out = numpy.empty(size, dtype=numpy.float64)
-    for i in prange(size, nogil=True, schedule="static"):
+    for i in range(size):#, nogil=True, schedule="static"):
         out[i] = tth(c1[i], c2[i], L, sinRot1, cosRot1, sinRot2, cosRot2, sinRot3, cosRot3)
     return out
 
@@ -147,7 +147,7 @@ def calc_chi(double L, double rot1, double rot2, double rot3,
     cdef double[:] c1 = numpy.ascontiguousarray(pos1.ravel(),dtype=numpy.float64)
     cdef double[:] c2 = numpy.ascontiguousarray(pos2.ravel(),dtype=numpy.float64)
     cdef numpy.ndarray[numpy.float64_t, ndim = 1] out = numpy.empty(size, dtype=numpy.float64)
-    for i in prange(size, nogil=True, schedule="static"):
+    for i in range(size):#, nogil=True, schedule="static"):
         out[i] = chi(c1[i], c2[i], L, sinRot1, cosRot1, sinRot2, cosRot2, sinRot3, cosRot3)
     return out
 
@@ -183,7 +183,7 @@ def calc_q(double L, double rot1, double rot2, double rot3,
     cdef double[:] c1 = numpy.ascontiguousarray(pos1.ravel(),dtype=numpy.float64)
     cdef double[:] c2 = numpy.ascontiguousarray(pos2.ravel(),dtype=numpy.float64)
     cdef numpy.ndarray[numpy.float64_t, ndim = 1] out = numpy.empty(size, dtype=numpy.float64)
-    for i in prange(size, nogil=True, schedule="static"):
+    for i in range(size):#, nogil=True, schedule="static"):
         out[i] = q(c1[i], c2[i], L, sinRot1, cosRot1, sinRot2, cosRot2, sinRot3, cosRot3, wavelength)
     return out
 
@@ -213,6 +213,6 @@ def calc_r(double L, double rot1, double rot2, double rot3,
     cdef double[:] c1 = numpy.ascontiguousarray(pos1.ravel(),dtype=numpy.float64)
     cdef double[:] c2 = numpy.ascontiguousarray(pos2.ravel(),dtype=numpy.float64)
     cdef numpy.ndarray[numpy.float64_t, ndim = 1] out = numpy.empty(size, dtype=numpy.float64)
-    for i in prange(size, nogil=True, schedule="static"):
+    for i in range(size):#, nogil=True, schedule="static"):
         out[i] = r(c1[i], c2[i], L, sinRot1, cosRot1, sinRot2, cosRot2, sinRot3, cosRot3)
     return out

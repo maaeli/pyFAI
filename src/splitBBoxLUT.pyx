@@ -30,7 +30,7 @@ import os
 import sys
 #import time
 from cpython.ref cimport PyObject, Py_XDECREF
-from cython.parallel import prange
+#from cython.parallel import range
 from libc.string cimport memset,memcpy
 #from libc.stdlib cimport malloc, free 
 from cython cimport view
@@ -423,7 +423,7 @@ class HistoBBox1d(object):
             tdata = numpy.ascontiguousarray(weights.ravel(), dtype=numpy.float32)
             cdata = numpy.zeros(size,dtype=numpy.float32)
             if do_dummy:
-                for i in prange(size, nogil=True, schedule="static"):
+                for i in range(size):#, nogil=True, schedule="static"):
                     data = tdata[i]
                     if ((cddummy!=0) and (fabs(data-cdummy) > cddummy)) or ((cddummy==0) and (data!=cdummy)):
                         #Nota: -= and /= operatore are seen as reduction in cython parallel.
@@ -439,7 +439,7 @@ class HistoBBox1d(object):
                     else: #set all dummy_like values to cdummy. simplifies further processing
                         cdata[i]+=cdummy
             else:
-                for i in prange(size, nogil=True, schedule="static"):
+                for i in range(size):#, nogil=True, schedule="static"):
                     data = tdata[i]
                     if do_dark:
                         data = data - cdark[i]
@@ -454,7 +454,7 @@ class HistoBBox1d(object):
             if do_dummy:
                 tdata = numpy.ascontiguousarray(weights.ravel(), dtype=numpy.float32)
                 cdata = numpy.zeros(size,dtype=numpy.float32)
-                for i in prange(size, nogil=True, schedule="static"):
+                for i in range(size):#, nogil=True, schedule="static"):
                     data = tdata[i]
                     if ((cddummy!=0) and (fabs(data-cdummy) > cddummy)) or ((cddummy==0) and (data!=cdummy)):
                         cdata[i]+=data
@@ -463,7 +463,7 @@ class HistoBBox1d(object):
             else:
                 cdata = numpy.ascontiguousarray(weights.ravel(), dtype=numpy.float32)
         #TODO: what is the best: static or guided ?
-        for i in prange(bins, nogil=True, schedule="guided"):
+        for i in range(bins):#, nogil=True, schedule="guided"):
             sum_data = 0.0
             sum_count = 0.0
             for j in range(lut_size):
@@ -988,7 +988,7 @@ class HistoBBox2d(object):
             tdata = numpy.ascontiguousarray(weights.ravel(), dtype=numpy.float32)
             cdata = numpy.zeros(size,dtype=numpy.float32)
             if do_dummy:
-                for i in prange(size, nogil=True, schedule="static"):
+                for i in range(size):#, nogil=True, schedule="static"):
                     data = tdata[i]
                     if ((cddummy!=0) and (fabs(data-cdummy) > cddummy)) or ((cddummy==0) and (data!=cdummy)):
                         #Nota: -= and /= operatore are seen as reduction in cython parallel.
@@ -1004,7 +1004,7 @@ class HistoBBox2d(object):
                     else: #set all dummy_like values to cdummy. simplifies further processing
                         cdata[i]+=cdummy
             else:
-                for i in prange(size, nogil=True, schedule="static"):
+                for i in range(size):#, nogil=True, schedule="static"):
                     data = tdata[i]
                     if do_dark:
                         data = data - cdark[i]
@@ -1019,7 +1019,7 @@ class HistoBBox2d(object):
             if do_dummy:
                 tdata = numpy.ascontiguousarray(weights.ravel(), dtype=numpy.float32)
                 cdata = numpy.zeros(size,dtype=numpy.float32)
-                for i in prange(size, nogil=True, schedule="static"):
+                for i in range(size):#, nogil=True, schedule="static"):
                     data = tdata[i]
                     if ((cddummy!=0) and (fabs(data-cdummy) > cddummy)) or ((cddummy==0) and (data!=cdummy)):
                         cdata[i]+=data
@@ -1028,7 +1028,7 @@ class HistoBBox2d(object):
             else:
                 cdata = numpy.ascontiguousarray(weights.ravel(), dtype=numpy.float32)
         #TODO: what is the best: static or guided ?
-        for i0 in prange(bins0, nogil=True, schedule="guided"):
+        for i0 in range(bins0):#, nogil=True, schedule="guided"):
             for i1 in range(bins1):
                 sum_data = 0.0
                 sum_count = 0.0

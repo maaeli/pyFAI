@@ -29,7 +29,7 @@ import cython
 cimport numpy
 import numpy
 
-from cython.parallel import prange
+#from cython.parallel import range
 
 cdef extern from "math.h":
     float floor(float)nogil
@@ -162,10 +162,10 @@ def histoBBox1d(numpy.ndarray weights not None,
     cdef float delta = (pos0_max - pos0_min) / (< float > (bins))
 
     with nogil:
-        for i in prange(bins):
+        for i in range(bins):
                 outPos[i] += pos0_min + (0.5 +< float > i) * delta
 
-        for idx in prange(size):
+        for idx in range(size):
             if (check_mask) and (cmask[idx]):
                 continue
 
@@ -218,7 +218,7 @@ def histoBBox1d(numpy.ndarray weights not None,
                         outCount[i] +=  deltaA
                         outData[i] +=  (data *  deltaA)
 
-        for i in prange(bins):
+        for i in range(bins):
                 if outCount[i] > epsilon:
                     outMerge[i] += (outData[i] / outCount[i])
                 else:

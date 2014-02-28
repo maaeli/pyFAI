@@ -124,20 +124,22 @@ src = dict([(ext, join("src", ext + cython_c_ext)) for ext in cython_modules])
 _geometry_dic = dict(name="_geometry",
                      include_dirs=get_numpy_include_dirs(),
                      sources=[src['_geometry']],
-                     extra_compile_args=['openmp'],
-                     extra_link_args=['openmp'])
+                     #extra_compile_args=['openmp'],
+                     #extra_link_args=['openmp'])
+)
 
 reconstruct_dic = dict(name="reconstruct",
                        include_dirs=get_numpy_include_dirs(),
                        sources=[src['reconstruct']],
-                       extra_compile_args=['openmp'],
-                       extra_link_args=['openmp'])
+                       #extra_compile_args=['openmp'],
+                       #extra_link_args=['openmp']
+)
 
 histogram_dic = dict(name="histogram",
                 include_dirs=get_numpy_include_dirs(),
                 sources=[src['histogram']],
-                extra_compile_args=['openmp'],
-                extra_link_args=['openmp'],
+                #extra_compile_args=['openmp'],
+                #extra_link_args=['openmp'],
                 )
 
 splitPixel_dic = dict(name="splitPixel",
@@ -152,15 +154,15 @@ splitBBox_dic = dict(name="splitBBox",
 splitBBoxLUT_dic = dict(name="splitBBoxLUT",
                         include_dirs=get_numpy_include_dirs(),
                         sources=[src['splitBBoxLUT']],
-                        extra_compile_args=['openmp'],
-                        extra_link_args=['openmp'],
+                        #extra_compile_args=['openmp'],
+                        #extra_link_args=['openmp'],
                         )
 
 splitBBoxCSR_dic = dict(name="splitBBoxCSR",
                         include_dirs=get_numpy_include_dirs(),
                         sources=[src['splitBBoxCSR']],
-                        extra_compile_args=['openmp'],
-                        extra_link_args=['openmp'],
+                        #extra_compile_args=['openmp'],
+                        #extra_link_args=['openmp'],
                         )
 
 relabel_dic = dict(name="relabel",
@@ -178,16 +180,14 @@ fastcrc_dic = dict(name="fastcrc",
 _distortion_dic = dict(name="_distortion",
                         include_dirs=get_numpy_include_dirs(),
                         sources=[src['_distortion'] ],
-                        extra_compile_args=['openmp'],
-                        extra_link_args=['openmp'],
-
+                        #extra_compile_args=['openmp'],
+                        #extra_link_args=['openmp'],
                         )
 _bispev_dic = dict(name="_bispev",
                         include_dirs=get_numpy_include_dirs(),
                         sources=[src['_bispev'] ],
-                        extra_compile_args=['openmp'],
-                        extra_link_args=['openmp'],
-
+                        #extra_compile_args=['openmp'],
+                        #extra_link_args=['openmp'],
                         )
 
 

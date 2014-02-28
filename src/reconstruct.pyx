@@ -3,7 +3,7 @@ import cython
 import numpy
 cimport numpy
 from libc.math cimport sqrt
-from cython.parallel import prange
+#from cython.parallel import range
 @cython.cdivision(True)
 cdef float invert_distance(size_t i0,size_t i1, size_t p0,size_t p1)nogil:
     return 1./sqrt(<float>(i0-p0)**2+(i1-p1)**2)
@@ -95,7 +95,7 @@ def reconstruct(numpy.ndarray data not None, numpy.ndarray mask=None, dummy=None
     out[mask.astype(bool)]=0
 
     cdef ssize_t p0,p1,i,l
-    for p0 in prange(d0,nogil=True, schedule="guided"):
+    for p0 in range(d0):#,nogil=True, schedule="guided"):
         for p1 in range(d1):
             if cmask[p0,p1]:
                 out[p0,p1] += processPoint(cdata,cmask,p0,p1,d0,d1)

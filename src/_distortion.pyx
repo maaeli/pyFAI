@@ -26,7 +26,7 @@
 import cython
 cimport numpy
 import numpy
-from cython.parallel import prange
+#from cython.parallel import range
 from libc.math cimport floor,ceil, fabs
 from libc.string cimport memset
 import logging, threading
@@ -601,8 +601,8 @@ class Distortion(object):
                     pos0max = (numpy.ceil(pos[:, :, :, 0].max(axis= -1)).astype(numpy.int32) + 1).clip(0, self.shape[0])
                     pos1max = (numpy.ceil(pos[:, :, :, 1].max(axis= -1)).astype(numpy.int32) + 1).clip(0, self.shape[1])
                     lut_size = numpy.zeros(self.shape, dtype=numpy.int32)
-                    with nogil:
-                        for i in range(shape0):
+                    #with nogil:
+                    for i in range(shape0):
                             for j in range(shape1):
                                 for k in range(pos0min[i, j],pos0max[i, j]):
                                     for l in range(pos1min[i, j],pos1max[i, j]):
@@ -639,9 +639,9 @@ class Distortion(object):
                     buffer = numpy.empty((self.delta0, self.delta1),dtype=numpy.float32)
                     buffer_size = self.delta0 * self.delta1 * sizeof(float)
                     logger.info("Max pixel size: %ix%i; Max source pixel in target: %i"%(buffer.shape[1],buffer.shape[0], self.lut_size))
-                    with nogil:
-                        # i,j, idx are indexes of the raw image uncorrected
-                        for i in range(shape0):
+                    #with nogil:
+                    # i,j, idx are indexes of the raw image uncorrected
+                    for i in range(shape0):
                             for j in range(shape1):
                                 #reinit of buffer
                                 memset(&buffer[0,0], 0, buffer_size)
@@ -738,14 +738,14 @@ class Distortion(object):
         lout = out.ravel()
         lin = numpy.ascontiguousarray(image.ravel(),dtype=numpy.float32)
         size = lin.size
-        for i in prange(lshape0, nogil=True, schedule="static"):
+        for i in range(lshape0):#, nogil=True, schedule="static"):
             for j in range(lshape1):
                 idx = LUT[i,j].idx
                 coef = LUT[i,j].coef
                 if coef<=0:
                     continue
                 if idx>=size:
-                    with gil:
+                    #with gil:
                         logger.warning("Accessing %i >= %i !!!"%(idx,size))
                         continue
                 lout[i] += lin[idx] * coef
