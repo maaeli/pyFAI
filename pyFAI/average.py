@@ -35,7 +35,7 @@ __authors__ = ["Jérôme Kieffer", "Valentin Valls"]
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "08/09/2016"
+__date__ = "09/09/2016"
 __status__ = "production"
 
 import logging
@@ -626,7 +626,7 @@ class MultiFilesAverageWriter(AverageWriter):
 
         self._fabio_class = fabio.factory(file_format + "image")
 
-    def write_header(self, merged_files, nb_frames, monitor_name):
+    def write_header(self, merged_files, nb_frames, monitor_name=None):
         self._global_header["nfiles"] = len(merged_files)
         self._global_header["nframes"] = nb_frames
         if monitor_name is not None:
