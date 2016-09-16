@@ -35,7 +35,7 @@ __authors__ = ["Jérôme Kieffer", "Valentin Valls"]
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "09/09/2016"
+__date__ = "16/09/2016"
 __status__ = "production"
 
 import logging
@@ -333,14 +333,14 @@ def bounding_box(img):
 
 def remove_saturated_pixel(ds, threshold=0.1, minimum=None, maximum=None):
     """
-    Remove saturated fixes from an array.
+    Remove saturated fixes from an array inplace.
 
-    :param ds: a dataset as  ndarray
+    :param ds: a dataset as ndarray
     :param float threshold: what is the upper limit?
         all pixel > max*(1-threshold) are discareded.
     :param float minimum: minumum valid value (or True for auto-guess)
     :param float maximum: maximum valid value
-    :return: another dataset
+    :return: the input dataset
     """
     shape = ds.shape
     if ds.dtype == numpy.uint16:
@@ -394,7 +394,6 @@ def remove_saturated_pixel(ds, threshold=0.1, minimum=None, maximum=None):
         while subset.max() > maxt:
             subset = ndimage.median_filter(subset, ksize)
         ds[max(0, min0 - 4 * ksize):min(shape[0], max0 + 4 * ksize), max(0, min1 - 4 * ksize):min(shape[1], max1 + 4 * ksize)] = subset
-    fabio.edfimage.edfimage(data=ds).write("removeSaturatedPixel.edf")
     return ds
 
 
@@ -626,7 +625,7 @@ class MultiFilesAverageWriter(AverageWriter):
 
         self._fabio_class = fabio.factory(file_format + "image")
 
-    def write_header(self, merged_files, nb_frames, monitor_name=None):
+    def write_header(self, merged_files, nb_frames, monitor_name):
         self._global_header["nfiles"] = len(merged_files)
         self._global_header["nframes"] = nb_frames
         if monitor_name is not None:
@@ -858,15 +857,16 @@ class Average(object):
         self._algorithms.append(algorithm)
 
     def _get_corrected_image(self, fabio_image, image):
-        """Returns an image corrected by pixel filter, flat, dark and monitor
-        correction.
+        """Returns an image corrected by pixel filter, saturation, flat, dark,
+        and monitor correction. The internal computation is done in float
+        64bits. The result is provided as float 32 bits.
 
         :param fabio.fabioimage.FabioImage fabio_image: Object containing the
             header of the data to process
         :param numpy.ndarray image: Data to process
         :rtype: numpy.ndarray
         """
-        corrected_image = numpy.ascontiguousarray(image, numpy.float32)
+        corrected_image = numpy.ascontiguousarray(image, numpy.float64)
         if self._threshold or self._minimum or self._maximum:
             corrected_image = remove_saturated_pixel(corrected_image, self._threshold, self._minimum, self._maximum)
         if self._dark is not None:
@@ -880,7 +880,7 @@ class Average(object):
             except MonitorNotFound as e:
                 logger.warning("Monitor not found in filename '%s', data skipped. Cause: %s", fabio_image.filename, str(e))
                 return None
-        return corrected_image
+        return numpy.ascontiguousarray(corrected_image, numpy.float32)
 
     def _get_image_reduction(self, algorithm):
         """Returns the result of an averaging algorithm using all over
