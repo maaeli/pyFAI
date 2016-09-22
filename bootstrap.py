@@ -13,7 +13,7 @@ example: ./bootstrap.py pyFAI-integrate test/testimages/Pilatus1M.edf
 __authors__ = ["Frédéric-Emmanuel Picca", "Jérôme Kieffer"]
 __contact__ = "jerome.kieffer@esrf.eu"
 __license__ = "GPLv3+"
-__date__ = "02/08/2016"
+__date__ = "22/09/2016"
 
 
 import sys
@@ -69,6 +69,7 @@ def runfile(fname):
         run = subprocess.Popen(sys.argv, shell=False, env=env)
         run.wait()
 
+
 def get_project_name(root_dir):
     """Retrieve project name by running python setup.py --name in root_dir.
 
@@ -83,6 +84,7 @@ def get_project_name(root_dir):
     return name.split()[-1].decode('ascii')
 
 logging.basicConfig()
+logging.root.setLevel(logging.INFO)
 logger = logging.getLogger("bootstrap")
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_NAME = get_project_name(PROJECT_DIR)
