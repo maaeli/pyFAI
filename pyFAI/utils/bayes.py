@@ -257,7 +257,7 @@ class BayesianBackground(object):
                                   disp=True, callback=lambda x: print(x))
 
         values = y1.reshape(d0_sparse.size, d1_sparse.size)
-        spline = RectBivariateSpline(d0_sparse, d1_sparse, values, k, k)
+        spline = RectBivariateSpline(d0_sparse, d1_sparse, values, kx=k, ky=k)
         bg = spline(d0_pos, d1_pos)
         return bg
 
