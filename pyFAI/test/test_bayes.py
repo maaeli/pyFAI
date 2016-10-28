@@ -26,14 +26,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+"""Test suites for bayesian background estimation"""
 from __future__ import absolute_import, division, print_function
 
-__doc__ = """Test suites for bayesian background estimation"""
 __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "17/10/2016"
+__date__ = "28/10/2016"
 
 
 import unittest
@@ -41,6 +41,7 @@ import numpy
 from .utilstest import UtilsTest, getLogger
 logger = getLogger(__name__)
 from ..utils import bayes
+from ..ext import _bayes
 from scipy import interpolate
 
 
@@ -80,6 +81,10 @@ class TestBayes(unittest.TestCase):
         self.assertAlmostEqual(f(1), -0.836596197557, msg="llk 1: %s" % (f(1)))
         self.assertAlmostEqual(f(0.01), -1e-4, msg="llk 1e-2")
         self.assertAlmostEqual(f(8), -4.62302437387, msg="llk 8: %s" % f(8))
+        b = _bayes.BackgroundLogLikeliHood()
+        z = b(x)
+        e = abs(z + y).max()
+        self.assertLessEqual(e, 0.2, "Optimized function matches more or less")
 
     def test_background1d(self):
         mean = self.noise.mean()

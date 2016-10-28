@@ -128,6 +128,46 @@ cdef class BackgroundLogLikeliHood:
         return total
 
     @cython.boundscheck(False)
+    @cython.initializedcheck(False)
+    def summed_w(self, obs, guess, weight, mask=None):
+        """Calculate the sum of the LLK function.
+        
+        :param obs: ideally in double[:]
+        :param guess: ideally in double[:]
+        :param weight: ideally in double[:]
+        :param mask: ideally in int8[:]
+        :return: sum of log-likelihood over all valid points. 
+        """
+        cdef:
+            int idx, size
+            bint do_mask
+            double value, llk, total, w
+            double[:] cobs, cguess, cweight
+            cnp.int8_t[:] cmask  
+        
+        size = obs.size
+        cobs = numpy.ascontiguousarray(obs, numpy.float64).ravel()
+        cguess = numpy.ascontiguousarray(guess, numpy.float64).ravel()
+        cweight = numpy.ascontiguousarray(weight, numpy.float64).ravel()
+        assert guess.size == size, "Array size of guess matches"
+        assert weight.size == size, "Array size of weight matches"
+        if mask is not None:
+            do_mask = True
+            assert mask.size == size, "Array size of mask matches"
+            cmask = numpy.ascontiguousarray(mask, numpy.int8).ravel() 
+        else:
+            do_mask = False
+        
+        total = 0.0 
+        for idx in prange(size, nogil=True):
+            if do_mask and cmask[idx]:
+                continue
+            value = (cobs[idx] - cguess[idx]) * cweight[idx]
+            llk = self.one_llk(value)
+            total += llk
+        return total
+
+    @cython.boundscheck(False)
     cdef inline double one_llk(self, double value) nogil:
         cdef:
             double llk, tar, delta

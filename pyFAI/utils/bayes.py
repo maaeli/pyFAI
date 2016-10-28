@@ -42,6 +42,10 @@ __docformat__ = 'restructuredtext'
 import numpy
 from scipy.interpolate import UnivariateSpline, RectBivariateSpline
 from scipy import optimize
+try:
+    from ..ext import _bayes
+except ImportError:
+    _bayes = None
 
 
 class BayesianBackground(object):
@@ -101,6 +105,8 @@ class BayesianBackground(object):
                                4.63573160])
         cls.spline = UnivariateSpline(splinex, spliney, s=0)
         cls.s1 = cls.spline(8.0) - numpy.log(8.0)
+        if _bayes is not None:
+            cls.cython = _bayes.BackgroundLogLikeliHood()
 
     def __init__(self):
         if self.s1 is None:
@@ -223,7 +229,28 @@ class BayesianBackground(object):
         else:
             err = err.ravel()
         sum_err = cls.bayes_llk(err).sum()
+
         return sum_err
+
+    @classmethod
+    def cy2d_min(cls, values, d0_sparse, d1_sparse, d0_pos, d1_pos, y_obs, w_obs, mask, k):
+        """ Function to optimize
+
+        :param values: values of the background on spline knots
+        :param d0_sparse: positions along slowest axis of the spline knots 
+        :param d1_pos: positions along fastest axis of the spline knots
+        :param d0_pos: positions along slowest axis (all coordinates)
+        :param d1_pos: positions along fastest axis (all coordinates)
+        :param y_obs: intensities actually measured 
+        :param w_obs: weights of the experimental points
+        :param valid: coordinated of valid pixels
+        :param k: order of the spline, usually 3
+        :return: sum of the log-likelihood to be minimized
+        """
+        values = values.reshape(d0_sparse.size, d1_sparse.size)
+        spline = RectBivariateSpline(d0_sparse, d1_sparse, values, kx=k, ky=k)
+        bg = spline(d0_pos, d1_pos)
+        return cls.cython.summed_w(y_obs, bg, w_obs, mask)
 
     def background_image(self, img, sigma=None, mask=None, npt=10, k=3):
         """attempt to perform background extraction on diffraction images 
@@ -244,10 +271,11 @@ class BayesianBackground(object):
         else:
             mask = mask_nan
 
-        if mask.sum() == 0:
-            valid = numpy.where(numpy.logical_not(mask))
-        else:
-            valid = True
+        mask = mask.astype("int8")
+#         if mask.sum() == 0:
+#             valid = numpy.where(numpy.logical_not(mask))
+#         else:
+#             valid = True
         d0_pos = numpy.arange(0, shape[0])
         d1_pos = numpy.arange(0, shape[1])
 
@@ -256,7 +284,7 @@ class BayesianBackground(object):
 
         y0 = numpy.zeros((npt, npt)) + img.mean()
         y1 = optimize.fmin_powell(self.func2d_min, y0,
-                                  args=(d0_sparse, d1_sparse, d0_pos, d1_pos, img, w, valid, k),
+                                  args=(d0_sparse, d1_sparse, d0_pos, d1_pos, img, w, mask, k),
                                   disp=True, callback=lambda x: print(x))
 
         values = y1.reshape(d0_sparse.size, d1_sparse.size)
