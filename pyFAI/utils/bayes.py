@@ -35,7 +35,7 @@ from __future__ import absolute_import, print_function, division
 __authors__ = ["Vincent Favre-Nicolin", "Jérôme Kieffer"]
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "18/10/2016"
+__date__ = "28/10/2016"
 __status__ = "development"
 __docformat__ = 'restructuredtext'
 
@@ -226,13 +226,16 @@ class BayesianBackground(object):
         return sum_err
 
     def background_image(self, img, sigma=None, mask=None, npt=10, k=3):
+        """attempt to perform background extraction on diffraction images 
+        """
+        img = numpy.ascontiguousarray(img, numpy.float64)
         shape = img.shape
         if sigma is not None:
             assert sigma.shape == shape
         else:
             sigma = numpy.sqrt(img)
 
-        w = 1 / sigma
+        w = 1. / sigma
 
         mask_nan = numpy.isnan(w)
         if mask is not None:
