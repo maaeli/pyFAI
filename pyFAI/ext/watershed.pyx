@@ -30,7 +30,7 @@
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "01/12/2016"
+__date__ = "18/05/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
@@ -39,43 +39,95 @@ import numpy
 cimport numpy
 import sys
 import logging
+from scipy.ndimage import filters 
+from libc.math cimport atan2, sqrt, M_PI as pi
 logger = logging.getLogger("pyFAI.ext.watershed")
 from ..decorators import timeit
-from cython.parallel import prange
+
+
 
 include "numpy_common.pxi"
 include "bilinear.pxi"
+
 
 cdef bint get_bit(int byteval, int idx) nogil:
     return ((byteval & (1 << idx)) != 0)
 
 
+cdef class BorderPixel:
+    cdef:
+        readonly int index
+        readonly float height
+        readonly set neighbors
+    
+    def __cinit__(self, int idx, float height):
+        self.index = idx
+        self.height = height
+        self.neighbors = set()
+    
+    def __dealloc__(self):
+        self.neighbors = None
+
+    def __repr__(self):
+        return "Border #%i @%s to {%s}" % \
+            (self.index, self.height, ", ".join([str(i) for i in self.neighbors]))
+
+
+cdef class PeakSubRegion:
+    cdef:
+        readonly int index
+        readonly float height, orientation
+    
+    def __cinit__(self, int idx, float height):
+        self.index = idx
+        self.height = height
+        # Orientation in degree from 0 to 180°
+        self.orientation = -1.0 
+        
+    def __repr__(self):
+        return "Peak #%i @%.3f" % (self.index, self.height)
+    
+    cpdef set_orientation(self, float value):
+        self.orientation = value
+        
+        
 cdef class Region:
     cdef:
-        readonly int index, size, pass_to
-        readonly float mini, maxi, highest_pass
-        readonly list neighbors, border, peaks
+        readonly int index
+        readonly float mini, maxi
+        readonly dict neighbors  # key: id of neigh value: highest pass
+        readonly dict peaks  #  key: index, value PeakSubRegion instance
+        readonly dict border #  key: index, value BorderPixel
+        readonly set pixels  #  list of pixels in the region
 
-    def __cinit__(self, int idx):
+    def __cinit__(self, int idx, float height):
         self.index = idx
-        self.neighbors = []
-        self.border = []  # list of pixel indices of the border
-        self.peaks = [idx]
-        self.size = 0
-        self.pass_to = - 1
-        self.mini = - 1
-        self.maxi = - 1
-        self.highest_pass = -sys.maxsize
+        self.neighbors = {}  #  key: id of neigh value: highest pass
+        self.border = {}     # pixel indices of the border -> BorderPixel instance
+        self.peaks = {}  
+        self.peaks[idx] = PeakSubRegion(idx, height)
+        self.pixels = set((idx,))
+        self.mini = sys.maxsize
+        self.maxi = height 
 
     def __dealloc__(self):
         """Destructor"""
         self.neighbors = None
         self.border = None
         self.peaks = None
+        self.pixels = None
 
     def __repr__(self):
-        return "Region %s of size %s:\n neighbors: %s\n border: %s\n" % (self.index, self.size, self.neighbors, self.border) + \
-               "peaks: %s\n maxi=%s, mini=%s, pass=%s to %s" % (self.peaks, self.maxi, self.mini, self.highest_pass, self.pass_to)
+        peaks = ", ".join([str(b) for b in self.peaks.values()])
+        borders = ", ".join([str(b) for b in self.border.values()])
+        nb = (", ".join(["%i@%s"%(i, j) for i,j in self.neighbors.items()]))
+        lst = ["Region #%s of size %s: maxi=%s, mini=%s, pass_to %s @ %s" % 
+               (self.index, self.size, self.maxi, self.mini, self.pass_to, self.highest_pass),
+               "peaks: {%s}" % peaks,
+               "border: {%s}" % borders,
+               "neighbors: {%s}" % nb,
+               ]
+        return "\n".join(lst)
 
     @cython.cdivision(True)
     @cython.boundscheck(False)
@@ -92,36 +144,45 @@ cdef class Region:
             float mini, maxi, val
             int border_size = len(self.border)
             int neighbors_size = len(self.neighbors)
-        self.maxi = flat[self.index]
-        if neighbors_size != border_size:
+            int border_idx
+            BorderPixel border_pixel
+            int neighbor
+
+        if self.maxi is None:
+            self.maxi = flat[self.index]
+            
+        if neighbors_size <= border_size:
+            print("neighbors_size <= border_size")
             print(self.index, neighbors_size, border_size)
             print(self)
             return True
-        if neighbors_size:
-            imax = imin = 0
-            i = self.border[imax]
-            val = mini = maxi = flat[i]
-            for k in range(1, border_size):
-                i = self.border[k]
-                val = flat[i]
-                if val < mini:
-                    mini = val
-                    imin = k
-                elif val > maxi:
-                    maxi = val
-                    imax = k
-            if self.mini == - 1:
-                self.mini = mini
-            self.highest_pass = maxi
-            self.pass_to = self.neighbors[imax]
-        else:
+        if not self.neighbors:
             return True
+        imax = imin = self.index
+        val = mini = self.maxi
+        maxi = 0
+        for border_idx, border_pixel in self.border.items():
+            val = flat[border_idx]
+            if val < mini:
+                mini = val
+                imin = border_idx
+            elif val > maxi:
+                maxi = val
+                imax = border_idx
+            neigbour = border_pixel.to
+        if self.mini is None:
+            self.mini = mini
+        self.highest_pass = maxi
+        self.pass_to = self.neighbors[imax]
+    
+    def init_orientation(self, ):
+        """Initialize the orientation of each region
+        :param 
+        """
+        pass
 
     def get_size(self):
-        return self.size
-
-    def get_highest_pass(self):
-        return self.highest_pass
+        return len(self.pixels)
 
     def get_maxi(self):
         return self.maxi
@@ -129,9 +190,24 @@ cdef class Region:
     def get_mini(self):
         return self.mini
 
-    def get_pass_to(self):
-        return self.pass_to
-
+    @property
+    def pass_to(self):
+        "calculate and return the neighbor following the highest pass"
+        cdef list n
+        if self.neighbors:
+            n = list(self.neighbors.keys())
+            n.sort(key=lambda i: self.neighbors[i])
+            return n[-1]
+    
+    @property
+    def highest_pass(self):
+        "calculate and return the highest_pass"
+        cdef list n
+        if self.neighbors:
+            n = list(self.neighbors.keys())
+            n.sort(key=lambda i: self.neighbors[i])
+            return self.neighbors[n[-1]]
+        
     def get_index(self):
         return self.index
 
@@ -141,13 +217,17 @@ cdef class Region:
     def get_neighbors(self):
         return self.neighbors
 
+    @property 
+    def size(self):
+        return len(self.pixels)        
+
     @cython.cdivision(True)
     @cython.boundscheck(False)
     @cython.wraparound(False)
     @cython.initializedcheck(False)
     def merge(self, Region other):
         """
-        merge 2 regions
+        merge 2 regions #TODO!
         """
         cdef:
             int i
@@ -183,27 +263,21 @@ class InverseWatershed(object):
     Idea:
 
     * label all peaks
-    * define region around those peaks which raise always to this peak
+    * define region around those peaks which raise always to this same peak
     * define the border of such region
-    * search for the pass between two peaks
+    * search for passes between two peaks
+    * define orientation of sub-region surrounding peaks 
     * merge region with high pass between them
 
     """
-#     cdef:
-#         readonly float[:, :]  data
-#         readonly size_t width, height
-#         readonly dict regions
-#         readonly numpy.int32_t[:, :] labels
-#         readonly numpy.uint8_t[:, :] borders
-#         readonly float  thres, _actual_thres
-#         readonly Bilinear bilinear
     NAME = "Inverse watershed"
-    VERSION = "1.0"
+    VERSION = "2.0"
 
     def __init__(self, data not None, thres=1.0):
-        """
+        """Constructor if the InverseWatershed class
+        
+        
         :param data: 2d image as numpy array
-
         """
         assert data.ndim == 2, "data.ndim == 2"
         self.data = numpy.ascontiguousarray(data, dtype=numpy.float32)
@@ -211,8 +285,8 @@ class InverseWatershed(object):
         self.height, self.width = data.shape
         self.bilinear = Bilinear(data)
         self.regions = {}
-        self.labels = numpy.zeros((self.height, self.width), dtype="int32")
-        self.borders = numpy.zeros((self.height, self.width), dtype="uint8")
+        self.labels = None 
+        self.borders = None
         self.thres = thres
         self._actual_thres = 2
 
@@ -225,10 +299,17 @@ class InverseWatershed(object):
         self.borders = None
         self.dict = None
 
+    def __repr__(self):
+        return "InverseWatershed on %ix%i image with %i segmented regions" % (
+                self.width, self.height, len(self.regions))
+
     def save(self, fname):
         """
         Save all regions into a HDF5 file
+        
+        TODO ... broken since v1.0
         """
+        raise NotImplementedError("Save is not yet implemented")
         import h5py
         with h5py.File(fname) as h5:
             h5["NAME"] = self.NAME
@@ -239,14 +320,25 @@ class InverseWatershed(object):
 
             for i in set(self.regions.values()):
                 s = r.require_group(str(i.index))
-                for j in ("index", "size", "pass_to", "mini", "maxi", "highest_pass", "neighbors", "border", "peaks"):
+                for j in ("index", "size", "pass_to", "mini", "maxi", "highest_pass", "orientation", "border", "peaks"):
                     s[j] = i.__getattribute__(j)
-
+                
+                neighbors_dtype = numpy.dtype([("idx", numpy.int32), 
+                                               ("pass", numpy.float32)])
+                ary = numpy.zeros(len(i.neighbors), dtype=neighbors_dtype)
+                for i, (k, v) in i.neighbors.items():
+                    #ary[]
+                    #n[k]
+                    pass
+                s["neighbors"] = ary
+                    
     @classmethod
     def load(cls, fname):
         """
         Load data from a HDF5 file
+        TODO ... broken since v1.0
         """
+        raise NotImplementedError("load is not yet implemented")
         import h5py
         with h5py.File(fname) as h5:
             assert h5["VERSION"].value == cls.VERSION, "Version of module used for HDF5"
@@ -269,43 +361,72 @@ class InverseWatershed(object):
         return self
 
     def init(self):
-        self.init_labels()
-        self.init_borders()
+        "This method calls all the subsequent different initializations for the image"
+        self.labels = self.init_labels()
+        self.borders = self.init_borders()
         self.init_regions()
-        self.init_pass()
+        self.init_orientations()
 #        self.merge_singleton()
 #        self.merge_twins()
 #        self.merge_intense(self.thres)
         logger.info("found %s regions, after merge remains %s" % (len(self.regions), len(set(self.regions.values()))))
 
+    @timeit
     @cython.cdivision(True)
     @cython.boundscheck(False)
     @cython.wraparound(False)
     @cython.initializedcheck(False)
     def init_labels(self):
+        """Create a "label" image where the value stored for every single pixel
+        has the value of the index of the nearest peak.
+        
+        Initialize one "region" per peak.
+
+        :return: the image with labels 
+        """ 
         cdef:
             int i, j, width = self.width, height = self.height, idx, res
-            numpy.int32_t[:, :] labels = self.labels
+            numpy.int32_t[:, ::1] labels = numpy.zeros((height, width), dtype=numpy. int32)
+            float[:, ::1] data = self.data
             dict regions = self.regions
             Bilinear bilinear = self.bilinear
         for i in range(height):
             for j in range(width):
                 idx = j + i * width
                 res = bilinear.c_local_maxi(idx)
-                labels[i, j] += res
+                labels[i, j] = res
                 if idx == res:
-                    regions[res] = Region(res)
-
+                    regions[res] = Region(res, data[i, j])
+        return numpy.asarray(labels)
+    
+    @timeit
     @cython.cdivision(True)
     @cython.boundscheck(False)
     @cython.wraparound(False)
     @cython.initializedcheck(False)
     def init_borders(self):
+        """For each pixel on the border, store the orientation of to the neighbor
+        
+        With origin top left:
+        * bit 0: up+left direction
+        * bit 1: up direction
+        * bit 2: up+right direction
+        * bit 3: right direction
+        * bit 4: down+right direction
+        * bit 5: down direction
+        * bit 6: down+left direction
+        * bit 7: left direction
+        :return: border array
+        """
         cdef:
             int i, j, width = self.width, height = self.height, idx, res
-            numpy.int32_t[:, :] labels = self.labels
-            numpy.uint8_t[:, :] borders = self.borders
+            numpy.int32_t[:, ::1] labels
+            numpy.uint8_t[:, ::1] borders
             numpy.uint8_t neighb
+        if self.labels is None:
+            self.labels = self.init_labels()
+        labels = self.labels  
+        borders = numpy.zeros((height, width), dtype=numpy.uint8)
         for i in range(height):
             for j in range(width):
                 neighb = 0
@@ -328,64 +449,144 @@ class InverseWatershed(object):
                 if (j > 0) and (labels[i, j - 1] != res):
                     neighb |= 1 << 7
                 borders[i, j] = neighb
+        return numpy.asarray(borders)
 
+    @timeit 
     @cython.cdivision(True)
     @cython.boundscheck(False)
     @cython.wraparound(False)
     @cython.initializedcheck(False)
     def init_regions(self):
+        """Populate the dictionary with all regions
+        
+        Populate each region with:
+            * The set of pixels falling into it
+            * The pixel indexes of the border 
+            * The pass height to the neighbors
+            * The minimum value of the region which has to lie on the border
+        """
         cdef:
-            int i, j, idx, res
-            numpy.int32_t[:, ::1] labels = self.labels
-            numpy.uint8_t[:, ::1] borders = self.borders
+            int i, j, idx, res, nb
+            int height = self.height, width = self.width
+            numpy.int32_t[:, ::1] labels
+            numpy.uint8_t[:, ::1] borders
+            float[:, ::1] data = self.data
             numpy.uint8_t neighb = 0
             Region region
             dict regions = self.regions
-            int width = self.width
-            int  height = self.height
+            float value 
+            BorderPixel bp
+
+        if self.labels is None:
+            self.labels = self.init_labels()
+        labels = self.labels
+        if self.borders is None:
+            self.borders = self.init_borders()
+        borders = self.borders
+        
         for i in range(height):
             for j in range(width):
                 idx = j + i * width
                 neighb = borders[i, j]
                 res = labels[i, j]
                 region = regions[res]
-                region.size += 1
+                region.pixels.add(idx)
                 if neighb == 0:
                     continue
-                region.border.append(idx)
+                value = data[i, j]
+                bp = BorderPixel(idx, value)
+                region.border[idx] = bp
                 if get_bit(neighb, 1):
-                    region.neighbors.append(labels[i - 1, j])
-                elif get_bit(neighb, 3):
-                    region.neighbors.append(labels[i, j + 1])
-                elif get_bit(neighb, 5):
-                    region.neighbors.append(labels[i + 1, j])
-                elif get_bit(neighb, 7):
-                    region.neighbors.append(labels[i, j - 1])
-                elif get_bit(neighb, 0):
-                    region.neighbors.append(labels[i - 1, j - 1])
-                elif get_bit(neighb, 2):
-                    region.neighbors.append(labels[i - 1, j + 1])
-                elif get_bit(neighb, 4):
-                    region.neighbors.append(labels[i + 1, j + 1])
-                elif get_bit(neighb, 6):
-                    region.neighbors.append(labels[i + 1, j - 1])
+                    bp.neighbors.add(labels[i - 1, j])
+                if get_bit(neighb, 3):
+                    bp.neighbors.add(labels[i, j + 1])
+                if get_bit(neighb, 5):
+                    bp.neighbors.add(labels[i + 1, j])
+                if get_bit(neighb, 7):
+                    bp.neighbors.add(labels[i, j - 1])
+                if get_bit(neighb, 0):
+                    bp.neighbors.add(labels[i - 1, j - 1])
+                if get_bit(neighb, 2):
+                    bp.neighbors.add(labels[i - 1, j + 1])
+                if get_bit(neighb, 4):
+                    bp.neighbors.add(labels[i + 1, j + 1])
+                if get_bit(neighb, 6):
+                    bp.neighbors.add(labels[i + 1, j - 1])
+                for nb in bp.neighbors:
+                    if (nb not in region.neighbors) or (value > region.neighbors[nb]):
+                        region.neighbors[nb] = value
+                if (value < region.mini):
+                    region.mini = value
 
-    @cython.cdivision(True)
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
-    def init_pass(self):
+    @timeit
+    def init_orientations(self):
+        """Calculate the average orientation over a all regions using sobel 
+        filter. This should ideally be called before any merging or cleaning-up
+        """
+        cdef: 
+            float[:, ::1] data, Sx, Sy, histo2d, conv
+            numpy.int32_t[:, ::1] labels
+            numpy.int32_t[::1] forwards, backwards  
+            int i, j, width = self.width, height = self.height, idx, nreg 
+            float sx, sy, m, o, h, d, vnext, vprev, maxi 
+        if self.labels is None:
+            self.init_regions()
+        labels = self.labels
+        data = self.data
+        Sx = filters.sobel(data)
+        Sy = filters.sobel(data, axis=0)
+        
+        nreg = len(self.regions)
+        histo2d = numpy.zeros((nreg, 18), numpy.float32)
+        
+        forwards = numpy.array(list(self.regions.keys()), dtype=numpy.int32)
+        backwards = numpy.zeros(width * height, dtype=numpy.int32)
+        for i in range(nreg):
+            backwards[forwards[i]] = i
+        
+        for i in range(self.height):
+            for j in range(self.width):
+                sx = Sx[i, j]
+                sy = Sy[i, j]
+                m = sx * sx + sy * sy  # shall I put back the sqrt ?
+                o = (36.0 + (atan2(sy, sx) * 18.0 / pi)) % 18  # orientation in 10°
+                histo2d[backwards[labels[i, j]], <int> o] += m
+                
+        kernel = numpy.array([1, 3, 6, 7, 6, 3, 1], dtype=numpy.float32)
+        
+        # convolve to smooth out noise after histogram
+        conv = filters.convolve1d(histo2d, kernel, mode="wrap")
+        
+        for i in range(nreg):
+            idx = 0
+            maxi = conv[i, 0]
+            for j in range(1, 18):
+                m = conv[i, j]
+                if m > maxi:
+                    maxi = m
+                    idx = j
+            vprev = conv[i, idx - 1 if idx > 0 else 17]
+            vnext = conv[i, idx + 1 if idx < 17 else 0]
+            d = vprev - vnext  # gradiant
+            h = vnext + vprev - 2 * maxi  #hessian
+            if h != 0:
+                d = 0.5 * d / h
+            else:
+                d = 0.0
+            o = 10.0 * (idx + 0.5 + d) # appoximate orientation in degrees
+            self.regions[forwards[i]].peaks[forwards[i]].set_orientation(o)
+    
+    @timeit
+    def remove_singleton(self):
+        """Remove regions with only 1 pixel in it as they cannot contain a valid peak"""
         cdef:
-            int i, j, k, imax, imin
-            float[::1] flat = self.data.ravel()
-            numpy.uint8_t neighb = 0
-            Region region
-            dict regions = self.regions
-            float val, maxi, mini
-            int width = self.width
-        for region in list(regions.values()):
-            if region.init_values(flat):
-                regions.pop(region.index)
-
+            int idx
+            Region reg
+        for idx in list(self.regions.keys()): #loop on a copy
+            reg = self.regions[idx]
+            if (reg.size <= 1):
+                self.regions.pop(idx) 
+            
     def merge_singleton(self):
         "merge single pixel region"
         cdef:
@@ -401,6 +602,8 @@ class InverseWatershed(object):
             int width = self.width
             int cnt = 0
             float[:] flat = self.data.ravel()
+        return
+        #depercated
         for key1 in list(regions.keys()):
             region1 = regions[key1]
             if region1.maxi == region1.mini:
