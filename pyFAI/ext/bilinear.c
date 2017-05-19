@@ -3321,7 +3321,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_4calc_cartesian_positions(CYTHON
         {
             float __pyx_parallel_temp0 = __PYX_NAN();
             float __pyx_parallel_temp1 = __PYX_NAN();
-            float __pyx_parallel_temp2 = __PYX_NAN();
+            int __pyx_parallel_temp2 = 0xbad0bad0;
             float __pyx_parallel_temp3 = __PYX_NAN();
             float __pyx_parallel_temp4 = __PYX_NAN();
             float __pyx_parallel_temp5 = __PYX_NAN();
@@ -3333,7 +3333,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_4calc_cartesian_positions(CYTHON
             float __pyx_parallel_temp11 = __PYX_NAN();
             float __pyx_parallel_temp12 = __PYX_NAN();
             float __pyx_parallel_temp13 = __PYX_NAN();
-            int __pyx_parallel_temp14 = 0xbad0bad0;
+            float __pyx_parallel_temp14 = __PYX_NAN();
             float __pyx_parallel_temp15 = __PYX_NAN();
             float __pyx_parallel_temp16 = __PYX_NAN();
             float __pyx_parallel_temp17 = __PYX_NAN();
@@ -3352,7 +3352,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_4calc_cartesian_positions(CYTHON
             if (__pyx_t_15 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel private(__pyx_t_23, __pyx_t_28, __pyx_t_55, __pyx_t_20, __pyx_t_29, __pyx_t_44, __pyx_t_27, __pyx_t_9, __pyx_t_32, __pyx_t_64, __pyx_t_49, __pyx_t_50, __pyx_t_21, __pyx_t_24, __pyx_t_19, __pyx_t_41, __pyx_t_65, __pyx_t_60, __pyx_t_73, __pyx_t_62, __pyx_t_18, __pyx_t_66, __pyx_t_52, __pyx_t_54, __pyx_t_31, __pyx_t_43, __pyx_t_53, __pyx_t_17, __pyx_t_58, __pyx_t_57, __pyx_t_67, __pyx_t_35, __pyx_t_42, __pyx_t_39, __pyx_t_56, __pyx_t_59, __pyx_t_46, __pyx_t_63, __pyx_t_37, __pyx_t_70, __pyx_t_30, __pyx_t_25, __pyx_t_16, __pyx_t_36, __pyx_t_33, __pyx_t_74, __pyx_t_61, __pyx_t_34, __pyx_t_22, __pyx_t_45, __pyx_t_69, __pyx_t_72, __pyx_t_47, __pyx_t_68, __pyx_t_26, __pyx_t_38, __pyx_t_48, __pyx_t_71, __pyx_t_40, __pyx_t_51) firstprivate(__pyx_t_4, __pyx_t_2, __pyx_t_6, __pyx_t_1, __pyx_t_5) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
+                #pragma omp parallel private(__pyx_t_49, __pyx_t_44, __pyx_t_36, __pyx_t_33, __pyx_t_52, __pyx_t_58, __pyx_t_55, __pyx_t_18, __pyx_t_23, __pyx_t_54, __pyx_t_26, __pyx_t_73, __pyx_t_17, __pyx_t_20, __pyx_t_45, __pyx_t_40, __pyx_t_32, __pyx_t_39, __pyx_t_61, __pyx_t_59, __pyx_t_60, __pyx_t_74, __pyx_t_50, __pyx_t_66, __pyx_t_42, __pyx_t_27, __pyx_t_65, __pyx_t_16, __pyx_t_57, __pyx_t_21, __pyx_t_24, __pyx_t_62, __pyx_t_41, __pyx_t_46, __pyx_t_35, __pyx_t_68, __pyx_t_9, __pyx_t_47, __pyx_t_28, __pyx_t_67, __pyx_t_31, __pyx_t_48, __pyx_t_37, __pyx_t_70, __pyx_t_56, __pyx_t_53, __pyx_t_25, __pyx_t_64, __pyx_t_72, __pyx_t_19, __pyx_t_34, __pyx_t_22, __pyx_t_43, __pyx_t_63, __pyx_t_69, __pyx_t_51, __pyx_t_38, __pyx_t_29, __pyx_t_30, __pyx_t_71) firstprivate(__pyx_t_4, __pyx_t_1, __pyx_t_6, __pyx_t_5, __pyx_t_2) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -3362,31 +3362,31 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_4calc_cartesian_positions(CYTHON
                     Py_BEGIN_ALLOW_THREADS
                     #endif /* _OPENMP */
                     #ifdef _OPENMP
-                    #pragma omp for lastprivate(__pyx_v_C0) lastprivate(__pyx_v_C1) lastprivate(__pyx_v_D2) lastprivate(__pyx_v_D1) lastprivate(__pyx_v_f2) lastprivate(__pyx_v_f1) lastprivate(__pyx_v_p2) lastprivate(__pyx_v_A0) lastprivate(__pyx_v_B2) lastprivate(__pyx_v_A1) lastprivate(__pyx_v_C2) lastprivate(__pyx_v_D0) lastprivate(__pyx_v_delta1) lastprivate(__pyx_v_B0) lastprivate(__pyx_v_p1) lastprivate(__pyx_v_delta2) lastprivate(__pyx_v_A2) lastprivate(__pyx_v_B1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) schedule(static)
+                    #pragma omp for lastprivate(__pyx_v_A2) lastprivate(__pyx_v_A1) lastprivate(__pyx_v_p2) lastprivate(__pyx_v_A0) lastprivate(__pyx_v_D1) lastprivate(__pyx_v_D0) lastprivate(__pyx_v_p1) lastprivate(__pyx_v_C0) lastprivate(__pyx_v_B1) lastprivate(__pyx_v_B0) lastprivate(__pyx_v_f2) lastprivate(__pyx_v_f1) lastprivate(__pyx_v_C1) lastprivate(__pyx_v_C2) lastprivate(__pyx_v_D2) lastprivate(__pyx_v_B2) lastprivate(__pyx_v_delta2) lastprivate(__pyx_v_delta1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) schedule(static)
                     #endif /* _OPENMP */
                     for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_15; __pyx_t_14++){
                         if (__pyx_parallel_why < 2)
                         {
                             __pyx_v_i = 0 + 1 * __pyx_t_14;
                             /* Initialize private variables to invalid values */
-                            __pyx_v_C0 = ((float)__PYX_NAN());
-                            __pyx_v_C1 = ((float)__PYX_NAN());
-                            __pyx_v_D2 = ((float)__PYX_NAN());
-                            __pyx_v_D1 = ((float)__PYX_NAN());
-                            __pyx_v_f2 = ((float)__PYX_NAN());
-                            __pyx_v_f1 = ((float)__PYX_NAN());
+                            __pyx_v_A2 = ((float)__PYX_NAN());
+                            __pyx_v_A1 = ((float)__PYX_NAN());
                             __pyx_v_p2 = ((int)0xbad0bad0);
                             __pyx_v_A0 = ((float)__PYX_NAN());
-                            __pyx_v_B2 = ((float)__PYX_NAN());
-                            __pyx_v_A1 = ((float)__PYX_NAN());
-                            __pyx_v_C2 = ((float)__PYX_NAN());
+                            __pyx_v_D1 = ((float)__PYX_NAN());
                             __pyx_v_D0 = ((float)__PYX_NAN());
-                            __pyx_v_delta1 = ((float)__PYX_NAN());
-                            __pyx_v_B0 = ((float)__PYX_NAN());
                             __pyx_v_p1 = ((int)0xbad0bad0);
-                            __pyx_v_delta2 = ((float)__PYX_NAN());
-                            __pyx_v_A2 = ((float)__PYX_NAN());
+                            __pyx_v_C0 = ((float)__PYX_NAN());
                             __pyx_v_B1 = ((float)__PYX_NAN());
+                            __pyx_v_B0 = ((float)__PYX_NAN());
+                            __pyx_v_f2 = ((float)__PYX_NAN());
+                            __pyx_v_f1 = ((float)__PYX_NAN());
+                            __pyx_v_C1 = ((float)__PYX_NAN());
+                            __pyx_v_C2 = ((float)__PYX_NAN());
+                            __pyx_v_D2 = ((float)__PYX_NAN());
+                            __pyx_v_B2 = ((float)__PYX_NAN());
+                            __pyx_v_delta2 = ((float)__PYX_NAN());
+                            __pyx_v_delta1 = ((float)__PYX_NAN());
 
                             /* "pyFAI/ext/bilinear.pyx":76
  * 
@@ -4036,27 +4036,27 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_4calc_cartesian_positions(CYTHON
                             goto __pyx_L38;
                             __pyx_L38:;
                             #ifdef _OPENMP
-                            #pragma omp critical(__pyx_parallel_lastprivates6)
+                            #pragma omp critical(__pyx_parallel_lastprivates0)
                             #endif /* _OPENMP */
                             {
-                                __pyx_parallel_temp0 = __pyx_v_C0;
-                                __pyx_parallel_temp1 = __pyx_v_C1;
-                                __pyx_parallel_temp2 = __pyx_v_D2;
-                                __pyx_parallel_temp3 = __pyx_v_D1;
-                                __pyx_parallel_temp4 = __pyx_v_f2;
-                                __pyx_parallel_temp5 = __pyx_v_f1;
-                                __pyx_parallel_temp6 = __pyx_v_p2;
-                                __pyx_parallel_temp7 = __pyx_v_A0;
-                                __pyx_parallel_temp8 = __pyx_v_B2;
-                                __pyx_parallel_temp9 = __pyx_v_A1;
-                                __pyx_parallel_temp10 = __pyx_v_C2;
-                                __pyx_parallel_temp11 = __pyx_v_D0;
-                                __pyx_parallel_temp12 = __pyx_v_delta1;
-                                __pyx_parallel_temp13 = __pyx_v_B0;
-                                __pyx_parallel_temp14 = __pyx_v_p1;
-                                __pyx_parallel_temp15 = __pyx_v_delta2;
-                                __pyx_parallel_temp16 = __pyx_v_A2;
-                                __pyx_parallel_temp17 = __pyx_v_B1;
+                                __pyx_parallel_temp0 = __pyx_v_A2;
+                                __pyx_parallel_temp1 = __pyx_v_A1;
+                                __pyx_parallel_temp2 = __pyx_v_p2;
+                                __pyx_parallel_temp3 = __pyx_v_A0;
+                                __pyx_parallel_temp4 = __pyx_v_D1;
+                                __pyx_parallel_temp5 = __pyx_v_D0;
+                                __pyx_parallel_temp6 = __pyx_v_p1;
+                                __pyx_parallel_temp7 = __pyx_v_C0;
+                                __pyx_parallel_temp8 = __pyx_v_B1;
+                                __pyx_parallel_temp9 = __pyx_v_B0;
+                                __pyx_parallel_temp10 = __pyx_v_f2;
+                                __pyx_parallel_temp11 = __pyx_v_f1;
+                                __pyx_parallel_temp12 = __pyx_v_C1;
+                                __pyx_parallel_temp13 = __pyx_v_C2;
+                                __pyx_parallel_temp14 = __pyx_v_D2;
+                                __pyx_parallel_temp15 = __pyx_v_B2;
+                                __pyx_parallel_temp16 = __pyx_v_delta2;
+                                __pyx_parallel_temp17 = __pyx_v_delta1;
                                 __pyx_parallel_temp18 = __pyx_v_i;
                             }
                             __pyx_L39:;
@@ -4076,14 +4076,14 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_4calc_cartesian_positions(CYTHON
                     /* Clean up any temporaries */
                     __Pyx_XDECREF(__pyx_t_4);
                     __pyx_t_4 = NULL;
-                    __Pyx_XDECREF(__pyx_t_2);
-                    __pyx_t_2 = NULL;
-                    __Pyx_XDECREF(__pyx_t_6);
-                    __pyx_t_6 = NULL;
                     __Pyx_XDECREF(__pyx_t_1);
                     __pyx_t_1 = NULL;
+                    __Pyx_XDECREF(__pyx_t_6);
+                    __pyx_t_6 = NULL;
                     __Pyx_XDECREF(__pyx_t_5);
                     __pyx_t_5 = NULL;
+                    __Pyx_XDECREF(__pyx_t_2);
+                    __pyx_t_2 = NULL;
                     #ifdef WITH_THREAD
                     PyGILState_Release(__pyx_gilstate_save);
                     #endif
@@ -4097,24 +4097,24 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_4calc_cartesian_positions(CYTHON
               __pyx_parallel_why = 4;
             }
             if (__pyx_parallel_why) {
-              __pyx_v_C0 = __pyx_parallel_temp0;
-              __pyx_v_C1 = __pyx_parallel_temp1;
-              __pyx_v_D2 = __pyx_parallel_temp2;
-              __pyx_v_D1 = __pyx_parallel_temp3;
-              __pyx_v_f2 = __pyx_parallel_temp4;
-              __pyx_v_f1 = __pyx_parallel_temp5;
-              __pyx_v_p2 = __pyx_parallel_temp6;
-              __pyx_v_A0 = __pyx_parallel_temp7;
-              __pyx_v_B2 = __pyx_parallel_temp8;
-              __pyx_v_A1 = __pyx_parallel_temp9;
-              __pyx_v_C2 = __pyx_parallel_temp10;
-              __pyx_v_D0 = __pyx_parallel_temp11;
-              __pyx_v_delta1 = __pyx_parallel_temp12;
-              __pyx_v_B0 = __pyx_parallel_temp13;
-              __pyx_v_p1 = __pyx_parallel_temp14;
-              __pyx_v_delta2 = __pyx_parallel_temp15;
-              __pyx_v_A2 = __pyx_parallel_temp16;
-              __pyx_v_B1 = __pyx_parallel_temp17;
+              __pyx_v_A2 = __pyx_parallel_temp0;
+              __pyx_v_A1 = __pyx_parallel_temp1;
+              __pyx_v_p2 = __pyx_parallel_temp2;
+              __pyx_v_A0 = __pyx_parallel_temp3;
+              __pyx_v_D1 = __pyx_parallel_temp4;
+              __pyx_v_D0 = __pyx_parallel_temp5;
+              __pyx_v_p1 = __pyx_parallel_temp6;
+              __pyx_v_C0 = __pyx_parallel_temp7;
+              __pyx_v_B1 = __pyx_parallel_temp8;
+              __pyx_v_B0 = __pyx_parallel_temp9;
+              __pyx_v_f2 = __pyx_parallel_temp10;
+              __pyx_v_f1 = __pyx_parallel_temp11;
+              __pyx_v_C1 = __pyx_parallel_temp12;
+              __pyx_v_C2 = __pyx_parallel_temp13;
+              __pyx_v_D2 = __pyx_parallel_temp14;
+              __pyx_v_B2 = __pyx_parallel_temp15;
+              __pyx_v_delta2 = __pyx_parallel_temp16;
+              __pyx_v_delta1 = __pyx_parallel_temp17;
               __pyx_v_i = __pyx_parallel_temp18;
               switch (__pyx_parallel_why) {
                     case 3: goto __pyx_L4_return;
@@ -4767,7 +4767,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
             float __pyx_parallel_temp0 = __PYX_NAN();
             float __pyx_parallel_temp1 = __PYX_NAN();
             int __pyx_parallel_temp2 = 0xbad0bad0;
-            int __pyx_parallel_temp3 = 0xbad0bad0;
+            float __pyx_parallel_temp3 = __PYX_NAN();
             float __pyx_parallel_temp4 = __PYX_NAN();
             float __pyx_parallel_temp5 = __PYX_NAN();
             float __pyx_parallel_temp6 = __PYX_NAN();
@@ -4776,11 +4776,11 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
             float __pyx_parallel_temp9 = __PYX_NAN();
             float __pyx_parallel_temp10 = __PYX_NAN();
             float __pyx_parallel_temp11 = __PYX_NAN();
-            int __pyx_parallel_temp12 = 0xbad0bad0;
+            float __pyx_parallel_temp12 = __PYX_NAN();
             float __pyx_parallel_temp13 = __PYX_NAN();
-            float __pyx_parallel_temp14 = __PYX_NAN();
+            int __pyx_parallel_temp14 = 0xbad0bad0;
             float __pyx_parallel_temp15 = __PYX_NAN();
-            float __pyx_parallel_temp16 = __PYX_NAN();
+            int __pyx_parallel_temp16 = 0xbad0bad0;
             float __pyx_parallel_temp17 = __PYX_NAN();
             float __pyx_parallel_temp18 = __PYX_NAN();
             const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
@@ -4797,7 +4797,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
             if (__pyx_t_15 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel private(__pyx_t_23, __pyx_t_28, __pyx_t_55, __pyx_t_20, __pyx_t_29, __pyx_t_44, __pyx_t_27, __pyx_t_9, __pyx_t_32, __pyx_t_64, __pyx_t_49, __pyx_t_50, __pyx_t_21, __pyx_t_24, __pyx_t_19, __pyx_t_41, __pyx_t_65, __pyx_t_60, __pyx_t_73, __pyx_t_62, __pyx_t_18, __pyx_t_66, __pyx_t_52, __pyx_t_54, __pyx_t_31, __pyx_t_43, __pyx_t_53, __pyx_t_17, __pyx_t_58, __pyx_t_57, __pyx_t_67, __pyx_t_35, __pyx_t_42, __pyx_t_39, __pyx_t_56, __pyx_t_59, __pyx_t_46, __pyx_t_63, __pyx_t_37, __pyx_t_70, __pyx_t_30, __pyx_t_25, __pyx_t_16, __pyx_t_36, __pyx_t_33, __pyx_t_74, __pyx_t_61, __pyx_t_34, __pyx_t_22, __pyx_t_45, __pyx_t_69, __pyx_t_72, __pyx_t_47, __pyx_t_68, __pyx_t_26, __pyx_t_38, __pyx_t_48, __pyx_t_71, __pyx_t_40, __pyx_t_51) firstprivate(__pyx_t_4, __pyx_t_2, __pyx_t_6, __pyx_t_1, __pyx_t_5) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
+                #pragma omp parallel private(__pyx_t_49, __pyx_t_44, __pyx_t_36, __pyx_t_33, __pyx_t_52, __pyx_t_58, __pyx_t_55, __pyx_t_18, __pyx_t_23, __pyx_t_54, __pyx_t_26, __pyx_t_73, __pyx_t_17, __pyx_t_20, __pyx_t_45, __pyx_t_40, __pyx_t_32, __pyx_t_39, __pyx_t_61, __pyx_t_59, __pyx_t_60, __pyx_t_74, __pyx_t_50, __pyx_t_66, __pyx_t_42, __pyx_t_27, __pyx_t_65, __pyx_t_16, __pyx_t_57, __pyx_t_21, __pyx_t_24, __pyx_t_62, __pyx_t_41, __pyx_t_46, __pyx_t_35, __pyx_t_68, __pyx_t_9, __pyx_t_47, __pyx_t_28, __pyx_t_67, __pyx_t_31, __pyx_t_48, __pyx_t_37, __pyx_t_70, __pyx_t_56, __pyx_t_53, __pyx_t_25, __pyx_t_64, __pyx_t_72, __pyx_t_19, __pyx_t_34, __pyx_t_22, __pyx_t_43, __pyx_t_63, __pyx_t_69, __pyx_t_51, __pyx_t_38, __pyx_t_29, __pyx_t_30, __pyx_t_71) firstprivate(__pyx_t_4, __pyx_t_1, __pyx_t_6, __pyx_t_5, __pyx_t_2) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -4807,7 +4807,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
                     Py_BEGIN_ALLOW_THREADS
                     #endif /* _OPENMP */
                     #ifdef _OPENMP
-                    #pragma omp for lastprivate(__pyx_v_f2) lastprivate(__pyx_v_delta2) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_p1) lastprivate(__pyx_v_f1) lastprivate(__pyx_v_D2) lastprivate(__pyx_v_B1) lastprivate(__pyx_v_B0) lastprivate(__pyx_v_C2) lastprivate(__pyx_v_B2) lastprivate(__pyx_v_A2) lastprivate(__pyx_v_A1) lastprivate(__pyx_v_p2) lastprivate(__pyx_v_C0) lastprivate(__pyx_v_C1) lastprivate(__pyx_v_A0) lastprivate(__pyx_v_D1) lastprivate(__pyx_v_delta1) lastprivate(__pyx_v_D0) schedule(static)
+                    #pragma omp for lastprivate(__pyx_v_f2) lastprivate(__pyx_v_D0) lastprivate(__pyx_v_p1) lastprivate(__pyx_v_D1) lastprivate(__pyx_v_delta1) lastprivate(__pyx_v_A0) lastprivate(__pyx_v_A2) lastprivate(__pyx_v_D2) lastprivate(__pyx_v_C1) lastprivate(__pyx_v_delta2) lastprivate(__pyx_v_f1) lastprivate(__pyx_v_B0) lastprivate(__pyx_v_B1) lastprivate(__pyx_v_C0) lastprivate(__pyx_v_p2) lastprivate(__pyx_v_A1) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_B2) lastprivate(__pyx_v_C2) schedule(static)
                     #endif /* _OPENMP */
                     for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_15; __pyx_t_14++){
                         if (__pyx_parallel_why < 2)
@@ -4815,23 +4815,23 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
                             __pyx_v_i = 0 + 1 * __pyx_t_14;
                             /* Initialize private variables to invalid values */
                             __pyx_v_f2 = ((float)__PYX_NAN());
-                            __pyx_v_delta2 = ((float)__PYX_NAN());
+                            __pyx_v_D0 = ((float)__PYX_NAN());
                             __pyx_v_p1 = ((int)0xbad0bad0);
-                            __pyx_v_f1 = ((float)__PYX_NAN());
-                            __pyx_v_D2 = ((float)__PYX_NAN());
-                            __pyx_v_B1 = ((float)__PYX_NAN());
-                            __pyx_v_B0 = ((float)__PYX_NAN());
-                            __pyx_v_C2 = ((float)__PYX_NAN());
-                            __pyx_v_B2 = ((float)__PYX_NAN());
-                            __pyx_v_A2 = ((float)__PYX_NAN());
-                            __pyx_v_A1 = ((float)__PYX_NAN());
-                            __pyx_v_p2 = ((int)0xbad0bad0);
-                            __pyx_v_C0 = ((float)__PYX_NAN());
-                            __pyx_v_C1 = ((float)__PYX_NAN());
-                            __pyx_v_A0 = ((float)__PYX_NAN());
                             __pyx_v_D1 = ((float)__PYX_NAN());
                             __pyx_v_delta1 = ((float)__PYX_NAN());
-                            __pyx_v_D0 = ((float)__PYX_NAN());
+                            __pyx_v_A0 = ((float)__PYX_NAN());
+                            __pyx_v_A2 = ((float)__PYX_NAN());
+                            __pyx_v_D2 = ((float)__PYX_NAN());
+                            __pyx_v_C1 = ((float)__PYX_NAN());
+                            __pyx_v_delta2 = ((float)__PYX_NAN());
+                            __pyx_v_f1 = ((float)__PYX_NAN());
+                            __pyx_v_B0 = ((float)__PYX_NAN());
+                            __pyx_v_B1 = ((float)__PYX_NAN());
+                            __pyx_v_C0 = ((float)__PYX_NAN());
+                            __pyx_v_p2 = ((int)0xbad0bad0);
+                            __pyx_v_A1 = ((float)__PYX_NAN());
+                            __pyx_v_B2 = ((float)__PYX_NAN());
+                            __pyx_v_C2 = ((float)__PYX_NAN());
 
                             /* "pyFAI/ext/bilinear.pyx":76
  * 
@@ -5481,28 +5481,28 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
                             goto __pyx_L38;
                             __pyx_L38:;
                             #ifdef _OPENMP
-                            #pragma omp critical(__pyx_parallel_lastprivates7)
+                            #pragma omp critical(__pyx_parallel_lastprivates1)
                             #endif /* _OPENMP */
                             {
                                 __pyx_parallel_temp0 = __pyx_v_f2;
-                                __pyx_parallel_temp1 = __pyx_v_delta2;
-                                __pyx_parallel_temp2 = __pyx_v_i;
-                                __pyx_parallel_temp3 = __pyx_v_p1;
-                                __pyx_parallel_temp4 = __pyx_v_f1;
-                                __pyx_parallel_temp5 = __pyx_v_D2;
-                                __pyx_parallel_temp6 = __pyx_v_B1;
-                                __pyx_parallel_temp7 = __pyx_v_B0;
-                                __pyx_parallel_temp8 = __pyx_v_C2;
-                                __pyx_parallel_temp9 = __pyx_v_B2;
-                                __pyx_parallel_temp10 = __pyx_v_A2;
-                                __pyx_parallel_temp11 = __pyx_v_A1;
-                                __pyx_parallel_temp12 = __pyx_v_p2;
+                                __pyx_parallel_temp1 = __pyx_v_D0;
+                                __pyx_parallel_temp2 = __pyx_v_p1;
+                                __pyx_parallel_temp3 = __pyx_v_D1;
+                                __pyx_parallel_temp4 = __pyx_v_delta1;
+                                __pyx_parallel_temp5 = __pyx_v_A0;
+                                __pyx_parallel_temp6 = __pyx_v_A2;
+                                __pyx_parallel_temp7 = __pyx_v_D2;
+                                __pyx_parallel_temp8 = __pyx_v_C1;
+                                __pyx_parallel_temp9 = __pyx_v_delta2;
+                                __pyx_parallel_temp10 = __pyx_v_f1;
+                                __pyx_parallel_temp11 = __pyx_v_B0;
+                                __pyx_parallel_temp12 = __pyx_v_B1;
                                 __pyx_parallel_temp13 = __pyx_v_C0;
-                                __pyx_parallel_temp14 = __pyx_v_C1;
-                                __pyx_parallel_temp15 = __pyx_v_A0;
-                                __pyx_parallel_temp16 = __pyx_v_D1;
-                                __pyx_parallel_temp17 = __pyx_v_delta1;
-                                __pyx_parallel_temp18 = __pyx_v_D0;
+                                __pyx_parallel_temp14 = __pyx_v_p2;
+                                __pyx_parallel_temp15 = __pyx_v_A1;
+                                __pyx_parallel_temp16 = __pyx_v_i;
+                                __pyx_parallel_temp17 = __pyx_v_B2;
+                                __pyx_parallel_temp18 = __pyx_v_C2;
                             }
                             __pyx_L39:;
                             #ifdef _OPENMP
@@ -5521,14 +5521,14 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
                     /* Clean up any temporaries */
                     __Pyx_XDECREF(__pyx_t_4);
                     __pyx_t_4 = NULL;
-                    __Pyx_XDECREF(__pyx_t_2);
-                    __pyx_t_2 = NULL;
-                    __Pyx_XDECREF(__pyx_t_6);
-                    __pyx_t_6 = NULL;
                     __Pyx_XDECREF(__pyx_t_1);
                     __pyx_t_1 = NULL;
+                    __Pyx_XDECREF(__pyx_t_6);
+                    __pyx_t_6 = NULL;
                     __Pyx_XDECREF(__pyx_t_5);
                     __pyx_t_5 = NULL;
+                    __Pyx_XDECREF(__pyx_t_2);
+                    __pyx_t_2 = NULL;
                     #ifdef WITH_THREAD
                     PyGILState_Release(__pyx_gilstate_save);
                     #endif
@@ -5543,24 +5543,24 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_6calc_cartesian_positions(CYTHON
             }
             if (__pyx_parallel_why) {
               __pyx_v_f2 = __pyx_parallel_temp0;
-              __pyx_v_delta2 = __pyx_parallel_temp1;
-              __pyx_v_i = __pyx_parallel_temp2;
-              __pyx_v_p1 = __pyx_parallel_temp3;
-              __pyx_v_f1 = __pyx_parallel_temp4;
-              __pyx_v_D2 = __pyx_parallel_temp5;
-              __pyx_v_B1 = __pyx_parallel_temp6;
-              __pyx_v_B0 = __pyx_parallel_temp7;
-              __pyx_v_C2 = __pyx_parallel_temp8;
-              __pyx_v_B2 = __pyx_parallel_temp9;
-              __pyx_v_A2 = __pyx_parallel_temp10;
-              __pyx_v_A1 = __pyx_parallel_temp11;
-              __pyx_v_p2 = __pyx_parallel_temp12;
+              __pyx_v_D0 = __pyx_parallel_temp1;
+              __pyx_v_p1 = __pyx_parallel_temp2;
+              __pyx_v_D1 = __pyx_parallel_temp3;
+              __pyx_v_delta1 = __pyx_parallel_temp4;
+              __pyx_v_A0 = __pyx_parallel_temp5;
+              __pyx_v_A2 = __pyx_parallel_temp6;
+              __pyx_v_D2 = __pyx_parallel_temp7;
+              __pyx_v_C1 = __pyx_parallel_temp8;
+              __pyx_v_delta2 = __pyx_parallel_temp9;
+              __pyx_v_f1 = __pyx_parallel_temp10;
+              __pyx_v_B0 = __pyx_parallel_temp11;
+              __pyx_v_B1 = __pyx_parallel_temp12;
               __pyx_v_C0 = __pyx_parallel_temp13;
-              __pyx_v_C1 = __pyx_parallel_temp14;
-              __pyx_v_A0 = __pyx_parallel_temp15;
-              __pyx_v_D1 = __pyx_parallel_temp16;
-              __pyx_v_delta1 = __pyx_parallel_temp17;
-              __pyx_v_D0 = __pyx_parallel_temp18;
+              __pyx_v_p2 = __pyx_parallel_temp14;
+              __pyx_v_A1 = __pyx_parallel_temp15;
+              __pyx_v_i = __pyx_parallel_temp16;
+              __pyx_v_B2 = __pyx_parallel_temp17;
+              __pyx_v_C2 = __pyx_parallel_temp18;
               switch (__pyx_parallel_why) {
                     case 3: goto __pyx_L4_return;
                     case 4:
@@ -6754,7 +6754,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_10convert_corner_2D_to_4D(CYTHON
             if (__pyx_t_9 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel private(__pyx_t_38, __pyx_t_55, __pyx_t_35, __pyx_t_20, __pyx_t_23, __pyx_t_28, __pyx_t_41, __pyx_t_32, __pyx_t_21, __pyx_t_14, __pyx_t_19, __pyx_t_45, __pyx_t_50, __pyx_t_13, __pyx_t_18, __pyx_t_37, __pyx_t_31, __pyx_t_56, __pyx_t_53, __pyx_t_29, __pyx_t_58, __pyx_t_46, __pyx_t_44, __pyx_t_57, __pyx_t_24, __pyx_t_43, __pyx_t_30, __pyx_t_12, __pyx_t_27, __pyx_t_36, __pyx_t_42, __pyx_t_34, __pyx_t_52, __pyx_t_49, __pyx_t_25, __pyx_t_11, __pyx_t_17, __pyx_t_33, __pyx_t_47, __pyx_t_10, __pyx_t_15, __pyx_t_39, __pyx_t_54, __pyx_t_51, __pyx_t_22, __pyx_t_40, __pyx_t_48, __pyx_t_59, __pyx_t_26, __pyx_t_16)
+                #pragma omp parallel private(__pyx_t_44, __pyx_t_43, __pyx_t_33, __pyx_t_39, __pyx_t_17, __pyx_t_18, __pyx_t_51, __pyx_t_14, __pyx_t_40, __pyx_t_12, __pyx_t_20, __pyx_t_23, __pyx_t_45, __pyx_t_32, __pyx_t_11, __pyx_t_38, __pyx_t_16, __pyx_t_50, __pyx_t_24, __pyx_t_27, __pyx_t_46, __pyx_t_41, __pyx_t_35, __pyx_t_59, __pyx_t_57, __pyx_t_21, __pyx_t_47, __pyx_t_42, __pyx_t_10, __pyx_t_15, __pyx_t_31, __pyx_t_53, __pyx_t_48, __pyx_t_34, __pyx_t_28, __pyx_t_56, __pyx_t_25, __pyx_t_37, __pyx_t_30, __pyx_t_54, __pyx_t_29, __pyx_t_19, __pyx_t_49, __pyx_t_36, __pyx_t_13, __pyx_t_58, __pyx_t_55, __pyx_t_52, __pyx_t_22, __pyx_t_26)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
@@ -7004,7 +7004,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_10convert_corner_2D_to_4D(CYTHON
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_79, __pyx_t_83, __pyx_t_80, __pyx_t_75, __pyx_t_64, __pyx_t_63, __pyx_t_72, __pyx_t_65, __pyx_t_76, __pyx_t_78, __pyx_t_71, __pyx_t_85, __pyx_t_81, __pyx_t_66, __pyx_t_68, __pyx_t_84, __pyx_t_70, __pyx_t_11, __pyx_t_10, __pyx_t_74, __pyx_t_69, __pyx_t_67, __pyx_t_77, __pyx_t_62, __pyx_t_73, __pyx_t_82)
+                  #pragma omp parallel private(__pyx_t_63, __pyx_t_79, __pyx_t_72, __pyx_t_65, __pyx_t_82, __pyx_t_81, __pyx_t_77, __pyx_t_85, __pyx_t_11, __pyx_t_78, __pyx_t_83, __pyx_t_76, __pyx_t_71, __pyx_t_66, __pyx_t_68, __pyx_t_10, __pyx_t_75, __pyx_t_62, __pyx_t_80, __pyx_t_70, __pyx_t_64, __pyx_t_67, __pyx_t_69, __pyx_t_84, __pyx_t_73, __pyx_t_74)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
@@ -7551,11 +7551,11 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_12convert_corner_2D_to_4D(CYTHON
             if (__pyx_t_9 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel private(__pyx_t_38, __pyx_t_55, __pyx_t_35, __pyx_t_20, __pyx_t_23, __pyx_t_28, __pyx_t_41, __pyx_t_32, __pyx_t_21, __pyx_t_14, __pyx_t_19, __pyx_t_45, __pyx_t_50, __pyx_t_13, __pyx_t_18, __pyx_t_37, __pyx_t_31, __pyx_t_56, __pyx_t_53, __pyx_t_29, __pyx_t_58, __pyx_t_46, __pyx_t_44, __pyx_t_57, __pyx_t_24, __pyx_t_43, __pyx_t_30, __pyx_t_12, __pyx_t_27, __pyx_t_36, __pyx_t_42, __pyx_t_34, __pyx_t_52, __pyx_t_49, __pyx_t_25, __pyx_t_11, __pyx_t_17, __pyx_t_33, __pyx_t_47, __pyx_t_10, __pyx_t_15, __pyx_t_39, __pyx_t_54, __pyx_t_51, __pyx_t_22, __pyx_t_40, __pyx_t_48, __pyx_t_59, __pyx_t_26, __pyx_t_16)
+                #pragma omp parallel private(__pyx_t_44, __pyx_t_43, __pyx_t_33, __pyx_t_39, __pyx_t_17, __pyx_t_18, __pyx_t_51, __pyx_t_14, __pyx_t_40, __pyx_t_12, __pyx_t_20, __pyx_t_23, __pyx_t_45, __pyx_t_32, __pyx_t_11, __pyx_t_38, __pyx_t_16, __pyx_t_50, __pyx_t_24, __pyx_t_27, __pyx_t_46, __pyx_t_41, __pyx_t_35, __pyx_t_59, __pyx_t_57, __pyx_t_21, __pyx_t_47, __pyx_t_42, __pyx_t_10, __pyx_t_15, __pyx_t_31, __pyx_t_53, __pyx_t_48, __pyx_t_34, __pyx_t_28, __pyx_t_56, __pyx_t_25, __pyx_t_37, __pyx_t_30, __pyx_t_54, __pyx_t_29, __pyx_t_19, __pyx_t_49, __pyx_t_36, __pyx_t_13, __pyx_t_58, __pyx_t_55, __pyx_t_52, __pyx_t_22, __pyx_t_26)
                 #endif /* _OPENMP */
                 {
                     #ifdef _OPENMP
-                    #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_j) schedule(static)
+                    #pragma omp for lastprivate(__pyx_v_j) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) schedule(static)
                     #endif /* _OPENMP */
                     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_9; __pyx_t_8++){
                         {
@@ -7801,11 +7801,11 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_12convert_corner_2D_to_4D(CYTHON
               if (__pyx_t_7 > 0)
               {
                   #ifdef _OPENMP
-                  #pragma omp parallel private(__pyx_t_79, __pyx_t_83, __pyx_t_80, __pyx_t_75, __pyx_t_64, __pyx_t_63, __pyx_t_72, __pyx_t_65, __pyx_t_76, __pyx_t_78, __pyx_t_71, __pyx_t_85, __pyx_t_81, __pyx_t_66, __pyx_t_68, __pyx_t_84, __pyx_t_70, __pyx_t_11, __pyx_t_10, __pyx_t_74, __pyx_t_69, __pyx_t_67, __pyx_t_77, __pyx_t_62, __pyx_t_73, __pyx_t_82)
+                  #pragma omp parallel private(__pyx_t_63, __pyx_t_79, __pyx_t_72, __pyx_t_65, __pyx_t_82, __pyx_t_81, __pyx_t_77, __pyx_t_85, __pyx_t_11, __pyx_t_78, __pyx_t_83, __pyx_t_76, __pyx_t_71, __pyx_t_66, __pyx_t_68, __pyx_t_10, __pyx_t_75, __pyx_t_62, __pyx_t_80, __pyx_t_70, __pyx_t_64, __pyx_t_67, __pyx_t_69, __pyx_t_84, __pyx_t_73, __pyx_t_74)
                   #endif /* _OPENMP */
                   {
                       #ifdef _OPENMP
-                      #pragma omp for firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_j) schedule(static)
+                      #pragma omp for lastprivate(__pyx_v_j) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) schedule(static)
                       #endif /* _OPENMP */
                       for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8++){
                           {
@@ -8612,9 +8612,9 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_6__call__(struct __pyx
   return __pyx_r;
 }
 
-/* "pyFAI/ext/bilinear.pxi":90
- *     @cython.boundscheck(False)
+/* "pyFAI/ext/bilinear.pxi":91
  *     @cython.wraparound(False)
+ * #     @cython.initializedcheck(False)
  *     cdef float _f_cy(self, cython.floating d0, cython.floating d1) nogil:             # <<<<<<<<<<<<<<
  *         """
  *         Function f((y,x)) where f is a continuous function (y,x) are pixel coordinates
@@ -8655,7 +8655,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "pyFAI/ext/bilinear.pxi":101
+  /* "pyFAI/ext/bilinear.pxi":102
  *             int i0, i1, j0, j1
  *             float x0, x1, y0, y1, res
  *         if d0 < 0:             # <<<<<<<<<<<<<<
@@ -8665,7 +8665,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d0 < 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":102
+    /* "pyFAI/ext/bilinear.pxi":103
  *             float x0, x1, y0, y1, res
  *         if d0 < 0:
  *             d0 = 0             # <<<<<<<<<<<<<<
@@ -8676,7 +8676,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
     goto __pyx_L3;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":103
+  /* "pyFAI/ext/bilinear.pxi":104
  *         if d0 < 0:
  *             d0 = 0
  *         elif d1 < 0:             # <<<<<<<<<<<<<<
@@ -8686,7 +8686,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d1 < 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":104
+    /* "pyFAI/ext/bilinear.pxi":105
  *             d0 = 0
  *         elif d1 < 0:
  *             d1 = 0             # <<<<<<<<<<<<<<
@@ -8697,7 +8697,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
     goto __pyx_L3;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":105
+  /* "pyFAI/ext/bilinear.pxi":106
  *         elif d1 < 0:
  *             d1 = 0
  *         elif d0 > (self.height - 1):             # <<<<<<<<<<<<<<
@@ -8707,7 +8707,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d0 > (__pyx_v_self->height - 1)) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":106
+    /* "pyFAI/ext/bilinear.pxi":107
  *             d1 = 0
  *         elif d0 > (self.height - 1):
  *             d0 = self.height - 1             # <<<<<<<<<<<<<<
@@ -8718,7 +8718,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
     goto __pyx_L3;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":107
+  /* "pyFAI/ext/bilinear.pxi":108
  *         elif d0 > (self.height - 1):
  *             d0 = self.height - 1
  *         elif d1 > self.width - 1:             # <<<<<<<<<<<<<<
@@ -8728,7 +8728,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d1 > (__pyx_v_self->width - 1)) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":108
+    /* "pyFAI/ext/bilinear.pxi":109
  *             d0 = self.height - 1
  *         elif d1 > self.width - 1:
  *             d1 = self.width - 1             # <<<<<<<<<<<<<<
@@ -8740,7 +8740,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   }
   __pyx_L3:;
 
-  /* "pyFAI/ext/bilinear.pxi":109
+  /* "pyFAI/ext/bilinear.pxi":110
  *         elif d1 > self.width - 1:
  *             d1 = self.width - 1
  *         x0 = floor(d0)             # <<<<<<<<<<<<<<
@@ -8749,7 +8749,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_x0 = floor(__pyx_v_d0);
 
-  /* "pyFAI/ext/bilinear.pxi":110
+  /* "pyFAI/ext/bilinear.pxi":111
  *             d1 = self.width - 1
  *         x0 = floor(d0)
  *         x1 = ceil(d0)             # <<<<<<<<<<<<<<
@@ -8758,7 +8758,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_x1 = ceil(__pyx_v_d0);
 
-  /* "pyFAI/ext/bilinear.pxi":111
+  /* "pyFAI/ext/bilinear.pxi":112
  *         x0 = floor(d0)
  *         x1 = ceil(d0)
  *         y0 = floor(d1)             # <<<<<<<<<<<<<<
@@ -8767,7 +8767,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_y0 = floor(__pyx_v_d1);
 
-  /* "pyFAI/ext/bilinear.pxi":112
+  /* "pyFAI/ext/bilinear.pxi":113
  *         x1 = ceil(d0)
  *         y0 = floor(d1)
  *         y1 = ceil(d1)             # <<<<<<<<<<<<<<
@@ -8776,7 +8776,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_y1 = ceil(__pyx_v_d1);
 
-  /* "pyFAI/ext/bilinear.pxi":113
+  /* "pyFAI/ext/bilinear.pxi":114
  *         y0 = floor(d1)
  *         y1 = ceil(d1)
  *         i0 = < int > x0             # <<<<<<<<<<<<<<
@@ -8785,7 +8785,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_i0 = ((int)__pyx_v_x0);
 
-  /* "pyFAI/ext/bilinear.pxi":114
+  /* "pyFAI/ext/bilinear.pxi":115
  *         y1 = ceil(d1)
  *         i0 = < int > x0
  *         i1 = < int > x1             # <<<<<<<<<<<<<<
@@ -8794,7 +8794,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_i1 = ((int)__pyx_v_x1);
 
-  /* "pyFAI/ext/bilinear.pxi":115
+  /* "pyFAI/ext/bilinear.pxi":116
  *         i0 = < int > x0
  *         i1 = < int > x1
  *         j0 = < int > y0             # <<<<<<<<<<<<<<
@@ -8803,7 +8803,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_j0 = ((int)__pyx_v_y0);
 
-  /* "pyFAI/ext/bilinear.pxi":116
+  /* "pyFAI/ext/bilinear.pxi":117
  *         i1 = < int > x1
  *         j0 = < int > y0
  *         j1 = < int > y1             # <<<<<<<<<<<<<<
@@ -8812,7 +8812,7 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_j1 = ((int)__pyx_v_y1);
 
-  /* "pyFAI/ext/bilinear.pxi":117
+  /* "pyFAI/ext/bilinear.pxi":118
  *         j0 = < int > y0
  *         j1 = < int > y1
  *         if (i0 == i1) and (j0 == j1):             # <<<<<<<<<<<<<<
@@ -8830,21 +8830,21 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":118
+    /* "pyFAI/ext/bilinear.pxi":119
  *         j1 = < int > y1
  *         if (i0 == i1) and (j0 == j1):
  *             res = self.data[i0, j0]             # <<<<<<<<<<<<<<
  *         elif i0 == i1:
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_3 = __pyx_v_i0;
     __pyx_t_4 = __pyx_v_j0;
     __pyx_v_res = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_3 * __pyx_v_self->data.strides[0]) )) + __pyx_t_4)) )));
     goto __pyx_L4;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":119
+  /* "pyFAI/ext/bilinear.pxi":120
  *         if (i0 == i1) and (j0 == j1):
  *             res = self.data[i0, j0]
  *         elif i0 == i1:             # <<<<<<<<<<<<<<
@@ -8854,24 +8854,24 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_i0 == __pyx_v_i1) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":120
+    /* "pyFAI/ext/bilinear.pxi":121
  *             res = self.data[i0, j0]
  *         elif i0 == i1:
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))             # <<<<<<<<<<<<<<
  *         elif j0 == j1:
  *             res = (self.data[i0, j0] * (x1 - d0)) + (self.data[i1, j0] * (d0 - x0))
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_5 = __pyx_v_i0;
     __pyx_t_6 = __pyx_v_j0;
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_7 = __pyx_v_i0;
     __pyx_t_8 = __pyx_v_j1;
     __pyx_v_res = (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_5 * __pyx_v_self->data.strides[0]) )) + __pyx_t_6)) ))) * (__pyx_v_y1 - __pyx_v_d1)) + ((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_7 * __pyx_v_self->data.strides[0]) )) + __pyx_t_8)) ))) * (__pyx_v_d1 - __pyx_v_y0)));
     goto __pyx_L4;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":121
+  /* "pyFAI/ext/bilinear.pxi":122
  *         elif i0 == i1:
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))
  *         elif j0 == j1:             # <<<<<<<<<<<<<<
@@ -8881,17 +8881,17 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_j0 == __pyx_v_j1) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":122
+    /* "pyFAI/ext/bilinear.pxi":123
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))
  *         elif j0 == j1:
  *             res = (self.data[i0, j0] * (x1 - d0)) + (self.data[i1, j0] * (d0 - x0))             # <<<<<<<<<<<<<<
  *         else:
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_9 = __pyx_v_i0;
     __pyx_t_10 = __pyx_v_j0;
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_11 = __pyx_v_i1;
     __pyx_t_12 = __pyx_v_j0;
     __pyx_v_res = (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_9 * __pyx_v_self->data.strides[0]) )) + __pyx_t_10)) ))) * (__pyx_v_x1 - __pyx_v_d0)) + ((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_11 * __pyx_v_self->data.strides[0]) )) + __pyx_t_12)) ))) * (__pyx_v_d0 - __pyx_v_x0)));
@@ -8899,54 +8899,54 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   }
   /*else*/ {
 
-    /* "pyFAI/ext/bilinear.pxi":124
+    /* "pyFAI/ext/bilinear.pxi":125
  *             res = (self.data[i0, j0] * (x1 - d0)) + (self.data[i1, j0] * (d0 - x0))
  *         else:
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \             # <<<<<<<<<<<<<<
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_13 = __pyx_v_i0;
     __pyx_t_14 = __pyx_v_j0;
 
-    /* "pyFAI/ext/bilinear.pxi":125
+    /* "pyFAI/ext/bilinear.pxi":126
  *         else:
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \             # <<<<<<<<<<<<<<
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_15 = __pyx_v_i1;
     __pyx_t_16 = __pyx_v_j0;
 
-    /* "pyFAI/ext/bilinear.pxi":126
+    /* "pyFAI/ext/bilinear.pxi":127
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \             # <<<<<<<<<<<<<<
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))
  *         return res
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_17 = __pyx_v_i0;
     __pyx_t_18 = __pyx_v_j1;
 
-    /* "pyFAI/ext/bilinear.pxi":127
+    /* "pyFAI/ext/bilinear.pxi":128
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_19 = __pyx_v_i1;
     __pyx_t_20 = __pyx_v_j1;
     __pyx_v_res = ((((((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_13 * __pyx_v_self->data.strides[0]) )) + __pyx_t_14)) ))) * (__pyx_v_x1 - __pyx_v_d0)) * (__pyx_v_y1 - __pyx_v_d1)) + (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_15 * __pyx_v_self->data.strides[0]) )) + __pyx_t_16)) ))) * (__pyx_v_d0 - __pyx_v_x0)) * (__pyx_v_y1 - __pyx_v_d1))) + (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_17 * __pyx_v_self->data.strides[0]) )) + __pyx_t_18)) ))) * (__pyx_v_x1 - __pyx_v_d0)) * (__pyx_v_d1 - __pyx_v_y0))) + (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_19 * __pyx_v_self->data.strides[0]) )) + __pyx_t_20)) ))) * (__pyx_v_d0 - __pyx_v_x0)) * (__pyx_v_d1 - __pyx_v_y0)));
   }
   __pyx_L4:;
 
-  /* "pyFAI/ext/bilinear.pxi":128
+  /* "pyFAI/ext/bilinear.pxi":129
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))
  *         return res             # <<<<<<<<<<<<<<
@@ -8956,9 +8956,9 @@ static float __pyx_fuse_0__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_r = __pyx_v_res;
   goto __pyx_L0;
 
-  /* "pyFAI/ext/bilinear.pxi":90
- *     @cython.boundscheck(False)
+  /* "pyFAI/ext/bilinear.pxi":91
  *     @cython.wraparound(False)
+ * #     @cython.initializedcheck(False)
  *     cdef float _f_cy(self, cython.floating d0, cython.floating d1) nogil:             # <<<<<<<<<<<<<<
  *         """
  *         Function f((y,x)) where f is a continuous function (y,x) are pixel coordinates
@@ -9007,7 +9007,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
 
-  /* "pyFAI/ext/bilinear.pxi":101
+  /* "pyFAI/ext/bilinear.pxi":102
  *             int i0, i1, j0, j1
  *             float x0, x1, y0, y1, res
  *         if d0 < 0:             # <<<<<<<<<<<<<<
@@ -9017,7 +9017,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d0 < 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":102
+    /* "pyFAI/ext/bilinear.pxi":103
  *             float x0, x1, y0, y1, res
  *         if d0 < 0:
  *             d0 = 0             # <<<<<<<<<<<<<<
@@ -9028,7 +9028,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
     goto __pyx_L3;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":103
+  /* "pyFAI/ext/bilinear.pxi":104
  *         if d0 < 0:
  *             d0 = 0
  *         elif d1 < 0:             # <<<<<<<<<<<<<<
@@ -9038,7 +9038,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d1 < 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":104
+    /* "pyFAI/ext/bilinear.pxi":105
  *             d0 = 0
  *         elif d1 < 0:
  *             d1 = 0             # <<<<<<<<<<<<<<
@@ -9049,7 +9049,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
     goto __pyx_L3;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":105
+  /* "pyFAI/ext/bilinear.pxi":106
  *         elif d1 < 0:
  *             d1 = 0
  *         elif d0 > (self.height - 1):             # <<<<<<<<<<<<<<
@@ -9059,7 +9059,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d0 > (__pyx_v_self->height - 1)) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":106
+    /* "pyFAI/ext/bilinear.pxi":107
  *             d1 = 0
  *         elif d0 > (self.height - 1):
  *             d0 = self.height - 1             # <<<<<<<<<<<<<<
@@ -9070,7 +9070,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
     goto __pyx_L3;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":107
+  /* "pyFAI/ext/bilinear.pxi":108
  *         elif d0 > (self.height - 1):
  *             d0 = self.height - 1
  *         elif d1 > self.width - 1:             # <<<<<<<<<<<<<<
@@ -9080,7 +9080,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_d1 > (__pyx_v_self->width - 1)) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":108
+    /* "pyFAI/ext/bilinear.pxi":109
  *             d0 = self.height - 1
  *         elif d1 > self.width - 1:
  *             d1 = self.width - 1             # <<<<<<<<<<<<<<
@@ -9092,7 +9092,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   }
   __pyx_L3:;
 
-  /* "pyFAI/ext/bilinear.pxi":109
+  /* "pyFAI/ext/bilinear.pxi":110
  *         elif d1 > self.width - 1:
  *             d1 = self.width - 1
  *         x0 = floor(d0)             # <<<<<<<<<<<<<<
@@ -9101,7 +9101,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_x0 = floor(__pyx_v_d0);
 
-  /* "pyFAI/ext/bilinear.pxi":110
+  /* "pyFAI/ext/bilinear.pxi":111
  *             d1 = self.width - 1
  *         x0 = floor(d0)
  *         x1 = ceil(d0)             # <<<<<<<<<<<<<<
@@ -9110,7 +9110,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_x1 = ceil(__pyx_v_d0);
 
-  /* "pyFAI/ext/bilinear.pxi":111
+  /* "pyFAI/ext/bilinear.pxi":112
  *         x0 = floor(d0)
  *         x1 = ceil(d0)
  *         y0 = floor(d1)             # <<<<<<<<<<<<<<
@@ -9119,7 +9119,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_y0 = floor(__pyx_v_d1);
 
-  /* "pyFAI/ext/bilinear.pxi":112
+  /* "pyFAI/ext/bilinear.pxi":113
  *         x1 = ceil(d0)
  *         y0 = floor(d1)
  *         y1 = ceil(d1)             # <<<<<<<<<<<<<<
@@ -9128,7 +9128,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_y1 = ceil(__pyx_v_d1);
 
-  /* "pyFAI/ext/bilinear.pxi":113
+  /* "pyFAI/ext/bilinear.pxi":114
  *         y0 = floor(d1)
  *         y1 = ceil(d1)
  *         i0 = < int > x0             # <<<<<<<<<<<<<<
@@ -9137,7 +9137,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_i0 = ((int)__pyx_v_x0);
 
-  /* "pyFAI/ext/bilinear.pxi":114
+  /* "pyFAI/ext/bilinear.pxi":115
  *         y1 = ceil(d1)
  *         i0 = < int > x0
  *         i1 = < int > x1             # <<<<<<<<<<<<<<
@@ -9146,7 +9146,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_i1 = ((int)__pyx_v_x1);
 
-  /* "pyFAI/ext/bilinear.pxi":115
+  /* "pyFAI/ext/bilinear.pxi":116
  *         i0 = < int > x0
  *         i1 = < int > x1
  *         j0 = < int > y0             # <<<<<<<<<<<<<<
@@ -9155,7 +9155,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_j0 = ((int)__pyx_v_y0);
 
-  /* "pyFAI/ext/bilinear.pxi":116
+  /* "pyFAI/ext/bilinear.pxi":117
  *         i1 = < int > x1
  *         j0 = < int > y0
  *         j1 = < int > y1             # <<<<<<<<<<<<<<
@@ -9164,7 +9164,7 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
  */
   __pyx_v_j1 = ((int)__pyx_v_y1);
 
-  /* "pyFAI/ext/bilinear.pxi":117
+  /* "pyFAI/ext/bilinear.pxi":118
  *         j0 = < int > y0
  *         j1 = < int > y1
  *         if (i0 == i1) and (j0 == j1):             # <<<<<<<<<<<<<<
@@ -9182,21 +9182,21 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_L5_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":118
+    /* "pyFAI/ext/bilinear.pxi":119
  *         j1 = < int > y1
  *         if (i0 == i1) and (j0 == j1):
  *             res = self.data[i0, j0]             # <<<<<<<<<<<<<<
  *         elif i0 == i1:
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 119; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_3 = __pyx_v_i0;
     __pyx_t_4 = __pyx_v_j0;
     __pyx_v_res = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_3 * __pyx_v_self->data.strides[0]) )) + __pyx_t_4)) )));
     goto __pyx_L4;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":119
+  /* "pyFAI/ext/bilinear.pxi":120
  *         if (i0 == i1) and (j0 == j1):
  *             res = self.data[i0, j0]
  *         elif i0 == i1:             # <<<<<<<<<<<<<<
@@ -9206,24 +9206,24 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_i0 == __pyx_v_i1) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":120
+    /* "pyFAI/ext/bilinear.pxi":121
  *             res = self.data[i0, j0]
  *         elif i0 == i1:
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))             # <<<<<<<<<<<<<<
  *         elif j0 == j1:
  *             res = (self.data[i0, j0] * (x1 - d0)) + (self.data[i1, j0] * (d0 - x0))
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_5 = __pyx_v_i0;
     __pyx_t_6 = __pyx_v_j0;
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_7 = __pyx_v_i0;
     __pyx_t_8 = __pyx_v_j1;
     __pyx_v_res = (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_5 * __pyx_v_self->data.strides[0]) )) + __pyx_t_6)) ))) * (__pyx_v_y1 - __pyx_v_d1)) + ((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_7 * __pyx_v_self->data.strides[0]) )) + __pyx_t_8)) ))) * (__pyx_v_d1 - __pyx_v_y0)));
     goto __pyx_L4;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":121
+  /* "pyFAI/ext/bilinear.pxi":122
  *         elif i0 == i1:
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))
  *         elif j0 == j1:             # <<<<<<<<<<<<<<
@@ -9233,17 +9233,17 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_t_1 = ((__pyx_v_j0 == __pyx_v_j1) != 0);
   if (__pyx_t_1) {
 
-    /* "pyFAI/ext/bilinear.pxi":122
+    /* "pyFAI/ext/bilinear.pxi":123
  *             res = (self.data[i0, j0] * (y1 - d1)) + (self.data[i0, j1] * (d1 - y0))
  *         elif j0 == j1:
  *             res = (self.data[i0, j0] * (x1 - d0)) + (self.data[i1, j0] * (d0 - x0))             # <<<<<<<<<<<<<<
  *         else:
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_9 = __pyx_v_i0;
     __pyx_t_10 = __pyx_v_j0;
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_11 = __pyx_v_i1;
     __pyx_t_12 = __pyx_v_j0;
     __pyx_v_res = (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_9 * __pyx_v_self->data.strides[0]) )) + __pyx_t_10)) ))) * (__pyx_v_x1 - __pyx_v_d0)) + ((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_11 * __pyx_v_self->data.strides[0]) )) + __pyx_t_12)) ))) * (__pyx_v_d0 - __pyx_v_x0)));
@@ -9251,54 +9251,54 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   }
   /*else*/ {
 
-    /* "pyFAI/ext/bilinear.pxi":124
+    /* "pyFAI/ext/bilinear.pxi":125
  *             res = (self.data[i0, j0] * (x1 - d0)) + (self.data[i1, j0] * (d0 - x0))
  *         else:
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \             # <<<<<<<<<<<<<<
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_13 = __pyx_v_i0;
     __pyx_t_14 = __pyx_v_j0;
 
-    /* "pyFAI/ext/bilinear.pxi":125
+    /* "pyFAI/ext/bilinear.pxi":126
  *         else:
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \             # <<<<<<<<<<<<<<
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_15 = __pyx_v_i1;
     __pyx_t_16 = __pyx_v_j0;
 
-    /* "pyFAI/ext/bilinear.pxi":126
+    /* "pyFAI/ext/bilinear.pxi":127
  *             res = (self.data[i0, j0] * (x1 - d0) * (y1 - d1))  \
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \             # <<<<<<<<<<<<<<
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))
  *         return res
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_17 = __pyx_v_i0;
     __pyx_t_18 = __pyx_v_j1;
 
-    /* "pyFAI/ext/bilinear.pxi":127
+    /* "pyFAI/ext/bilinear.pxi":128
  *                 + (self.data[i1, j0] * (d0 - x0) * (y1 - d1))  \
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))             # <<<<<<<<<<<<<<
  *         return res
  * 
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
+    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_19 = __pyx_v_i1;
     __pyx_t_20 = __pyx_v_j1;
     __pyx_v_res = ((((((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_13 * __pyx_v_self->data.strides[0]) )) + __pyx_t_14)) ))) * (__pyx_v_x1 - __pyx_v_d0)) * (__pyx_v_y1 - __pyx_v_d1)) + (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_15 * __pyx_v_self->data.strides[0]) )) + __pyx_t_16)) ))) * (__pyx_v_d0 - __pyx_v_x0)) * (__pyx_v_y1 - __pyx_v_d1))) + (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_17 * __pyx_v_self->data.strides[0]) )) + __pyx_t_18)) ))) * (__pyx_v_x1 - __pyx_v_d0)) * (__pyx_v_d1 - __pyx_v_y0))) + (((*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_19 * __pyx_v_self->data.strides[0]) )) + __pyx_t_20)) ))) * (__pyx_v_d0 - __pyx_v_x0)) * (__pyx_v_d1 - __pyx_v_y0)));
   }
   __pyx_L4:;
 
-  /* "pyFAI/ext/bilinear.pxi":128
+  /* "pyFAI/ext/bilinear.pxi":129
  *                 + (self.data[i0, j1] * (x1 - d0) * (d1 - y0))  \
  *                 + (self.data[i1, j1] * (d0 - x0) * (d1 - y0))
  *         return res             # <<<<<<<<<<<<<<
@@ -9308,9 +9308,9 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   __pyx_r = __pyx_v_res;
   goto __pyx_L0;
 
-  /* "pyFAI/ext/bilinear.pxi":90
- *     @cython.boundscheck(False)
+  /* "pyFAI/ext/bilinear.pxi":91
  *     @cython.wraparound(False)
+ * #     @cython.initializedcheck(False)
  *     cdef float _f_cy(self, cython.floating d0, cython.floating d1) nogil:             # <<<<<<<<<<<<<<
  *         """
  *         Function f((y,x)) where f is a continuous function (y,x) are pixel coordinates
@@ -9324,9 +9324,9 @@ static float __pyx_fuse_1__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear__f_cy(struct __
   return __pyx_r;
 }
 
-/* "pyFAI/ext/bilinear.pxi":133
- *     @cython.wraparound(False)
+/* "pyFAI/ext/bilinear.pxi":135
  *     @cython.cdivision(True)
+ *     @cython.initializedcheck(False)
  *     def local_maxi(self, x):             # <<<<<<<<<<<<<<
  *         """
  *         Return the local maximum with sub-pixel refinement.
@@ -9408,7 +9408,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("local_maxi", 0);
 
-  /* "pyFAI/ext/bilinear.pxi":151
+  /* "pyFAI/ext/bilinear.pxi":153
  *             int res, current0, current1
  *             int i0, i1
  *             float tmp, sum0 = 0, sum1 = 0, sum = 0             # <<<<<<<<<<<<<<
@@ -9419,48 +9419,48 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
   __pyx_v_sum1 = 0.0;
   __pyx_v_sum = 0.0;
 
-  /* "pyFAI/ext/bilinear.pxi":155
+  /* "pyFAI/ext/bilinear.pxi":157
  *             float d00, d11, d01, denom, delta0, delta1
  * 
  *         res = self.c_local_maxi(round(x[0]) * self.width + round(x[1]))             # <<<<<<<<<<<<<<
  * 
  *         current0 = res // self.width
  */
-  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_x, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_1 = __Pyx_GetItemInt(__pyx_v_x, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyInt_FromSize_t(__pyx_v_self->width); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t(__pyx_v_self->width); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_x, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_x, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_round, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyNumber_Add(__pyx_t_3, __pyx_t_2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_4 = __Pyx_PyInt_As_size_t(__pyx_t_1); if (unlikely((__pyx_t_4 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyInt_As_size_t(__pyx_t_1); if (unlikely((__pyx_t_4 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_res = ((struct __pyx_vtabstruct_5pyFAI_3ext_8bilinear_Bilinear *)__pyx_v_self->__pyx_vtab)->c_local_maxi(__pyx_v_self, __pyx_t_4);
 
-  /* "pyFAI/ext/bilinear.pxi":157
+  /* "pyFAI/ext/bilinear.pxi":159
  *         res = self.c_local_maxi(round(x[0]) * self.width + round(x[1]))
  * 
  *         current0 = res // self.width             # <<<<<<<<<<<<<<
@@ -9469,7 +9469,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
   __pyx_v_current0 = (__pyx_v_res / __pyx_v_self->width);
 
-  /* "pyFAI/ext/bilinear.pxi":158
+  /* "pyFAI/ext/bilinear.pxi":160
  * 
  *         current0 = res // self.width
  *         current1 = res % self.width             # <<<<<<<<<<<<<<
@@ -9478,7 +9478,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
   __pyx_v_current1 = (__pyx_v_res % __pyx_v_self->width);
 
-  /* "pyFAI/ext/bilinear.pxi":159
+  /* "pyFAI/ext/bilinear.pxi":161
  *         current0 = res // self.width
  *         current1 = res % self.width
  *         if (current0 > 0) and (current0 < self.height - 1) and (current1 > 0) and (current1 < self.width - 1):             # <<<<<<<<<<<<<<
@@ -9508,115 +9508,106 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_5) {
 
-    /* "pyFAI/ext/bilinear.pxi":161
+    /* "pyFAI/ext/bilinear.pxi":163
  *         if (current0 > 0) and (current0 < self.height - 1) and (current1 > 0) and (current1 < self.width - 1):
  *             # Use second order polynomial Taylor expansion
  *             a00 = self.data[current0 - 1, current1 - 1]             # <<<<<<<<<<<<<<
  *             a01 = self.data[current0 - 1, current1    ]
  *             a02 = self.data[current0 - 1, current1 + 1]
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_7 = (__pyx_v_current0 - 1);
     __pyx_t_8 = (__pyx_v_current1 - 1);
     __pyx_v_a00 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_7 * __pyx_v_self->data.strides[0]) )) + __pyx_t_8)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":162
+    /* "pyFAI/ext/bilinear.pxi":164
  *             # Use second order polynomial Taylor expansion
  *             a00 = self.data[current0 - 1, current1 - 1]
  *             a01 = self.data[current0 - 1, current1    ]             # <<<<<<<<<<<<<<
  *             a02 = self.data[current0 - 1, current1 + 1]
  *             a10 = self.data[current0    , current1 - 1]
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_9 = (__pyx_v_current0 - 1);
     __pyx_t_10 = __pyx_v_current1;
     __pyx_v_a01 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_9 * __pyx_v_self->data.strides[0]) )) + __pyx_t_10)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":163
+    /* "pyFAI/ext/bilinear.pxi":165
  *             a00 = self.data[current0 - 1, current1 - 1]
  *             a01 = self.data[current0 - 1, current1    ]
  *             a02 = self.data[current0 - 1, current1 + 1]             # <<<<<<<<<<<<<<
  *             a10 = self.data[current0    , current1 - 1]
  *             a11 = self.data[current0    , current1    ]
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_11 = (__pyx_v_current0 - 1);
     __pyx_t_12 = (__pyx_v_current1 + 1);
     __pyx_v_a02 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_11 * __pyx_v_self->data.strides[0]) )) + __pyx_t_12)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":164
+    /* "pyFAI/ext/bilinear.pxi":166
  *             a01 = self.data[current0 - 1, current1    ]
  *             a02 = self.data[current0 - 1, current1 + 1]
  *             a10 = self.data[current0    , current1 - 1]             # <<<<<<<<<<<<<<
  *             a11 = self.data[current0    , current1    ]
  *             a12 = self.data[current0    , current1 + 1]
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_13 = __pyx_v_current0;
     __pyx_t_14 = (__pyx_v_current1 - 1);
     __pyx_v_a10 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_13 * __pyx_v_self->data.strides[0]) )) + __pyx_t_14)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":165
+    /* "pyFAI/ext/bilinear.pxi":167
  *             a02 = self.data[current0 - 1, current1 + 1]
  *             a10 = self.data[current0    , current1 - 1]
  *             a11 = self.data[current0    , current1    ]             # <<<<<<<<<<<<<<
  *             a12 = self.data[current0    , current1 + 1]
  *             a20 = self.data[current0 + 1, current1 - 1]
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_15 = __pyx_v_current0;
     __pyx_t_16 = __pyx_v_current1;
     __pyx_v_a11 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_15 * __pyx_v_self->data.strides[0]) )) + __pyx_t_16)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":166
+    /* "pyFAI/ext/bilinear.pxi":168
  *             a10 = self.data[current0    , current1 - 1]
  *             a11 = self.data[current0    , current1    ]
  *             a12 = self.data[current0    , current1 + 1]             # <<<<<<<<<<<<<<
  *             a20 = self.data[current0 + 1, current1 - 1]
  *             a21 = self.data[current0 + 1, current1    ]
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_17 = __pyx_v_current0;
     __pyx_t_18 = (__pyx_v_current1 + 1);
     __pyx_v_a12 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_17 * __pyx_v_self->data.strides[0]) )) + __pyx_t_18)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":167
+    /* "pyFAI/ext/bilinear.pxi":169
  *             a11 = self.data[current0    , current1    ]
  *             a12 = self.data[current0    , current1 + 1]
  *             a20 = self.data[current0 + 1, current1 - 1]             # <<<<<<<<<<<<<<
  *             a21 = self.data[current0 + 1, current1    ]
  *             a22 = self.data[current0 + 1, current1 - 1]
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_19 = (__pyx_v_current0 + 1);
     __pyx_t_20 = (__pyx_v_current1 - 1);
     __pyx_v_a20 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_19 * __pyx_v_self->data.strides[0]) )) + __pyx_t_20)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":168
+    /* "pyFAI/ext/bilinear.pxi":170
  *             a12 = self.data[current0    , current1 + 1]
  *             a20 = self.data[current0 + 1, current1 - 1]
  *             a21 = self.data[current0 + 1, current1    ]             # <<<<<<<<<<<<<<
  *             a22 = self.data[current0 + 1, current1 - 1]
  *             d00 = a12 - 2.0 * a11 + a10
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_21 = (__pyx_v_current0 + 1);
     __pyx_t_22 = __pyx_v_current1;
     __pyx_v_a21 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_21 * __pyx_v_self->data.strides[0]) )) + __pyx_t_22)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":169
+    /* "pyFAI/ext/bilinear.pxi":171
  *             a20 = self.data[current0 + 1, current1 - 1]
  *             a21 = self.data[current0 + 1, current1    ]
  *             a22 = self.data[current0 + 1, current1 - 1]             # <<<<<<<<<<<<<<
  *             d00 = a12 - 2.0 * a11 + a10
  *             d11 = a21 - 2.0 * a11 + a01
  */
-    if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
     __pyx_t_23 = (__pyx_v_current0 + 1);
     __pyx_t_24 = (__pyx_v_current1 - 1);
     __pyx_v_a22 = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_23 * __pyx_v_self->data.strides[0]) )) + __pyx_t_24)) )));
 
-    /* "pyFAI/ext/bilinear.pxi":170
+    /* "pyFAI/ext/bilinear.pxi":172
  *             a21 = self.data[current0 + 1, current1    ]
  *             a22 = self.data[current0 + 1, current1 - 1]
  *             d00 = a12 - 2.0 * a11 + a10             # <<<<<<<<<<<<<<
@@ -9625,7 +9616,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
     __pyx_v_d00 = ((__pyx_v_a12 - (2.0 * __pyx_v_a11)) + __pyx_v_a10);
 
-    /* "pyFAI/ext/bilinear.pxi":171
+    /* "pyFAI/ext/bilinear.pxi":173
  *             a22 = self.data[current0 + 1, current1 - 1]
  *             d00 = a12 - 2.0 * a11 + a10
  *             d11 = a21 - 2.0 * a11 + a01             # <<<<<<<<<<<<<<
@@ -9634,7 +9625,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
     __pyx_v_d11 = ((__pyx_v_a21 - (2.0 * __pyx_v_a11)) + __pyx_v_a01);
 
-    /* "pyFAI/ext/bilinear.pxi":172
+    /* "pyFAI/ext/bilinear.pxi":174
  *             d00 = a12 - 2.0 * a11 + a10
  *             d11 = a21 - 2.0 * a11 + a01
  *             d01 = (a00 - a02 - a20 + a22) / 4.0             # <<<<<<<<<<<<<<
@@ -9643,7 +9634,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
     __pyx_v_d01 = ((((__pyx_v_a00 - __pyx_v_a02) - __pyx_v_a20) + __pyx_v_a22) / 4.0);
 
-    /* "pyFAI/ext/bilinear.pxi":173
+    /* "pyFAI/ext/bilinear.pxi":175
  *             d11 = a21 - 2.0 * a11 + a01
  *             d01 = (a00 - a02 - a20 + a22) / 4.0
  *             denom = 2.0 * (d00 * d11 - d01 * d01)             # <<<<<<<<<<<<<<
@@ -9652,7 +9643,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
     __pyx_v_denom = (2.0 * ((__pyx_v_d00 * __pyx_v_d11) - (__pyx_v_d01 * __pyx_v_d01)));
 
-    /* "pyFAI/ext/bilinear.pxi":174
+    /* "pyFAI/ext/bilinear.pxi":176
  *             d01 = (a00 - a02 - a20 + a22) / 4.0
  *             denom = 2.0 * (d00 * d11 - d01 * d01)
  *             if abs(denom) < 1e-10:             # <<<<<<<<<<<<<<
@@ -9662,19 +9653,19 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
     __pyx_t_5 = ((fabsf(__pyx_v_denom) < 1e-10) != 0);
     if (__pyx_t_5) {
 
-      /* "pyFAI/ext/bilinear.pxi":175
+      /* "pyFAI/ext/bilinear.pxi":177
  *             denom = 2.0 * (d00 * d11 - d01 * d01)
  *             if abs(denom) < 1e-10:
  *                 logger.debug("Singular determinant, Hessian undefined")             # <<<<<<<<<<<<<<
  *             else:
  *                 delta0 = ((a12 - a10) * d01 + (a01 - a21) * d11) / denom
  */
-      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_logger); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_logger); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -9682,7 +9673,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
     }
     /*else*/ {
 
-      /* "pyFAI/ext/bilinear.pxi":177
+      /* "pyFAI/ext/bilinear.pxi":179
  *                 logger.debug("Singular determinant, Hessian undefined")
  *             else:
  *                 delta0 = ((a12 - a10) * d01 + (a01 - a21) * d11) / denom             # <<<<<<<<<<<<<<
@@ -9691,7 +9682,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
       __pyx_v_delta0 = ((((__pyx_v_a12 - __pyx_v_a10) * __pyx_v_d01) + ((__pyx_v_a01 - __pyx_v_a21) * __pyx_v_d11)) / __pyx_v_denom);
 
-      /* "pyFAI/ext/bilinear.pxi":178
+      /* "pyFAI/ext/bilinear.pxi":180
  *             else:
  *                 delta0 = ((a12 - a10) * d01 + (a01 - a21) * d11) / denom
  *                 delta1 = ((a10 - a12) * d00 + (a21 - a01) * d01) / denom             # <<<<<<<<<<<<<<
@@ -9700,7 +9691,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
       __pyx_v_delta1 = ((((__pyx_v_a10 - __pyx_v_a12) * __pyx_v_d00) + ((__pyx_v_a21 - __pyx_v_a01) * __pyx_v_d01)) / __pyx_v_denom);
 
-      /* "pyFAI/ext/bilinear.pxi":179
+      /* "pyFAI/ext/bilinear.pxi":181
  *                 delta0 = ((a12 - a10) * d01 + (a01 - a21) * d11) / denom
  *                 delta1 = ((a10 - a12) * d00 + (a21 - a01) * d01) / denom
  *                 if abs(delta0) <= 1.0 and abs(delta1) <= 1.0:             # <<<<<<<<<<<<<<
@@ -9718,7 +9709,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
       __pyx_L10_bool_binop_done:;
       if (__pyx_t_5) {
 
-        /* "pyFAI/ext/bilinear.pxi":181
+        /* "pyFAI/ext/bilinear.pxi":183
  *                 if abs(delta0) <= 1.0 and abs(delta1) <= 1.0:
  *                     # Result is OK if lower than 0.5.
  *                     return (delta0 + float(current0), delta1 + float(current1))             # <<<<<<<<<<<<<<
@@ -9726,11 +9717,11 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  *                     logger.debug("Failed to find root using second order expansion")
  */
         __Pyx_XDECREF(__pyx_r);
-        __pyx_t_1 = PyFloat_FromDouble((__pyx_v_delta0 + ((double)__pyx_v_current0))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_1 = PyFloat_FromDouble((__pyx_v_delta0 + ((double)__pyx_v_current0))); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = PyFloat_FromDouble((__pyx_v_delta1 + ((double)__pyx_v_current1))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = PyFloat_FromDouble((__pyx_v_delta1 + ((double)__pyx_v_current1))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
-        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
         PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
         __Pyx_GIVEREF(__pyx_t_1);
@@ -9744,19 +9735,19 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
       }
       /*else*/ {
 
-        /* "pyFAI/ext/bilinear.pxi":183
+        /* "pyFAI/ext/bilinear.pxi":185
  *                     return (delta0 + float(current0), delta1 + float(current1))
  *                 else:
  *                     logger.debug("Failed to find root using second order expansion")             # <<<<<<<<<<<<<<
  *             # refinement of the position by a simple center of mass of the last valid region used
  *             for i0 in range(current0 - 1, current0 + 2):
  */
-        __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_logger); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_logger); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_debug); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -9764,7 +9755,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
     }
     __pyx_L8:;
 
-    /* "pyFAI/ext/bilinear.pxi":185
+    /* "pyFAI/ext/bilinear.pxi":187
  *                     logger.debug("Failed to find root using second order expansion")
  *             # refinement of the position by a simple center of mass of the last valid region used
  *             for i0 in range(current0 - 1, current0 + 2):             # <<<<<<<<<<<<<<
@@ -9775,7 +9766,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
     for (__pyx_t_26 = (__pyx_v_current0 - 1); __pyx_t_26 < __pyx_t_25; __pyx_t_26+=1) {
       __pyx_v_i0 = __pyx_t_26;
 
-      /* "pyFAI/ext/bilinear.pxi":186
+      /* "pyFAI/ext/bilinear.pxi":188
  *             # refinement of the position by a simple center of mass of the last valid region used
  *             for i0 in range(current0 - 1, current0 + 2):
  *                 for i1 in range(current1 - 1, current1 + 2):             # <<<<<<<<<<<<<<
@@ -9786,19 +9777,18 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
       for (__pyx_t_28 = (__pyx_v_current1 - 1); __pyx_t_28 < __pyx_t_27; __pyx_t_28+=1) {
         __pyx_v_i1 = __pyx_t_28;
 
-        /* "pyFAI/ext/bilinear.pxi":187
+        /* "pyFAI/ext/bilinear.pxi":189
  *             for i0 in range(current0 - 1, current0 + 2):
  *                 for i1 in range(current1 - 1, current1 + 2):
  *                     tmp = self.data[i0, i1]             # <<<<<<<<<<<<<<
  *                     sum0 += tmp * i0
  *                     sum1 += tmp * i1
  */
-        if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
         __pyx_t_29 = __pyx_v_i0;
         __pyx_t_30 = __pyx_v_i1;
         __pyx_v_tmp = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_29 * __pyx_v_self->data.strides[0]) )) + __pyx_t_30)) )));
 
-        /* "pyFAI/ext/bilinear.pxi":188
+        /* "pyFAI/ext/bilinear.pxi":190
  *                 for i1 in range(current1 - 1, current1 + 2):
  *                     tmp = self.data[i0, i1]
  *                     sum0 += tmp * i0             # <<<<<<<<<<<<<<
@@ -9807,7 +9797,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
         __pyx_v_sum0 = (__pyx_v_sum0 + (__pyx_v_tmp * __pyx_v_i0));
 
-        /* "pyFAI/ext/bilinear.pxi":189
+        /* "pyFAI/ext/bilinear.pxi":191
  *                     tmp = self.data[i0, i1]
  *                     sum0 += tmp * i0
  *                     sum1 += tmp * i1             # <<<<<<<<<<<<<<
@@ -9816,7 +9806,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  */
         __pyx_v_sum1 = (__pyx_v_sum1 + (__pyx_v_tmp * __pyx_v_i1));
 
-        /* "pyFAI/ext/bilinear.pxi":190
+        /* "pyFAI/ext/bilinear.pxi":192
  *                     sum0 += tmp * i0
  *                     sum1 += tmp * i1
  *                     sum += tmp             # <<<<<<<<<<<<<<
@@ -9827,7 +9817,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
       }
     }
 
-    /* "pyFAI/ext/bilinear.pxi":191
+    /* "pyFAI/ext/bilinear.pxi":193
  *                     sum1 += tmp * i1
  *                     sum += tmp
  *             if sum > 0:             # <<<<<<<<<<<<<<
@@ -9837,7 +9827,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
     __pyx_t_5 = ((__pyx_v_sum > 0.0) != 0);
     if (__pyx_t_5) {
 
-      /* "pyFAI/ext/bilinear.pxi":192
+      /* "pyFAI/ext/bilinear.pxi":194
  *                     sum += tmp
  *             if sum > 0:
  *                 return (sum0 / sum, sum1 / sum)             # <<<<<<<<<<<<<<
@@ -9845,11 +9835,11 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  *         return (float(current0), float(current1))
  */
       __Pyx_XDECREF(__pyx_r);
-      __pyx_t_3 = PyFloat_FromDouble((__pyx_v_sum0 / __pyx_v_sum)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PyFloat_FromDouble((__pyx_v_sum0 / __pyx_v_sum)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_sum1 / __pyx_v_sum)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_sum1 / __pyx_v_sum)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_3);
@@ -9865,7 +9855,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
   }
   __pyx_L3:;
 
-  /* "pyFAI/ext/bilinear.pxi":194
+  /* "pyFAI/ext/bilinear.pxi":196
  *                 return (sum0 / sum, sum1 / sum)
  * 
  *         return (float(current0), float(current1))             # <<<<<<<<<<<<<<
@@ -9873,11 +9863,11 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
  *     cpdef size_t cp_local_maxi(self, size_t x):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(((double)__pyx_v_current0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyFloat_FromDouble(((double)__pyx_v_current0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyFloat_FromDouble(((double)__pyx_v_current1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyFloat_FromDouble(((double)__pyx_v_current1)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 194; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
@@ -9889,9 +9879,9 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pyFAI/ext/bilinear.pxi":133
- *     @cython.wraparound(False)
+  /* "pyFAI/ext/bilinear.pxi":135
  *     @cython.cdivision(True)
+ *     @cython.initializedcheck(False)
  *     def local_maxi(self, x):             # <<<<<<<<<<<<<<
  *         """
  *         Return the local maximum with sub-pixel refinement.
@@ -9910,7 +9900,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_8local_maxi(struct __p
   return __pyx_r;
 }
 
-/* "pyFAI/ext/bilinear.pxi":196
+/* "pyFAI/ext/bilinear.pxi":198
  *         return (float(current0), float(current1))
  * 
  *     cpdef size_t cp_local_maxi(self, size_t x):             # <<<<<<<<<<<<<<
@@ -9937,10 +9927,10 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_cp_local_maxi(struct __pyx
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_cp_local_maxi); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_cp_local_maxi); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
     if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_5pyFAI_3ext_8bilinear_8Bilinear_11cp_local_maxi)) {
-      __pyx_t_3 = __Pyx_PyInt_FromSize_t(__pyx_v_x); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyInt_FromSize_t(__pyx_v_x); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -9954,22 +9944,22 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_cp_local_maxi(struct __pyx
         }
       }
       if (!__pyx_t_5) {
-        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
         __Pyx_GOTREF(__pyx_t_2);
       } else {
-        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_6);
         PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __Pyx_GIVEREF(__pyx_t_5); __pyx_t_5 = NULL;
         PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_3);
         __pyx_t_3 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       }
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_7 = __Pyx_PyInt_As_size_t(__pyx_t_2); if (unlikely((__pyx_t_7 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_7 = __Pyx_PyInt_As_size_t(__pyx_t_2); if (unlikely((__pyx_t_7 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_r = __pyx_t_7;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -9978,7 +9968,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_cp_local_maxi(struct __pyx
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":197
+  /* "pyFAI/ext/bilinear.pxi":199
  * 
  *     cpdef size_t cp_local_maxi(self, size_t x):
  *         return self.c_local_maxi(x)             # <<<<<<<<<<<<<<
@@ -9988,7 +9978,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_cp_local_maxi(struct __pyx
   __pyx_r = ((struct __pyx_vtabstruct_5pyFAI_3ext_8bilinear_Bilinear *)__pyx_v_self->__pyx_vtab)->c_local_maxi(__pyx_v_self, __pyx_v_x);
   goto __pyx_L0;
 
-  /* "pyFAI/ext/bilinear.pxi":196
+  /* "pyFAI/ext/bilinear.pxi":198
  *         return (float(current0), float(current1))
  * 
  *     cpdef size_t cp_local_maxi(self, size_t x):             # <<<<<<<<<<<<<<
@@ -10023,7 +10013,7 @@ static PyObject *__pyx_pw_5pyFAI_3ext_8bilinear_8Bilinear_11cp_local_maxi(PyObje
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("cp_local_maxi (wrapper)", 0);
   assert(__pyx_arg_x); {
-    __pyx_v_x = __Pyx_PyInt_As_size_t(__pyx_arg_x); if (unlikely((__pyx_v_x == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_x = __Pyx_PyInt_As_size_t(__pyx_arg_x); if (unlikely((__pyx_v_x == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -10047,7 +10037,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_10cp_local_maxi(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("cp_local_maxi", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_cp_local_maxi(__pyx_v_self, __pyx_v_x, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_cp_local_maxi(__pyx_v_self, __pyx_v_x, 1)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -10064,9 +10054,9 @@ static PyObject *__pyx_pf_5pyFAI_3ext_8bilinear_8Bilinear_10cp_local_maxi(struct
   return __pyx_r;
 }
 
-/* "pyFAI/ext/bilinear.pxi":202
- *     @cython.wraparound(False)
+/* "pyFAI/ext/bilinear.pxi":205
  *     @cython.cdivision(True)
+ *     @cython.initializedcheck(False)
  *     cdef size_t c_local_maxi(self, size_t x) nogil:             # <<<<<<<<<<<<<<
  *         """
  *         Return the local maximum ... without sub-pixel refinement
@@ -10103,11 +10093,8 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
   int __pyx_t_14;
   int __pyx_t_15;
   int __pyx_t_16;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
 
-  /* "pyFAI/ext/bilinear.pxi":211
+  /* "pyFAI/ext/bilinear.pxi":214
  *         """
  *         cdef:
  *             int current0 = x // self.width             # <<<<<<<<<<<<<<
@@ -10116,7 +10103,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
  */
   __pyx_v_current0 = (__pyx_v_x / __pyx_v_self->width);
 
-  /* "pyFAI/ext/bilinear.pxi":212
+  /* "pyFAI/ext/bilinear.pxi":215
  *         cdef:
  *             int current0 = x // self.width
  *             int current1 = x % self.width             # <<<<<<<<<<<<<<
@@ -10125,19 +10112,18 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
  */
   __pyx_v_current1 = (__pyx_v_x % __pyx_v_self->width);
 
-  /* "pyFAI/ext/bilinear.pxi":216
+  /* "pyFAI/ext/bilinear.pxi":219
  *             float tmp, value, old_value
  * 
  *         value = self.data[current0, current1]             # <<<<<<<<<<<<<<
  *         old_value = value - 1.0
  *         new0, new1 = current0, current1
  */
-  if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
   __pyx_t_1 = __pyx_v_current0;
   __pyx_t_2 = __pyx_v_current1;
   __pyx_v_value = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_1 * __pyx_v_self->data.strides[0]) )) + __pyx_t_2)) )));
 
-  /* "pyFAI/ext/bilinear.pxi":217
+  /* "pyFAI/ext/bilinear.pxi":220
  * 
  *         value = self.data[current0, current1]
  *         old_value = value - 1.0             # <<<<<<<<<<<<<<
@@ -10146,7 +10132,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
  */
   __pyx_v_old_value = (__pyx_v_value - 1.0);
 
-  /* "pyFAI/ext/bilinear.pxi":218
+  /* "pyFAI/ext/bilinear.pxi":221
  *         value = self.data[current0, current1]
  *         old_value = value - 1.0
  *         new0, new1 = current0, current1             # <<<<<<<<<<<<<<
@@ -10158,7 +10144,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
   __pyx_v_new0 = __pyx_t_3;
   __pyx_v_new1 = __pyx_t_4;
 
-  /* "pyFAI/ext/bilinear.pxi":220
+  /* "pyFAI/ext/bilinear.pxi":223
  *         new0, new1 = current0, current1
  * 
  *         while value > old_value:             # <<<<<<<<<<<<<<
@@ -10169,7 +10155,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
     __pyx_t_5 = ((__pyx_v_value > __pyx_v_old_value) != 0);
     if (!__pyx_t_5) break;
 
-    /* "pyFAI/ext/bilinear.pxi":221
+    /* "pyFAI/ext/bilinear.pxi":224
  * 
  *         while value > old_value:
  *             old_value = value             # <<<<<<<<<<<<<<
@@ -10178,7 +10164,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
  */
     __pyx_v_old_value = __pyx_v_value;
 
-    /* "pyFAI/ext/bilinear.pxi":222
+    /* "pyFAI/ext/bilinear.pxi":225
  *         while value > old_value:
  *             old_value = value
  *             start0 = max(0, current0 - 1)             # <<<<<<<<<<<<<<
@@ -10194,7 +10180,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
     }
     __pyx_v_start0 = __pyx_t_8;
 
-    /* "pyFAI/ext/bilinear.pxi":223
+    /* "pyFAI/ext/bilinear.pxi":226
  *             old_value = value
  *             start0 = max(0, current0 - 1)
  *             stop0 = min(self.height, current0 + 2)             # <<<<<<<<<<<<<<
@@ -10210,7 +10196,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
     }
     __pyx_v_stop0 = __pyx_t_10;
 
-    /* "pyFAI/ext/bilinear.pxi":224
+    /* "pyFAI/ext/bilinear.pxi":227
  *             start0 = max(0, current0 - 1)
  *             stop0 = min(self.height, current0 + 2)
  *             start1 = max(0, current1 - 1)             # <<<<<<<<<<<<<<
@@ -10226,7 +10212,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
     }
     __pyx_v_start1 = __pyx_t_7;
 
-    /* "pyFAI/ext/bilinear.pxi":225
+    /* "pyFAI/ext/bilinear.pxi":228
  *             stop0 = min(self.height, current0 + 2)
  *             start1 = max(0, current1 - 1)
  *             stop1 = min(self.width, current1 + 2)             # <<<<<<<<<<<<<<
@@ -10242,7 +10228,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
     }
     __pyx_v_stop1 = __pyx_t_9;
 
-    /* "pyFAI/ext/bilinear.pxi":226
+    /* "pyFAI/ext/bilinear.pxi":229
  *             start1 = max(0, current1 - 1)
  *             stop1 = min(self.width, current1 + 2)
  *             for i0 in range(start0, stop0):             # <<<<<<<<<<<<<<
@@ -10253,7 +10239,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
     for (__pyx_t_3 = __pyx_v_start0; __pyx_t_3 < __pyx_t_4; __pyx_t_3+=1) {
       __pyx_v_i0 = __pyx_t_3;
 
-      /* "pyFAI/ext/bilinear.pxi":227
+      /* "pyFAI/ext/bilinear.pxi":230
  *             stop1 = min(self.width, current1 + 2)
  *             for i0 in range(start0, stop0):
  *                 for i1 in range(start1, stop1):             # <<<<<<<<<<<<<<
@@ -10264,19 +10250,18 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
       for (__pyx_t_12 = __pyx_v_start1; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
         __pyx_v_i1 = __pyx_t_12;
 
-        /* "pyFAI/ext/bilinear.pxi":228
+        /* "pyFAI/ext/bilinear.pxi":231
  *             for i0 in range(start0, stop0):
  *                 for i1 in range(start1, stop1):
  *                     tmp = self.data[i0, i1]             # <<<<<<<<<<<<<<
  *                     if tmp > value:
  *                         new0, new1 = i0, i1
  */
-        if (unlikely(!__pyx_v_self->data.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");{__pyx_filename = __pyx_f[1]; __pyx_lineno = 228; __pyx_clineno = __LINE__; goto __pyx_L1_error;}}
         __pyx_t_13 = __pyx_v_i0;
         __pyx_t_14 = __pyx_v_i1;
         __pyx_v_tmp = (*((float *) ( /* dim=1 */ ((char *) (((float *) ( /* dim=0 */ (__pyx_v_self->data.data + __pyx_t_13 * __pyx_v_self->data.strides[0]) )) + __pyx_t_14)) )));
 
-        /* "pyFAI/ext/bilinear.pxi":229
+        /* "pyFAI/ext/bilinear.pxi":232
  *                 for i1 in range(start1, stop1):
  *                     tmp = self.data[i0, i1]
  *                     if tmp > value:             # <<<<<<<<<<<<<<
@@ -10286,7 +10271,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
         __pyx_t_5 = ((__pyx_v_tmp > __pyx_v_value) != 0);
         if (__pyx_t_5) {
 
-          /* "pyFAI/ext/bilinear.pxi":230
+          /* "pyFAI/ext/bilinear.pxi":233
  *                     tmp = self.data[i0, i1]
  *                     if tmp > value:
  *                         new0, new1 = i0, i1             # <<<<<<<<<<<<<<
@@ -10298,7 +10283,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
           __pyx_v_new0 = __pyx_t_15;
           __pyx_v_new1 = __pyx_t_16;
 
-          /* "pyFAI/ext/bilinear.pxi":231
+          /* "pyFAI/ext/bilinear.pxi":234
  *                     if tmp > value:
  *                         new0, new1 = i0, i1
  *                         value = tmp             # <<<<<<<<<<<<<<
@@ -10312,7 +10297,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
       }
     }
 
-    /* "pyFAI/ext/bilinear.pxi":232
+    /* "pyFAI/ext/bilinear.pxi":235
  *                         new0, new1 = i0, i1
  *                         value = tmp
  *             current0, current1 = new0, new1             # <<<<<<<<<<<<<<
@@ -10324,7 +10309,7 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
     __pyx_v_current1 = __pyx_t_3;
   }
 
-  /* "pyFAI/ext/bilinear.pxi":233
+  /* "pyFAI/ext/bilinear.pxi":236
  *                         value = tmp
  *             current0, current1 = new0, new1
  *         return self.width * current0 + current1             # <<<<<<<<<<<<<<
@@ -10332,18 +10317,15 @@ static size_t __pyx_f_5pyFAI_3ext_8bilinear_8Bilinear_c_local_maxi(struct __pyx_
   __pyx_r = ((__pyx_v_self->width * __pyx_v_current0) + __pyx_v_current1);
   goto __pyx_L0;
 
-  /* "pyFAI/ext/bilinear.pxi":202
- *     @cython.wraparound(False)
+  /* "pyFAI/ext/bilinear.pxi":205
  *     @cython.cdivision(True)
+ *     @cython.initializedcheck(False)
  *     cdef size_t c_local_maxi(self, size_t x) nogil:             # <<<<<<<<<<<<<<
  *         """
  *         Return the local maximum ... without sub-pixel refinement
  */
 
   /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_WriteUnraisable("pyFAI.ext.bilinear.Bilinear.c_local_maxi", __pyx_clineno, __pyx_lineno, __pyx_filename, 0);
-  __pyx_r = 0;
   __pyx_L0:;
   return __pyx_r;
 }
@@ -24184,7 +24166,7 @@ static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_ord = __Pyx_GetBuiltinName(__pyx_n_s_ord); if (!__pyx_builtin_ord) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 166; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_round = __Pyx_GetBuiltinName(__pyx_n_s_round); if (!__pyx_builtin_round) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 157; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 215; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 799; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[3]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -24246,25 +24228,25 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
-  /* "pyFAI/ext/bilinear.pxi":175
+  /* "pyFAI/ext/bilinear.pxi":177
  *             denom = 2.0 * (d00 * d11 - d01 * d01)
  *             if abs(denom) < 1e-10:
  *                 logger.debug("Singular determinant, Hessian undefined")             # <<<<<<<<<<<<<<
  *             else:
  *                 delta0 = ((a12 - a10) * d01 + (a01 - a21) * d11) / denom
  */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_Singular_determinant_Hessian_und); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_s_Singular_determinant_Hessian_und); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
 
-  /* "pyFAI/ext/bilinear.pxi":183
+  /* "pyFAI/ext/bilinear.pxi":185
  *                     return (delta0 + float(current0), delta1 + float(current1))
  *                 else:
  *                     logger.debug("Failed to find root using second order expansion")             # <<<<<<<<<<<<<<
  *             # refinement of the position by a simple center of mass of the last valid region used
  *             for i0 in range(current0 - 1, current0 + 2):
  */
-  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_Failed_to_find_root_using_second); if (unlikely(!__pyx_tuple__14)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_s_Failed_to_find_root_using_second); if (unlikely(!__pyx_tuple__14)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 185; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 

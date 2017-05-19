@@ -87,6 +87,7 @@ cdef class Bilinear:
         
     @cython.boundscheck(False)
     @cython.wraparound(False)
+#     @cython.initializedcheck(False)
     cdef float _f_cy(self, cython.floating d0, cython.floating d1) nogil:
         """
         Function f((y,x)) where f is a continuous function (y,x) are pixel coordinates
@@ -130,6 +131,7 @@ cdef class Bilinear:
     @cython.boundscheck(False)
     @cython.wraparound(False)
     @cython.cdivision(True)
+    @cython.initializedcheck(False)
     def local_maxi(self, x):
         """
         Return the local maximum with sub-pixel refinement.
@@ -199,6 +201,7 @@ cdef class Bilinear:
     @cython.boundscheck(False)
     @cython.wraparound(False)
     @cython.cdivision(True)
+    @cython.initializedcheck(False)
     cdef size_t c_local_maxi(self, size_t x) nogil:
         """
         Return the local maximum ... without sub-pixel refinement

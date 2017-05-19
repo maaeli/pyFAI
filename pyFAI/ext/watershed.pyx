@@ -30,7 +30,7 @@
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "18/05/2017"
+__date__ = "19/05/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
@@ -43,7 +43,6 @@ from scipy.ndimage import filters
 from libc.math cimport atan2, sqrt, M_PI as pi
 logger = logging.getLogger("pyFAI.ext.watershed")
 from ..decorators import timeit
-
 
 
 include "numpy_common.pxi"
@@ -89,24 +88,40 @@ cdef class PeakSubRegion:
     
     cpdef set_orientation(self, float value):
         self.orientation = value
+
+
+cdef class PassPixel:
+    cdef:
+        readonly int index, current, neighbor
+        readonly float height
+    
+    def __cinit__(self, int idx, float height, int current, int neighbor):
+        self.index = idx
+        self.height = height
+        self.current = current
+        self.neighbor = neighbor
+        
+    def __repr__(self):
+        return "Pass #%i @%.3f from %i to %i " % (self.index, self.height, self.current, self.neighbor)
         
         
 cdef class Region:
     cdef:
-        readonly int index
+        readonly int index, width
         readonly float mini, maxi
-        readonly dict neighbors  # key: id of neigh value: highest pass
+        readonly dict neighbors  # key: id of neigh value: PassPixel instance 
         readonly dict peaks  #  key: index, value PeakSubRegion instance
         readonly dict border #  key: index, value BorderPixel
-        readonly set pixels  #  list of pixels in the region
+        readonly list pixels  #  list of pixels in the region
 
-    def __cinit__(self, int idx, float height):
+    def __cinit__(self, int idx, float height, image_width):
         self.index = idx
-        self.neighbors = {}  #  key: id of neigh value: highest pass
+        self.width = image_width
+        self.neighbors = {}  #  key: id of neigh value: PassPixel instance 
         self.border = {}     # pixel indices of the border -> BorderPixel instance
         self.peaks = {}  
         self.peaks[idx] = PeakSubRegion(idx, height)
-        self.pixels = set((idx,))
+        self.pixels = []
         self.mini = sys.maxsize
         self.maxi = height 
 
@@ -120,70 +135,15 @@ cdef class Region:
     def __repr__(self):
         peaks = ", ".join([str(b) for b in self.peaks.values()])
         borders = ", ".join([str(b) for b in self.border.values()])
-        nb = (", ".join(["%i@%s"%(i, j) for i,j in self.neighbors.items()]))
-        lst = ["Region #%s of size %s: maxi=%s, mini=%s, pass_to %s @ %s" % 
-               (self.index, self.size, self.maxi, self.mini, self.pass_to, self.highest_pass),
+        nb = (", ".join(["%i@%s" % (i, j) for i, j in self.neighbors.items()]))
+        lst = ["Region #%s of size %s: maxi=%s, mini=%s" % 
+               (self.index, self.size, self.maxi, self.mini),
                "peaks: {%s}" % peaks,
                "border: {%s}" % borders,
                "neighbors: {%s}" % nb,
                ]
         return "\n".join(lst)
-
-    @cython.cdivision(True)
-    @cython.boundscheck(False)
-    @cython.wraparound(False)
-    @cython.initializedcheck(False)
-    def init_values(self, float[::1] flat):
-        """
-        Initialize the values : maxi, mini and pass both height and so on
-        :param flat: flat view on the data (intensity)
-        :return: True if there is a problem and the region should be removed
-        """
-        cdef:
-            int i, k, imax, imin
-            float mini, maxi, val
-            int border_size = len(self.border)
-            int neighbors_size = len(self.neighbors)
-            int border_idx
-            BorderPixel border_pixel
-            int neighbor
-
-        if self.maxi is None:
-            self.maxi = flat[self.index]
-            
-        if neighbors_size <= border_size:
-            print("neighbors_size <= border_size")
-            print(self.index, neighbors_size, border_size)
-            print(self)
-            return True
-        if not self.neighbors:
-            return True
-        imax = imin = self.index
-        val = mini = self.maxi
-        maxi = 0
-        for border_idx, border_pixel in self.border.items():
-            val = flat[border_idx]
-            if val < mini:
-                mini = val
-                imin = border_idx
-            elif val > maxi:
-                maxi = val
-                imax = border_idx
-            neigbour = border_pixel.to
-        if self.mini is None:
-            self.mini = mini
-        self.highest_pass = maxi
-        self.pass_to = self.neighbors[imax]
-    
-    def init_orientation(self, ):
-        """Initialize the orientation of each region
-        :param 
-        """
-        pass
-
-    def get_size(self):
-        return len(self.pixels)
-
+   
     def get_maxi(self):
         return self.maxi
 
@@ -191,22 +151,16 @@ cdef class Region:
         return self.mini
 
     @property
-    def pass_to(self):
-        "calculate and return the neighbor following the highest pass"
-        cdef list n
-        if self.neighbors:
-            n = list(self.neighbors.keys())
-            n.sort(key=lambda i: self.neighbors[i])
-            return n[-1]
-    
-    @property
     def highest_pass(self):
-        "calculate and return the highest_pass"
+        """Calculate and return the highest_pass
+
+        :return: PassPixel instance 
+        """
         cdef list n
         if self.neighbors:
             n = list(self.neighbors.keys())
-            n.sort(key=lambda i: self.neighbors[i])
-            return self.neighbors[n[-1]]
+            n.sort(key=lambda i: self.neighbors[i].height, reverse=True)
+            return self.neighbors[0]
         
     def get_index(self):
         return self.index
@@ -215,48 +169,83 @@ cdef class Region:
         return self.border
 
     def get_neighbors(self):
+        """Retrieve the neighbors: a dict with neighbor -> Pass instance
+        :return: dict{ int -> PassPixel instance  }
+        """
         return self.neighbors
 
     @property 
     def size(self):
         return len(self.pixels)        
 
+    def get_size(self):
+        return len(self.pixels)
+
     @cython.cdivision(True)
     @cython.boundscheck(False)
     @cython.wraparound(False)
     @cython.initializedcheck(False)
     def merge(self, Region other):
-        """
-        merge 2 regions #TODO!
+        """merge 2 regions
+        
+        :param other: region
+        :return: region 
         """
         cdef:
             int i
-            list new_neighbors = []
-            list new_border = []
             Region region
+            BorderPixel bp
+            set s, l, d
         if other.maxi > self.maxi:
-            region = Region(other.index)
-            region.maxi = other.maxi
+            region = Region(other.index, other.maxi, self.width)
         else:
-            region = Region(self.index)
-            region.maxi = self.maxi
+            region = Region(self.index, self.maxi, self.width)
         region.mini = min(self.mini, other.mini)
-        for i in range(len(self.neighbors)):
-            if self.neighbors[i] not in other.peaks:
-                if self.border[i] not in new_border:
-                    new_border.append(self.border[i])
-                    new_neighbors.append(self.neighbors[i])
-        for i in range(len(other.neighbors)):
-            if other.neighbors[i] not in self.peaks:
-                if other.border[i] not in new_border:
-                    new_border.append(other.border[i])
-                    new_neighbors.append(other.neighbors[i])
-        region.neighbors = new_neighbors
-        region.border = new_border
-        region.peaks = self.peaks + other.peaks
-        region.size = self.size + other.size
+        region.pixels = self.pixels + other.pixels
+        region.peaks.update(self.peaks)
+        region.peaks.update(other.peaks)
+        region.neighbors.update(self.neighbors)
+        region.neighbors.update(other.neighbors)
+        for i in region.peaks:
+            region.neighbors.pop(i, None)
+        l = region.peaks.keys()
+        for i, bp in self.border.items() + other.border.items():
+            bp.neighbors.difference_update(l)
+            if bp.neighbors:
+                region.border[i] = bp  
         return region
 
+    def select_neighbors(self, int peak=-1):
+        """This method is in charge of selecting the best neighbor peak for 
+        merging with it
+        
+        :param: start measuring from given peak, not from the most intense one
+        :return: index of the neighbor
+        """
+        cdef:
+            int i, j, k, l, nb, x, y, selected 
+            PassPixel pass_pixel
+            float h, dist dist_min, dy, dx
+            PeakSubRegion psr
+
+        psr = self.peaks.get(peak, None)
+            
+        if psr is None:
+            x = self.index % self.width
+            y = self.index // self.width
+            h = self.maxi
+        else:
+            x = psr.index % self.width
+            y = psr.index // self.width
+            h = self.height
+        selected = -1
+        dist_min = sys.maxint
+        for nb, pass_pixel in self.neighbors.items():
+            dy = pass_pixel.index // self.width - y
+            dx = pass_pixel.index % self.width - x
+            dist = sqrt(dy**2 + dx**2 + (h - pass_pixel.height)**2)
+            angle = (atan2(dy,dx)*180.0/pi+360.0) % 180
+            #co = cos()
 
 class InverseWatershed(object):
     """
@@ -300,8 +289,8 @@ class InverseWatershed(object):
         self.dict = None
 
     def __repr__(self):
-        return "InverseWatershed on %ix%i image with %i segmented regions" % (
-                self.width, self.height, len(self.regions))
+        return "InverseWatershed on %ix%i image with %i segmented regions (%i non empty)" % (
+                self.width, self.height, len(self.regions), len([i for i in self.regions.values() if i is not None]))
 
     def save(self, fname):
         """
@@ -395,8 +384,6 @@ class InverseWatershed(object):
                 idx = j + i * width
                 res = bilinear.c_local_maxi(idx)
                 labels[i, j] = res
-                if idx == res:
-                    regions[res] = Region(res, data[i, j])
         return numpy.asarray(labels)
     
     @timeit
@@ -462,7 +449,7 @@ class InverseWatershed(object):
         Populate each region with:
             * The set of pixels falling into it
             * The pixel indexes of the border 
-            * The pass height to the neighbors
+            * The pass pixel position to the neighbors
             * The minimum value of the region which has to lie on the border
         """
         cdef:
@@ -476,6 +463,7 @@ class InverseWatershed(object):
             dict regions = self.regions
             float value 
             BorderPixel bp
+            PassPixel pass_pixel
 
         if self.labels is None:
             self.labels = self.init_labels()
@@ -489,8 +477,12 @@ class InverseWatershed(object):
                 idx = j + i * width
                 neighb = borders[i, j]
                 res = labels[i, j]
-                region = regions[res]
-                region.pixels.add(idx)
+                if res not in regions:
+                    region = Region(res, data[res // width, res % width], width)
+                    regions[res] = region
+                else:
+                    region = regions[res]
+                region.pixels.append(idx)
                 if neighb == 0:
                     continue
                 value = data[i, j]
@@ -513,8 +505,9 @@ class InverseWatershed(object):
                 if get_bit(neighb, 6):
                     bp.neighbors.add(labels[i + 1, j - 1])
                 for nb in bp.neighbors:
-                    if (nb not in region.neighbors) or (value > region.neighbors[nb]):
-                        region.neighbors[nb] = value
+                    if (nb not in region.neighbors) or (value > region.neighbors[nb].height):
+                        pass_pixel = PassPixel(idx, value, res, nb)
+                        region.neighbors[nb] = pass_pixel
                 if (value < region.mini):
                     region.mini = value
 
@@ -527,7 +520,7 @@ class InverseWatershed(object):
             float[:, ::1] data, Sx, Sy, histo2d, conv
             numpy.int32_t[:, ::1] labels
             numpy.int32_t[::1] forwards, backwards  
-            int i, j, width = self.width, height = self.height, idx, nreg 
+            int i, j, width = self.width, height = self.height, idx, nreg, col 
             float sx, sy, m, o, h, d, vnext, vprev, maxi 
         if self.labels is None:
             self.init_regions()
@@ -549,10 +542,11 @@ class InverseWatershed(object):
                 sx = Sx[i, j]
                 sy = Sy[i, j]
                 m = sx * sx + sy * sy  # shall I put back the sqrt ?
-                o = (36.0 + (atan2(sy, sx) * 18.0 / pi)) % 18  # orientation in 10°
-                histo2d[backwards[labels[i, j]], <int> o] += m
+                o = (atan2(sx, sy) * 18.0 / pi)  # orientation in 10°
+                col = ( <int> floor(36.0 + o)) % 18
+                histo2d[backwards[labels[i, j]], col] += m
                 
-        kernel = numpy.array([1, 3, 6, 7, 6, 3, 1], dtype=numpy.float32)
+        kernel = numpy.array([1., 3., 6., 7., 6., 3., 1.], dtype=numpy.float32)
         
         # convolve to smooth out noise after histogram
         conv = filters.convolve1d(histo2d, kernel, mode="wrap")
@@ -577,90 +571,35 @@ class InverseWatershed(object):
             self.regions[forwards[i]].peaks[forwards[i]].set_orientation(o)
     
     @timeit
-    def remove_singleton(self):
-        """Remove regions with only 1 pixel in it as they cannot contain a valid peak"""
+    def remove_singleton(self, int threshold=1):
+        """Remove regions with few pixels in it as they cannot contain a valid peak
+        
+        :param threshold: minimal number of pixel to be in a region
+        """
         cdef:
             int idx
             Region reg
-        for idx in list(self.regions.keys()): #loop on a copy
+        for idx in self.regions.keys(): 
+            # loop over a copy
             reg = self.regions[idx]
-            if (reg.size <= 1):
-                self.regions.pop(idx) 
-            
-    def merge_singleton(self):
-        "merge single pixel region"
-        cdef:
-            int idx, i, j, key, key1
-            Region region1, region2, region
-            dict regions = self.regions
-            numpy.uint8_t neighb = 0
-            float ref = 0.0
-            float[:, :] data = self.data
-            numpy.int32_t[:, ::1] labels = self.labels
-            numpy.uint8_t[:, ::1] borders = self.borders
-            int to_merge = -1
-            int width = self.width
-            int cnt = 0
-            float[:] flat = self.data.ravel()
-        return
-        #depercated
-        for key1 in list(regions.keys()):
-            region1 = regions[key1]
-            if region1.maxi == region1.mini:
-                to_merge = -1
-                if region1.size == 1:
-                    i = region1.index // width
-                    j = region1.index % width
-                    neighb = borders[i, j]
-                    if get_bit(neighb, 1) and (region1.maxi == data[i - 1, j]):
-                        to_merge = labels[i - 1, j]
-                    elif get_bit(neighb, 3) and (region1.maxi == data[i, j + 1]):
-                        to_merge = labels[i, j + 1]
-                    elif get_bit(neighb, 5) and (region1.maxi == data[i + 1, j]):
-                        to_merge = labels[i + 1, j]
-                    elif get_bit(neighb, 7) and (region1.maxi == data[i, j - 1]):
-                        to_merge = labels[i, j - 1]
-                    elif get_bit(neighb, 0) and (region1.maxi == data[i - 1, j - 1]):
-                        to_merge = labels[i - 1, j - 1]
-                    elif get_bit(neighb, 2) and (region1.maxi == data[i - 1, j + 1]):
-                        to_merge = labels[i - 1, j + 1]
-                    elif get_bit(neighb, 4) and (region1.maxi == data[i + 1, j + 1]):
-                        to_merge = labels[i + 1, j + 1]
-                    elif get_bit(neighb, 6) and (region1.maxi == data[i + 1, j - 1]):
-                        to_merge = labels[i + 1, j - 1]
-                if to_merge < 0:
-                    if len(region1.neighbors) == 0:
-                        print("no neighbors: %s" % region1)
-                    elif (len(region1.neighbors) == 1) or \
-                         (region1.neighbors == [region1.neighbors[0]] * len(region1.neighbors)):
-                        to_merge = region1.neighbors[0]
-                    else:
-                        to_merge = region1.neighbors[0]
-                        region2 = regions[to_merge]
-                        ref = region2.maxi
-                        for idx in region1.neighbors[1:]:
-                            region2 = regions[to_merge]
-                            if region2.maxi > ref:
-                                to_merge = idx
-                                ref = region2.maxi
-                if (to_merge < 0):
-                    logger.info("error in merging %s" % region1)
-                else:
-                    region2 = regions[to_merge]
-                    region = region1.merge(region2)
-                    region.init_values(flat)
-                    for key in region.peaks:
-                        regions[key] = region
-                    cnt += 1
-        logger.info("Did %s merge_singleton" % cnt)
+            if reg and (reg.size <= threshold):
+                self.regions[idx] = None            
 
-    def merge_twins(self):
-        """
-        Twins are two peak region which are best linked together:
-        A -> B and B -> A
+    def merge(self, centile=10, orientation=45, pass_threshold=0.5):
+        """Merge peak regions 
+
+        The best neighbor is defined as the one with the peak-peak angle closest
+        to the (current) region orientation.
+        There are some additional tests:
+        * Orientation treshold: the best neighbor's orientation is close the current
+        * The height of pass is high: (pass-mini)/(maxi-mini) >=thres
+        
+        
+        @param centile: start merging from the most intense ones but how many ?
+        @param orientation: check both regions are 
         """
         cdef:
-            int i, j, k, imax, imin, key1, key2, key
+            int i, j, k, imax, imin, key1, key2, key, next_is
             float[:] flat = self.data.ravel()
             numpy.uint8_t neighb = 0
             Region region1, region2, region
@@ -669,55 +608,48 @@ class InverseWatershed(object):
             bint found = True
             int width = self.width
             int cnt = 0
-        for key1 in list(regions.keys()):
-            region1 = regions[key1]
-            key2 = region1.pass_to
-            region2 = regions[key2]
-            if region1 == region2:
-                continue
-            if (region2.pass_to in region1.peaks and region1.pass_to in region2.peaks):
-                idx1 = region1.index
-                idx2 = region2.index
-#                 logger.info("merge %s(%s) %s(%s)" % (idx1, idx1, key2, idx2))
-                region = region1.merge(region2)
-                region.init_values(flat)
-                for key in region.peaks:
-                    regions[key] = region
-                cnt += 1
-        logger.info("Did %s merge_twins" % cnt)
+            PassPixel pass_pixel
+            list keys
+            float best_angle, orientation1
+        
+        keys = [region.index for region in regions.values() if region is not None]
+        keys.sort(revert=True, key=lambda region: region.maxi)
+        size = 1 + len(keys) * centile // 100
+        for key in keys[:size]:
+            region1 = regions[key]
+            orientation1 = region1.peaks[key].orientation
+            for key2, pass_pixel in region1.neighbor.items():
+                cut_height = (pass_pixel.height - region1.mini) / (region1.maxi - region1.mini)
+                #orientation1
+                #cut_orientation = 180 * atan2() / pi 
 
-    def merge_intense(self, thres=1.0):
+    def orientation_map(self):
+        """Creates an orientation map and return it
+        
+        :return: orientation map with orientation in degrees
         """
-        Merge groups then (pass-mini)/(maxi-mini) >=thres
-        """
-        if thres > self._actual_thres:
-            logger.warning("Cannot increase threshold: was %s, requested %s. You should re-init the object." % self._actual_thres, thres)
-        self._actual_thres = thres
         cdef:
-            int key1, key2, idx1, idx2
-            Region region1, region2, region
+            float[:, ::1] res
+            numpy.int32_t[:, ::1] labels
+            int width = self.width, height = self.height, idx, i, j
             dict regions = self.regions
-            float ratio
-            float[:] flat = self.data.ravel()
-            int cnt = 0
-        for key1 in list(regions.keys()):
-            region1 = regions[key1]
-            if region1.maxi == region1.mini:
-                logger.error(region1)
-                continue
-            ratio = (region1.highest_pass - region1.mini) / (region1.maxi - region1.mini)
-            if ratio >= thres:
-                key2 = region1.pass_to
-                idx1 = region1.index
-                region2 = regions[key2]
-                idx2 = region2.index
-#                 print("merge %s(%s) %s(%s)" % (idx1, idx1, key2, idx2))
-                region = region1.merge(region2)
-                region.init_values(flat)
-                for key in region.peaks:
-                    regions[key] = region
-                cnt += 1
-        logger.info("Did %s merge_intense" % cnt)
+            Region region
+            float orientation
+        
+        if self.labels is None:
+            self.init_orientation()
+        labels = self.labels
+        res = numpy.zeros((self.height, self.width), dtype=numpy.float32)
+        for i in range(height):
+            for j in range(width):
+                idx = labels[i, j]
+                region = regions[idx]
+                if region is not None:
+                    orientation = region.peaks[idx].orientation
+                else:
+                    orientation = numpy.NaN
+                res[i, j] = orientation
+        return numpy.asarray(res)
 
     def peaks_from_area(self, mask, Imin=None, keep=None, bint refine=True, float dmin=0.0, **kwarg):
         """
