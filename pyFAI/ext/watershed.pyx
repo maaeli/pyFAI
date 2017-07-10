@@ -30,7 +30,7 @@
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "01/12/2016"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
@@ -43,8 +43,10 @@ logger = logging.getLogger("pyFAI.ext.watershed")
 from ..decorators import timeit
 from cython.parallel import prange
 
+from bilinear cimport Bilinear 
+
 include "numpy_common.pxi"
-include "bilinear.pxi"
+
 
 cdef bint get_bit(int byteval, int idx) nogil:
     return ((byteval & (1 << idx)) != 0)

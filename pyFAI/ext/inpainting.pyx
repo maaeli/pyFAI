@@ -26,7 +26,7 @@
 Simple Cython module for doing CRC32 for checksums, possibly with SSE4 acceleration
 """
 __author__ = "Jérôme Kieffer"
-__date__ = "15/05/2017"
+__date__ = "10/07/2017"
 __contact__ = "Jerome.kieffer@esrf.fr"
 __license__ = "MIT"
 
@@ -35,7 +35,7 @@ cimport numpy
 import numpy
 from libc.math cimport floor, ceil
 
-include "bilinear.pxi"
+from bilinear cimport Bilinear
 
 
 def largest_width(numpy.int8_t[:, :]image):
