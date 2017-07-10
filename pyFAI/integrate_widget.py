@@ -37,18 +37,19 @@ __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "15/06/2017"
+__date__ = "10/07/2017"
 __status__ = "development"
 
-import logging
+
 import json
 import os
 import time
 import threading
 import math
 import os.path as op
+import logging
+logger = logging.getLogger(__name__)
 import numpy
-logger = logging.getLogger("pyFAI.integrate_widget")
 from .gui import qt
 import fabio
 from . import worker
@@ -58,11 +59,7 @@ from .utils import float_, int_, str_, get_ui_file
 from .io import HDF5Writer
 from .azimuthalIntegrator import AzimuthalIntegrator
 from .units import RADIAL_UNITS
-try:
-    from .third_party import six
-except ImportError:
-    import six
-
+from .utils import six
 
 UIC = get_ui_file("integration.ui")
 

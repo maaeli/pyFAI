@@ -41,7 +41,7 @@ __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "11/04/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 
 
@@ -54,7 +54,7 @@ import threading
 from .utils import get_calibration_dir
 from .decorators import deprecated
 
-logger = logging.getLogger("pyFAI.calibrant")
+logger = logging.getLogger(__name__)
 epsilon = 1.0e-6  # for floating point comparison
 
 

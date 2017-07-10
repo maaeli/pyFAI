@@ -35,14 +35,14 @@ __author__ = "Jerome Kieffer, Picca Frédéric-Emmanuel"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "18/05/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 
 import os
 import logging
-
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("average")
-logging.basicConfig()
+
 
 import pyFAI.utils.shell
 import pyFAI.utils.stringutil
@@ -274,6 +274,7 @@ def main():
 
     # logging
     if options.verbose is True:
+        logging.root.setLevel(logging.DEBUG)
         average.logger.setLevel(logging.DEBUG)
     elif options.verbose is False:
         average.logger.setLevel(logging.ERROR)

@@ -32,20 +32,23 @@
 Utilities, mainly for image treatment
 
 """
+from __future__ import absolute_import, print_function, with_statement, division
 
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "15/06/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 
-import logging
+
 import sys
 import os
 import glob
 import threading
 import math
+import logging
+logger = logging.getLogger(__name__)
 sem = threading.Semaphore()  # global lock for image processing initialization
 import numpy
 import fabio
@@ -71,7 +74,6 @@ except ImportError:
     data_dir = None
 
 import scipy.ndimage.filters
-logger = logging.getLogger("pyFAI.utils")
 import time
 
 if sys.platform != "win32":

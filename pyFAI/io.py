@@ -45,12 +45,13 @@ __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "21/06/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 __docformat__ = 'restructuredtext'
 
 import json
 import logging
+logger = logging.getLogger(__name__)
 import numpy
 import os
 import posixpath
@@ -69,7 +70,7 @@ from . import units
 from . import version
 
 
-logger = logging.getLogger("pyFAI.io")
+
 try:
     import h5py
 except ImportError as error:

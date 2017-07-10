@@ -38,19 +38,19 @@ __author__ = "Jerome Kieffer, Picca Frédéric-Emmanuel"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "13/06/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 
 import os
 import sys
 import time
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("PyFAI")
 import fabio
 import pyFAI.units
 import pyFAI.utils
 hc = pyFAI.units.hc
-import logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("PyFAI")
 
 try:
     from argparse import ArgumentParser

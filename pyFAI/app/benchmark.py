@@ -35,10 +35,11 @@ __author__ = "Jérôme Kieffer, Picca Frédéric-Emmanuel"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "18/05/2017"
+__date__ = "10/07/2017"
 __status__ = "development"
 
 import logging
+logging.basicConfig(level=logging.WARNING)
 try:
     from rfoo.utils import rconsole
     rconsole.spawn_server()
@@ -98,7 +99,8 @@ def main():
 
     options = parser.parse_args()
     if options.debug:
-            pyFAI.logger.setLevel(logging.DEBUG)
+        logging.root.setLevel(logging.DEBUG)
+        pyFAI.logger.setLevel(logging.DEBUG)
     devices = ""
     if options.opencl_cpu:
         devices += "cpu,"

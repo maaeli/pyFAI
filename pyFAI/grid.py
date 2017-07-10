@@ -30,11 +30,12 @@ __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "16/05/2017"
+__date__ = "10/07/2017"
 __status__ = "development"
 __docformat__ = 'restructuredtext'
 
 import logging
+logger = logging.getLogger(__name__)
 import numpy
 
 from . import detectors
@@ -43,7 +44,7 @@ try:
 except ImportError:
     import six
 import fabio
-logger = logging.getLogger("pyFAI.grid")
+
 
 
 class Grid(object):

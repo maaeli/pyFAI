@@ -24,18 +24,17 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+"""Bunch of useful decorators"""
 
-
-from __future__ import absolute_import, print_function, division
+from __future__ import absolute_import, print_function, with_statement, division
 
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "27/10/2016"
+__date__ = "10/07/2017"
 __status__ = "development"
 __docformat__ = 'restructuredtext'
-__doc__ = """Bunch of useful decorators"""
 
 import os
 import sys
@@ -43,7 +42,7 @@ import time
 import traceback
 import logging
 
-
+logger = logging.getLogger(__name__)
 timelog = logging.getLogger("pyFAI.timeit")
 depreclog = logging.getLogger("DEPRECATION")
 

@@ -36,16 +36,17 @@ __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "16/06/2017"
+__date__ = "10/07/2017"
 __status__ = "development"
 __docformat__ = 'restructuredtext'
 
 
 import os
-import logging
 import json
 import numpy
 from collections import OrderedDict, namedtuple
+import logging
+logger = logging.getLogger(__name__)
 from scipy.optimize import minimize
 from .massif import Massif
 from .control_points import ControlPoints
@@ -56,7 +57,6 @@ from .azimuthalIntegrator import AzimuthalIntegrator
 from .utils import StringTypes
 from .multi_geometry import MultiGeometry
 from .ext.marchingsquares import isocontour
-logger = logging.getLogger("pyFAI.goniometer")
 
 try:
     import numexpr

@@ -37,7 +37,7 @@ __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "16/05/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 
 import os
@@ -55,7 +55,7 @@ if sys.version_info[0] < 3:
 else:
     from urllib.parse import urlparse
 
-logger = logging.getLogger("pyFAI.calibration")
+logger = logging.getLogger(__name__)
 import numpy
 from .gui.matplotlib import pylab, matplotlib
 from .gui.utils import update_fig
@@ -396,6 +396,8 @@ class AbstractCalibration(object):
             args = options.args
         if options.debug:
             logger.setLevel(logging.DEBUG)
+        else:
+            logger.setLevel(logging.INFO)
         self.outfile = options.outfile
         if options.dark:
             self.darkFiles = [f for f in options.dark.split(",") if os.path.isfile(f)]

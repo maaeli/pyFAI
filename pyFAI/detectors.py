@@ -29,31 +29,31 @@
 
 """Description of all detectors with a factory to instantiate them"""
 
-from __future__ import print_function, division, absolute_import, with_statement
+from __future__ import absolute_import, print_function, with_statement, division
 
 
 __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "21/06/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 
 
-import logging
-import numpy
 import os
+import logging
 import posixpath
 import threading
 from collections import OrderedDict
+logger = logging.getLogger(__name__)
+
+import numpy
 
 from . import io
 from . import spline
 from . import utils
 from . import average
 from .utils import binning, expand2d, crc32
-
-logger = logging.getLogger("pyFAI.detectors")
 
 try:
     from .ext import bilinear

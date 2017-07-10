@@ -33,7 +33,7 @@ __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "29/06/2017"
+__date__ = "07/07/2017"
 
 
 import unittest
@@ -243,12 +243,14 @@ class TestAzimHalfFrelon(unittest.TestCase):
         ref = self.ai.medfilt1d(self.data, 1000, unit="2th_deg", method="csr")
         ocl = self.ai.medfilt1d(self.data, 1000, unit="2th_deg", method="ocl_csr")
         rwp = Rwp(ref, ocl)
+        print("median ", rwp)
         logger.info("test_medfilt1d median Rwp = %.3f", rwp)
         self.assertLess(rwp, 1, "Rwp medfilt1d Numpy/OpenCL: %.3f" % rwp)
 
         ref = self.ai.medfilt1d(self.data, 1000, unit="2th_deg", method="csr", percentile=(20, 80))
         ocl = self.ai.medfilt1d(self.data, 1000, unit="2th_deg", method="ocl_csr", percentile=(20, 80))
         rwp = Rwp(ref, ocl)
+        print("quantils ", rwp)
         logger.info("test_medfilt1d trimmed-mean Rwp = %.3f", rwp)
         self.assertLess(rwp, 3, "Rwp trimmed-mean Numpy/OpenCL: %.3f" % rwp)
 

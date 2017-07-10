@@ -33,23 +33,25 @@
 
 """
 
-from __future__ import division, print_function
+from __future__ import absolute_import, print_function, with_statement, division
 
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "29/06/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 __docformat__ = 'restructuredtext'
 
-import logging
-from numpy import radians, degrees, arccos, arctan2, sin, cos, sqrt
-import numpy
 import os
 import threading
 import time
 from collections import namedtuple, OrderedDict
+import logging
+logger = logging.getLogger(__name__)
+
+import numpy
+from numpy import radians, degrees, arccos, arctan2, sin, cos, sqrt
 
 from . import detectors
 from . import units
@@ -60,8 +62,6 @@ try:
     from .third_party import six
 except ImportError:
     import six
-
-logger = logging.getLogger("pyFAI.geometry")
 
 try:
     from .ext import _geometry

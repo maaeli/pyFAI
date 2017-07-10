@@ -40,19 +40,20 @@ It is used by pyFAI.utils._get_data_path
 See bug #144 for discussion about implementation
 https://github.com/kif/pyFAI/issues/144
 """
+from __future__ import absolute_import, print_function, with_statement, division
 
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "15/05/2017"
+__date__ = "10/07/2017"
 __status__ = "development"
 
 import os
 import getpass
 import tempfile
 import logging
-logger = logging.getLogger("pyFAI.directories")
+logger = logging.getLogger(__name__)
 
 PYFAI_DATA = "/usr/share/pyFAI"
 

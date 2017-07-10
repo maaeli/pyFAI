@@ -26,13 +26,13 @@
 # THE SOFTWARE.
 
 
-from __future__ import absolute_import, print_function, division
+from __future__ import absolute_import, print_function, with_statement, division
 
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "27/10/2016"
+__date__ = "10/07/2017"
 __status__ = "development"
 __docformat__ = 'restructuredtext'
 __doc__ = """Module with GUI for diffraction mapping experiments"""
@@ -44,7 +44,7 @@ import sys
 import collections
 import glob
 import logging
-logger = logging.getLogger("pyFAI.diffmap")
+logger = logging.getLogger(__name__)
 import numpy
 import fabio
 import json

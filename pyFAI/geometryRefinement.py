@@ -35,15 +35,16 @@ __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "01/06/2017"
+__date__ = "10/07/2017"
 __status__ = "development"
 
 import os
 import tempfile
 import subprocess
 import logging
-import numpy
 import types
+logger = logging.getLogger(__name__)
+import numpy
 from math import pi
 from . import azimuthalIntegrator
 from .calibrant import Calibrant, CALIBRANT_FACTORY
@@ -62,8 +63,8 @@ except ImportError:
 if os.name != "nt":
     WindowsError = RuntimeError
 
-logger = logging.getLogger("pyFAI.geometryRefinement")
-# logger.setLevel(logging.DEBUG)
+
+
 ROCA = "/opt/saxs/roca"
 
 ####################

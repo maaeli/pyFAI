@@ -26,13 +26,13 @@
 # THE SOFTWARE.
 
 
-from __future__ import absolute_import, print_function, division
+from __future__ import absolute_import, print_function, with_statement, division
 
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "24/11/2016"
+__date__ = "10/07/2017"
 __status__ = "development"
 __docformat__ = 'restructuredtext'
 __doc__ = """
@@ -45,6 +45,8 @@ import os
 import time
 import json
 import threading
+import logging
+logger = logging.getLogger(__name__)
 from .gui import qt
 from .gui.matplotlib import pyplot
 from .utils import int_, str_, get_ui_file
@@ -53,8 +55,6 @@ from .integrate_widget import AIWidget
 from . import worker
 from .diffmap import DiffMap
 from .tree import ListDataSet, DataSet
-import logging
-logger = logging.getLogger(__name__)
 
 
 class IntegrateWidget(qt.QDialog):

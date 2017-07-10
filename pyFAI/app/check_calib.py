@@ -40,10 +40,12 @@ __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "18/05/2017"
+__date__ = "10/07/2017"
 __satus__ = "production"
 
 import logging
+logging.basicConfig(level=logging.WARNING)
+
 import warnings
 import sys
 

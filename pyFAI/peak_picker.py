@@ -29,25 +29,26 @@
 """Semi-graphical tool for peak-picking and extracting visually control points
 from an image with Debye-Scherer rings"""
 
-from __future__ import print_function, absolute_import
+from __future__ import print_function, absolute_import, division
 
 __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "15/05/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 
 import os
 import sys
 import threading
-import logging
 import gc
 import types
 import array
 import operator
-import numpy
 from collections import OrderedDict
+import logging
+logger = logging.getLogger(__name__)
+import numpy
 
 try:
     from .gui import qt
@@ -60,18 +61,14 @@ if qt is not None:
     from .gui import utils as gui_utils
 
 import fabio
+from .utils import six
 from .calibrant import Calibrant, CALIBRANT_FACTORY
 from .blob_detection import BlobDetection
 from .massif import Massif
 from .ext.reconstruct import reconstruct
 from .ext.watershed import InverseWatershed
 
-try:
-    from .third_party import six
-except (ImportError, Exception):
-    import six
 
-logger = logging.getLogger("pyFAI.peak_picker")
 if os.name != "nt":
     WindowsError = RuntimeError
 
@@ -286,10 +283,10 @@ class PeakPicker(object):
             txt = 'Linear colour scale (skipping lowest/highest per mille)'
 
         # skip lowest and highest per mille of image values via vmin/vmax
-        sorted = data_disp.flatten()  # explicit copy
-        sorted.sort()
-        show_min = sorted[int(round(1e-3 * (sorted.size - 1)))]
-        show_max = sorted[int(round(0.999 * (sorted.size - 1)))]
+        sorted_ = data_disp.flatten()  # explicit copy
+        sorted_.sort()
+        show_min = sorted_[int(round(1e-3 * (sorted_.size - 1)))]
+        show_max = sorted_[int(round(0.999 * (sorted_.size - 1)))]
         im = self.ax.imshow(data_disp, vmin=show_min, vmax=show_max,
                             origin="lower", interpolation="nearest",
                             )

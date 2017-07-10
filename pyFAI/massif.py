@@ -31,7 +31,7 @@ __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "15/05/2017"
+__date__ = "10/07/2017"
 __status__ = "production"
 
 import sys
@@ -39,18 +39,14 @@ import os
 import threading
 from math import ceil, sqrt
 import logging
-logger = logging.getLogger("pyFAI.massif")
+logger = logging.getLogger(__name__)
 import numpy
 import fabio
 from scipy.ndimage import label
 from scipy.ndimage.filters import median_filter
 
 from .ext.bilinear import Bilinear
-from .utils import gaussian_filter, binning, unBinning, relabel, is_far_from_group
-try:
-    from .third_party import six
-except (ImportError, Exception):
-    import six
+from .utils import gaussian_filter, binning, unBinning, relabel, is_far_from_group, six
 
 if os.name != "nt":
     WindowsError = RuntimeError
