@@ -33,7 +33,7 @@ reverse implementation based on a sparse matrix multiplication
 """
 __author__ = "Giannis Ashiotis"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "15/05/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
@@ -47,7 +47,8 @@ from cython.view cimport array as cvarray
 ctypedef float data_t
 ctypedef double position_t
 
-include "regrid_common.pxi"
+from regrid_common cimport get_bin_number, EPS32, fabs, pi, piover2
+
 
 cdef inline position_t area4(position_t a0, position_t a1, position_t b0, position_t b1, position_t c0, position_t c1, position_t d0, position_t d1) nogil:
     """

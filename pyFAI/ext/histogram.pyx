@@ -27,16 +27,18 @@
 #  THE SOFTWARE.
 
 
+"""Selector for OpenMP enabled or not histogram functions"""
 
-__doc__ = """Selector for OpenMP enabled or not histogram functions"""
 __author__ = "Jerome Kieffer"
-__date__ = "31/05/2016"
+__date__ = "10/07/2017"
 __license__ = "MIT"
 __copyright__ = "2011-2016, ESRF"
 __contact__ = "jerome.kieffer@esrf.fr"
 
 
-include "regrid_common.pxi"
+from regrid_common cimport get_bin_number, EPS32 
+cimport numpy
+
 
 IF HAVE_OPENMP:
     include "histogram_omp.pxi"

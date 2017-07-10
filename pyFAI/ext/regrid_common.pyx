@@ -25,25 +25,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-__doc__ = """Common cdef constants and functions for preprocessing"""
+"""Common cdef constants and functions for preprocessing. 
+
+Mind the pyx and the pxd files both exists"""
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "02/02/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
 include "numpy_common.pxi"
 import cython
-cimport numpy
+# cimport numpy
 import numpy
-from cython cimport floating
-from libc.math cimport fabs, M_PI
-cdef:
-    float pi = <float> M_PI
-    float piover2 = <float> (pi * 0.5)
-    float onef = <float> 1.0
-    float zerof = <float> 1.0
-    double EPS32 = (1.0 + numpy.finfo(numpy.float32).eps)
+# from cython cimport floating
+# from libc.math cimport fabs, M_PI
+# cdef:
+#     float pi = <float> M_PI
+#     float piover2 = <float> (pi * 0.5)
+#     float onef = <float> 1.0
+#     float zerof = <float> 1.0
+#     double EPS32 = (1.0 + numpy.finfo(numpy.float32).eps)
 
 
 @cython.cdivision(True)

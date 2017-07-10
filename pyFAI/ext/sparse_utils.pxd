@@ -25,7 +25,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include "sparse_common.pxi"
+cdef struct lut_point:
+    int idx
+    float coef
 
 
 cdef class Vector:

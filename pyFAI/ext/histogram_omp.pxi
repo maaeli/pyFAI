@@ -29,9 +29,9 @@
 
 __doc__ = """Re-implementation of numpy histograms using OpenMP"""
 __author__ = "Jerome Kieffer"
-__date__ = "02/02/2017"
+__date__ = "10/07/2017"
 __license__ = "MIT"
-__copyright__ = "2011-2016, ESRF"
+__copyright__ = "2011-2017, ESRF"
 __contact__ = "jerome.kieffer@esrf.fr"
 
 import cython
@@ -40,8 +40,7 @@ from cython.view cimport array as cvarray
 from libc.math cimport floor
 from openmp cimport omp_set_num_threads, omp_get_max_threads, omp_get_thread_num
 import logging
-logger = logging.getLogger("pyFAI.histogram_omp")
-
+logger = logging.getLogger(__name__)
 
 
 @cython.cdivision(True)

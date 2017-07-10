@@ -28,7 +28,7 @@
 
 __author__ = "Jerome Kieffer"
 __license__ = "MIT"
-__date__ = "10/02/2017"
+__date__ = "10/07/2017"
 __copyright__ = "2011-2016, ESRF"
 __contact__ = "jerome.kieffer@esrf.fr"
 
@@ -36,7 +36,7 @@ import cython
 cimport numpy
 import numpy
 from cython cimport view, floating
-from cython.parallel import prange#, threadlocal
+from cython.parallel import prange
 from cpython.ref cimport PyObject, Py_XDECREF
 from libc.string cimport memset, memcpy
 from libc.math cimport floor, ceil, fabs, copysign
@@ -56,12 +56,8 @@ except ImportError:
     import six
 import fabio
 
-#include "sparse_common.pxi"
 from sparse_utils cimport ArrayBuilder, lut_point 
 from sparse_utils import ArrayBuilder, dtype_lut
-# cdef struct lut_point:
-#     int idx
-#     float coef
 
 cdef bint NEED_DECREF = sys.version_info < (2, 7) and numpy.version.version < "1.5"
 

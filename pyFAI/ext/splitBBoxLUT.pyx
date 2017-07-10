@@ -32,14 +32,14 @@ reverse implementation based on a sparse matrix multiplication
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "19/06/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 import cython
 import os
 import sys
 import logging
-logger = logging.getLogger("pyFAI.ext.splitBBoxLUT")
+logger = logging.getLogger(__name__)
 from cpython.ref cimport PyObject, Py_XDECREF
 from cython.parallel import prange
 from libc.string cimport memset, memcpy
@@ -47,14 +47,9 @@ from cython cimport view
 import numpy
 cimport numpy
 
-include "regrid_common.pxi"
-
-cdef struct lut_point:
-    numpy.int32_t idx
-    numpy.float32_t coef
-
-dtype_lut = numpy.dtype([("idx", numpy.int32), ("coef", numpy.float32)])
-
+from regrid_common cimport get_bin_number, EPS32, fabs, pi, zerof
+from sparse_utils cimport lut_point
+from .sparse_utils import dtype_lut
 from ..utils import crc32
 
 

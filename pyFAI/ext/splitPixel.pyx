@@ -25,14 +25,14 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
-__doc__ = """Calculates histograms of pos0 (tth) weighted by Intensity
+"""Calculates histograms of pos0 (tth) weighted by Intensity
 
 Splitting is done by full pixel splitting
 Histogram (direct) implementation
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "15/05/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
@@ -43,7 +43,7 @@ from libc.math cimport fabs, ceil, floor
 from libc.string cimport memset
 from cython cimport view
 
-include "regrid_common.pxi"
+from regrid_common cimport get_bin_number, EPS32, fabs, pi
 
 ctypedef double position_t
 ctypedef double data_t

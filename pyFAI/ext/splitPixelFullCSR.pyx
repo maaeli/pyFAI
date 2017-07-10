@@ -31,7 +31,7 @@ Sparse matrix represented using the CompressedSparseRow.
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "15/06/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
@@ -45,8 +45,7 @@ cimport numpy
 from libc.math cimport fabs, floor, sqrt
 from libc.stdio cimport printf, fflush, stdout
 
-include "regrid_common.pxi"
-
+from regrid_common cimport get_bin_number, pi, piover2
 from ..utils import crc32
 
 

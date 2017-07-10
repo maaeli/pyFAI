@@ -40,7 +40,7 @@ from cython cimport floating
 from cython.parallel import prange
 
 import logging
-logger = logging.getLogger("pyFAI.ext.bilinear")
+logger = logging.getLogger(__name__)
 
 from ..decorators import timeit
 

@@ -28,11 +28,15 @@
 """Common Look-Up table/CSR object creation tools and conversion"""
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "22/06/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
-include "sparse_common.pxi"
+
+import cython
+import numpy
+
+dtype_lut = numpy.dtype([("idx", numpy.int32), ("coef", numpy.float32)])
 
 
 @cython.boundscheck(False)
@@ -172,10 +176,7 @@ cdef class Vector:
 
 
 cdef class ArrayBuilder:
-# --> see the associated PXD file
-#     cdef:
-#         int size 
-#         Vector[:] lines
+    "see the associated PXD file for c-level attributes"
         
     def __cinit__(self, int nlines, min_size=4):
         cdef int i

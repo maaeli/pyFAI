@@ -1892,7 +1892,6 @@ static const char __pyx_k_id[] = "id";
 static const char __pyx_k_px[] = "px";
 static const char __pyx_k_py[] = "py";
 static const char __pyx_k_MIT[] = "MIT";
-static const char __pyx_k_doc[] = "__doc__";
 static const char __pyx_k_obj[] = "obj";
 static const char __pyx_k_val[] = "val";
 static const char __pyx_k_base[] = "base";
@@ -1943,7 +1942,7 @@ static const char __pyx_k_Ellipsis[] = "Ellipsis";
 static const char __pyx_k_itemsize[] = "itemsize";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_enumerate[] = "enumerate";
-static const char __pyx_k_01_12_2016[] = "01/12/2016";
+static const char __pyx_k_10_07_2017[] = "10/07/2017";
 static const char __pyx_k_IndexError[] = "IndexError";
 static const char __pyx_k_ValueError[] = "ValueError";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
@@ -1970,10 +1969,10 @@ static const char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cyt
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
 static const char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
-static const char __pyx_k_A_few_binary_morphology_operati[] = "\nA few binary morphology operation\n";
 static const char __pyx_k_numpy_core_multiarray_failed_to[] = "numpy.core.multiarray failed to import";
 static const char __pyx_k_unknown_dtype_code_in_numpy_pxd[] = "unknown dtype code in numpy.pxd (%d)";
 static const char __pyx_k_users_kieffer_workspace_400_pyF[] = "/users/kieffer/workspace-400/pyFAI/pyFAI/ext/morphology.pyx";
+static const char __pyx_k_A_few_binary_morphology_operatio[] = "A few binary morphology operation\n";
 static const char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static const char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
 static const char __pyx_k_Empty_shape_tuple_for_cython_arr[] = "Empty shape tuple for cython.array";
@@ -1988,9 +1987,8 @@ static const char __pyx_k_ndarray_is_not_Fortran_contiguou[] = "ndarray is not F
 static const char __pyx_k_numpy_core_umath_failed_to_impor[] = "numpy.core.umath failed to import";
 static const char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static const char __pyx_k_Format_string_allocated_too_shor_2[] = "Format string allocated too short.";
-static PyObject *__pyx_kp_s_01_12_2016;
+static PyObject *__pyx_kp_s_10_07_2017;
 static PyObject *__pyx_n_s_ASCII;
-static PyObject *__pyx_kp_s_A_few_binary_morphology_operati;
 static PyObject *__pyx_kp_s_Buffer_view_does_not_expose_stri;
 static PyObject *__pyx_kp_s_Can_only_create_a_buffer_that_is;
 static PyObject *__pyx_kp_s_Cannot_index_with_type_s;
@@ -2030,7 +2028,6 @@ static PyObject *__pyx_kp_s_contiguous_and_direct;
 static PyObject *__pyx_kp_s_contiguous_and_indirect;
 static PyObject *__pyx_n_s_curr;
 static PyObject *__pyx_n_s_date;
-static PyObject *__pyx_n_s_doc;
 static PyObject *__pyx_n_s_dtype;
 static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_empty;
@@ -2171,7 +2168,7 @@ static PyObject *__pyx_tuple__31;
 static PyObject *__pyx_codeobj__24;
 static PyObject *__pyx_codeobj__26;
 
-/* "pyFAI/ext/morphology.pyx":44
+/* "pyFAI/ext/morphology.pyx":43
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_dilation(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
@@ -2213,7 +2210,7 @@ static PyObject *__pyx_pw_5pyFAI_3ext_10morphology_1binary_dilation(PyObject *__
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "binary_dilation") < 0)) __PYX_ERR(0, 44, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "binary_dilation") < 0)) __PYX_ERR(0, 43, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2223,16 +2220,16 @@ static PyObject *__pyx_pw_5pyFAI_3ext_10morphology_1binary_dilation(PyObject *__
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_5numpy_int8_t(values[0]); if (unlikely(!__pyx_v_image.memview)) __PYX_ERR(0, 44, __pyx_L3_error)
+    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_5numpy_int8_t(values[0]); if (unlikely(!__pyx_v_image.memview)) __PYX_ERR(0, 43, __pyx_L3_error)
     if (values[1]) {
-      __pyx_v_radius = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_radius == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 45, __pyx_L3_error)
+      __pyx_v_radius = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_radius == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 44, __pyx_L3_error)
     } else {
       __pyx_v_radius = ((float)1.0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("binary_dilation", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 44, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("binary_dilation", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 43, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyFAI.ext.morphology.binary_dilation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2288,7 +2285,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
   Py_ssize_t __pyx_t_25;
   __Pyx_RefNannySetupContext("binary_dilation", 0);
 
-  /* "pyFAI/ext/morphology.pyx":58
+  /* "pyFAI/ext/morphology.pyx":57
  *     cdef:
  *         int x, y, i, j, size_x, size_y, px, py,
  *         int r_int = int(radius), r2_int = int(radius * radius)             # <<<<<<<<<<<<<<
@@ -2298,7 +2295,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
   __pyx_v_r_int = ((int)__pyx_v_radius);
   __pyx_v_r2_int = ((int)(__pyx_v_radius * __pyx_v_radius));
 
-  /* "pyFAI/ext/morphology.pyx":59
+  /* "pyFAI/ext/morphology.pyx":58
  *         int x, y, i, j, size_x, size_y, px, py,
  *         int r_int = int(radius), r2_int = int(radius * radius)
  *     size_y = image.shape[0]             # <<<<<<<<<<<<<<
@@ -2307,7 +2304,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
   __pyx_v_size_y = (__pyx_v_image.shape[0]);
 
-  /* "pyFAI/ext/morphology.pyx":60
+  /* "pyFAI/ext/morphology.pyx":59
  *         int r_int = int(radius), r2_int = int(radius * radius)
  *     size_y = image.shape[0]
  *     size_x = image.shape[1]             # <<<<<<<<<<<<<<
@@ -2316,32 +2313,32 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
   __pyx_v_size_x = (__pyx_v_image.shape[1]);
 
-  /* "pyFAI/ext/morphology.pyx":63
+  /* "pyFAI/ext/morphology.pyx":62
  *     cdef:
  *         numpy.int8_t val, curr
  *         numpy.int8_t[:, ::1] result = numpy.empty(dtype=numpy.int8, shape=(size_y, size_x))             # <<<<<<<<<<<<<<
  * 
  *     for y in range(size_y):
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_int8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_int8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_size_y); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_size_y); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_size_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_size_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
@@ -2349,20 +2346,20 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_3);
   __pyx_t_4 = 0;
   __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_5numpy_int8_t(__pyx_t_5);
-  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_result = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "pyFAI/ext/morphology.pyx":65
+  /* "pyFAI/ext/morphology.pyx":64
  *         numpy.int8_t[:, ::1] result = numpy.empty(dtype=numpy.int8, shape=(size_y, size_x))
  * 
  *     for y in range(size_y):             # <<<<<<<<<<<<<<
@@ -2373,7 +2370,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
   for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
     __pyx_v_y = __pyx_t_8;
 
-    /* "pyFAI/ext/morphology.pyx":66
+    /* "pyFAI/ext/morphology.pyx":65
  * 
  *     for y in range(size_y):
  *         for x in range(size_x):             # <<<<<<<<<<<<<<
@@ -2384,7 +2381,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
     for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
       __pyx_v_x = __pyx_t_10;
 
-      /* "pyFAI/ext/morphology.pyx":67
+      /* "pyFAI/ext/morphology.pyx":66
  *     for y in range(size_y):
  *         for x in range(size_x):
  *             val = image[y, x]             # <<<<<<<<<<<<<<
@@ -2395,7 +2392,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
       __pyx_t_12 = __pyx_v_x;
       __pyx_v_val = (*((__pyx_t_5numpy_int8_t *) ( /* dim=1 */ ((char *) (((__pyx_t_5numpy_int8_t *) ( /* dim=0 */ (__pyx_v_image.data + __pyx_t_11 * __pyx_v_image.strides[0]) )) + __pyx_t_12)) )));
 
-      /* "pyFAI/ext/morphology.pyx":68
+      /* "pyFAI/ext/morphology.pyx":67
  *         for x in range(size_x):
  *             val = image[y, x]
  *             for j in range(-r_int, r_int + 1):             # <<<<<<<<<<<<<<
@@ -2406,7 +2403,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
       for (__pyx_t_14 = (-__pyx_v_r_int); __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
         __pyx_v_j = __pyx_t_14;
 
-        /* "pyFAI/ext/morphology.pyx":69
+        /* "pyFAI/ext/morphology.pyx":68
  *             val = image[y, x]
  *             for j in range(-r_int, r_int + 1):
  *                 py = y + j             # <<<<<<<<<<<<<<
@@ -2415,7 +2412,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
         __pyx_v_py = (__pyx_v_y + __pyx_v_j);
 
-        /* "pyFAI/ext/morphology.pyx":70
+        /* "pyFAI/ext/morphology.pyx":69
  *             for j in range(-r_int, r_int + 1):
  *                 py = y + j
  *                 if py < 0 or py >= size_y:             # <<<<<<<<<<<<<<
@@ -2433,7 +2430,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
         __pyx_L10_bool_binop_done:;
         if (__pyx_t_15) {
 
-          /* "pyFAI/ext/morphology.pyx":71
+          /* "pyFAI/ext/morphology.pyx":70
  *                 py = y + j
  *                 if py < 0 or py >= size_y:
  *                     continue             # <<<<<<<<<<<<<<
@@ -2442,7 +2439,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
           goto __pyx_L7_continue;
 
-          /* "pyFAI/ext/morphology.pyx":70
+          /* "pyFAI/ext/morphology.pyx":69
  *             for j in range(-r_int, r_int + 1):
  *                 py = y + j
  *                 if py < 0 or py >= size_y:             # <<<<<<<<<<<<<<
@@ -2451,7 +2448,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
         }
 
-        /* "pyFAI/ext/morphology.pyx":72
+        /* "pyFAI/ext/morphology.pyx":71
  *                 if py < 0 or py >= size_y:
  *                     continue
  *                 for i in range(-r_int, r_int + 1):             # <<<<<<<<<<<<<<
@@ -2462,7 +2459,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
         for (__pyx_t_18 = (-__pyx_v_r_int); __pyx_t_18 < __pyx_t_17; __pyx_t_18+=1) {
           __pyx_v_i = __pyx_t_18;
 
-          /* "pyFAI/ext/morphology.pyx":73
+          /* "pyFAI/ext/morphology.pyx":72
  *                     continue
  *                 for i in range(-r_int, r_int + 1):
  *                     px = x + i             # <<<<<<<<<<<<<<
@@ -2471,7 +2468,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
           __pyx_v_px = (__pyx_v_x + __pyx_v_i);
 
-          /* "pyFAI/ext/morphology.pyx":74
+          /* "pyFAI/ext/morphology.pyx":73
  *                 for i in range(-r_int, r_int + 1):
  *                     px = x + i
  *                     if (px < 0) or (px >= size_x):             # <<<<<<<<<<<<<<
@@ -2489,7 +2486,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
           __pyx_L15_bool_binop_done:;
           if (__pyx_t_15) {
 
-            /* "pyFAI/ext/morphology.pyx":75
+            /* "pyFAI/ext/morphology.pyx":74
  *                     px = x + i
  *                     if (px < 0) or (px >= size_x):
  *                         continue             # <<<<<<<<<<<<<<
@@ -2498,7 +2495,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
             goto __pyx_L12_continue;
 
-            /* "pyFAI/ext/morphology.pyx":74
+            /* "pyFAI/ext/morphology.pyx":73
  *                 for i in range(-r_int, r_int + 1):
  *                     px = x + i
  *                     if (px < 0) or (px >= size_x):             # <<<<<<<<<<<<<<
@@ -2507,7 +2504,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  */
           }
 
-          /* "pyFAI/ext/morphology.pyx":76
+          /* "pyFAI/ext/morphology.pyx":75
  *                     if (px < 0) or (px >= size_x):
  *                         continue
  *                     if i * i + j * j <= r2_int:             # <<<<<<<<<<<<<<
@@ -2517,7 +2514,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
           __pyx_t_15 = ((((__pyx_v_i * __pyx_v_i) + (__pyx_v_j * __pyx_v_j)) <= __pyx_v_r2_int) != 0);
           if (__pyx_t_15) {
 
-            /* "pyFAI/ext/morphology.pyx":77
+            /* "pyFAI/ext/morphology.pyx":76
  *                         continue
  *                     if i * i + j * j <= r2_int:
  *                         curr = image[py, px]             # <<<<<<<<<<<<<<
@@ -2528,7 +2525,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
             __pyx_t_20 = __pyx_v_px;
             __pyx_v_curr = (*((__pyx_t_5numpy_int8_t *) ( /* dim=1 */ ((char *) (((__pyx_t_5numpy_int8_t *) ( /* dim=0 */ (__pyx_v_image.data + __pyx_t_19 * __pyx_v_image.strides[0]) )) + __pyx_t_20)) )));
 
-            /* "pyFAI/ext/morphology.pyx":78
+            /* "pyFAI/ext/morphology.pyx":77
  *                     if i * i + j * j <= r2_int:
  *                         curr = image[py, px]
  *                         val = max(val, curr)             # <<<<<<<<<<<<<<
@@ -2544,7 +2541,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
             }
             __pyx_v_val = __pyx_t_23;
 
-            /* "pyFAI/ext/morphology.pyx":76
+            /* "pyFAI/ext/morphology.pyx":75
  *                     if (px < 0) or (px >= size_x):
  *                         continue
  *                     if i * i + j * j <= r2_int:             # <<<<<<<<<<<<<<
@@ -2557,7 +2554,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
         __pyx_L7_continue:;
       }
 
-      /* "pyFAI/ext/morphology.pyx":79
+      /* "pyFAI/ext/morphology.pyx":78
  *                         curr = image[py, px]
  *                         val = max(val, curr)
  *             result[y, x] = val             # <<<<<<<<<<<<<<
@@ -2570,7 +2567,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
     }
   }
 
-  /* "pyFAI/ext/morphology.pyx":80
+  /* "pyFAI/ext/morphology.pyx":79
  *                         val = max(val, curr)
  *             result[y, x] = val
  *     return numpy.asarray(result)             # <<<<<<<<<<<<<<
@@ -2578,12 +2575,12 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_result, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_5numpy_int8_t, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_5numpy_int8_t, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_result, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_5numpy_int8_t, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_5numpy_int8_t, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -2596,14 +2593,14 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2612,20 +2609,20 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 79, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 80, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 79, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -2635,7 +2632,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "pyFAI/ext/morphology.pyx":44
+  /* "pyFAI/ext/morphology.pyx":43
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_dilation(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
@@ -2661,7 +2658,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_binary_dilation(CYTHON_UNUSED
   return __pyx_r;
 }
 
-/* "pyFAI/ext/morphology.pyx":86
+/* "pyFAI/ext/morphology.pyx":85
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_erosion(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
@@ -2703,7 +2700,7 @@ static PyObject *__pyx_pw_5pyFAI_3ext_10morphology_3binary_erosion(PyObject *__p
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "binary_erosion") < 0)) __PYX_ERR(0, 86, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "binary_erosion") < 0)) __PYX_ERR(0, 85, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2713,16 +2710,16 @@ static PyObject *__pyx_pw_5pyFAI_3ext_10morphology_3binary_erosion(PyObject *__p
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_5numpy_int8_t(values[0]); if (unlikely(!__pyx_v_image.memview)) __PYX_ERR(0, 86, __pyx_L3_error)
+    __pyx_v_image = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_5numpy_int8_t(values[0]); if (unlikely(!__pyx_v_image.memview)) __PYX_ERR(0, 85, __pyx_L3_error)
     if (values[1]) {
-      __pyx_v_radius = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_radius == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L3_error)
+      __pyx_v_radius = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_radius == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
     } else {
       __pyx_v_radius = ((float)1.0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("binary_erosion", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 86, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("binary_erosion", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 85, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyFAI.ext.morphology.binary_erosion", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2778,7 +2775,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
   Py_ssize_t __pyx_t_25;
   __Pyx_RefNannySetupContext("binary_erosion", 0);
 
-  /* "pyFAI/ext/morphology.pyx":100
+  /* "pyFAI/ext/morphology.pyx":99
  *     cdef:
  *         int x, y, i, j, size_x, size_y, px, py,
  *         int r_int = int(radius), r2_int = int(radius * radius)             # <<<<<<<<<<<<<<
@@ -2788,7 +2785,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
   __pyx_v_r_int = ((int)__pyx_v_radius);
   __pyx_v_r2_int = ((int)(__pyx_v_radius * __pyx_v_radius));
 
-  /* "pyFAI/ext/morphology.pyx":101
+  /* "pyFAI/ext/morphology.pyx":100
  *         int x, y, i, j, size_x, size_y, px, py,
  *         int r_int = int(radius), r2_int = int(radius * radius)
  *     size_y = image.shape[0]             # <<<<<<<<<<<<<<
@@ -2797,7 +2794,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
   __pyx_v_size_y = (__pyx_v_image.shape[0]);
 
-  /* "pyFAI/ext/morphology.pyx":102
+  /* "pyFAI/ext/morphology.pyx":101
  *         int r_int = int(radius), r2_int = int(radius * radius)
  *     size_y = image.shape[0]
  *     size_x = image.shape[1]             # <<<<<<<<<<<<<<
@@ -2806,32 +2803,32 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
   __pyx_v_size_x = (__pyx_v_image.shape[1]);
 
-  /* "pyFAI/ext/morphology.pyx":105
+  /* "pyFAI/ext/morphology.pyx":104
  *     cdef:
  *         numpy.int8_t val, curr
  *         numpy.int8_t[:, ::1] result = numpy.empty(dtype=numpy.int8, shape=(size_y, size_x))             # <<<<<<<<<<<<<<
  * 
  *     for y in range(size_y):
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_empty); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_int8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_int8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_size_y); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_size_y); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_size_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_size_x); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(2); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_4);
@@ -2839,20 +2836,20 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
   PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_3);
   __pyx_t_4 = 0;
   __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_5) < 0) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 105, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_6 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_5numpy_int8_t(__pyx_t_5);
-  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 105, __pyx_L1_error)
+  if (unlikely(!__pyx_t_6.memview)) __PYX_ERR(0, 104, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_result = __pyx_t_6;
   __pyx_t_6.memview = NULL;
   __pyx_t_6.data = NULL;
 
-  /* "pyFAI/ext/morphology.pyx":107
+  /* "pyFAI/ext/morphology.pyx":106
  *         numpy.int8_t[:, ::1] result = numpy.empty(dtype=numpy.int8, shape=(size_y, size_x))
  * 
  *     for y in range(size_y):             # <<<<<<<<<<<<<<
@@ -2863,7 +2860,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
   for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
     __pyx_v_y = __pyx_t_8;
 
-    /* "pyFAI/ext/morphology.pyx":108
+    /* "pyFAI/ext/morphology.pyx":107
  * 
  *     for y in range(size_y):
  *         for x in range(size_x):             # <<<<<<<<<<<<<<
@@ -2874,7 +2871,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
     for (__pyx_t_10 = 0; __pyx_t_10 < __pyx_t_9; __pyx_t_10+=1) {
       __pyx_v_x = __pyx_t_10;
 
-      /* "pyFAI/ext/morphology.pyx":109
+      /* "pyFAI/ext/morphology.pyx":108
  *     for y in range(size_y):
  *         for x in range(size_x):
  *             val = image[y, x]             # <<<<<<<<<<<<<<
@@ -2885,7 +2882,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
       __pyx_t_12 = __pyx_v_x;
       __pyx_v_val = (*((__pyx_t_5numpy_int8_t *) ( /* dim=1 */ ((char *) (((__pyx_t_5numpy_int8_t *) ( /* dim=0 */ (__pyx_v_image.data + __pyx_t_11 * __pyx_v_image.strides[0]) )) + __pyx_t_12)) )));
 
-      /* "pyFAI/ext/morphology.pyx":110
+      /* "pyFAI/ext/morphology.pyx":109
  *         for x in range(size_x):
  *             val = image[y, x]
  *             for j in range(-r_int, r_int + 1):             # <<<<<<<<<<<<<<
@@ -2896,7 +2893,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
       for (__pyx_t_14 = (-__pyx_v_r_int); __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
         __pyx_v_j = __pyx_t_14;
 
-        /* "pyFAI/ext/morphology.pyx":111
+        /* "pyFAI/ext/morphology.pyx":110
  *             val = image[y, x]
  *             for j in range(-r_int, r_int + 1):
  *                 py = y + j             # <<<<<<<<<<<<<<
@@ -2905,7 +2902,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
         __pyx_v_py = (__pyx_v_y + __pyx_v_j);
 
-        /* "pyFAI/ext/morphology.pyx":112
+        /* "pyFAI/ext/morphology.pyx":111
  *             for j in range(-r_int, r_int + 1):
  *                 py = y + j
  *                 if (py < 0) or (py >= size_y):             # <<<<<<<<<<<<<<
@@ -2923,7 +2920,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
         __pyx_L10_bool_binop_done:;
         if (__pyx_t_15) {
 
-          /* "pyFAI/ext/morphology.pyx":113
+          /* "pyFAI/ext/morphology.pyx":112
  *                 py = y + j
  *                 if (py < 0) or (py >= size_y):
  *                     continue             # <<<<<<<<<<<<<<
@@ -2932,7 +2929,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
           goto __pyx_L7_continue;
 
-          /* "pyFAI/ext/morphology.pyx":112
+          /* "pyFAI/ext/morphology.pyx":111
  *             for j in range(-r_int, r_int + 1):
  *                 py = y + j
  *                 if (py < 0) or (py >= size_y):             # <<<<<<<<<<<<<<
@@ -2941,7 +2938,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
         }
 
-        /* "pyFAI/ext/morphology.pyx":114
+        /* "pyFAI/ext/morphology.pyx":113
  *                 if (py < 0) or (py >= size_y):
  *                     continue
  *                 for i in range(-r_int, r_int + 1):             # <<<<<<<<<<<<<<
@@ -2952,7 +2949,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
         for (__pyx_t_18 = (-__pyx_v_r_int); __pyx_t_18 < __pyx_t_17; __pyx_t_18+=1) {
           __pyx_v_i = __pyx_t_18;
 
-          /* "pyFAI/ext/morphology.pyx":115
+          /* "pyFAI/ext/morphology.pyx":114
  *                     continue
  *                 for i in range(-r_int, r_int + 1):
  *                     px = x + i             # <<<<<<<<<<<<<<
@@ -2961,7 +2958,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
           __pyx_v_px = (__pyx_v_x + __pyx_v_i);
 
-          /* "pyFAI/ext/morphology.pyx":116
+          /* "pyFAI/ext/morphology.pyx":115
  *                 for i in range(-r_int, r_int + 1):
  *                     px = x + i
  *                     if (px < 0) or (px >= size_x):             # <<<<<<<<<<<<<<
@@ -2979,7 +2976,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
           __pyx_L15_bool_binop_done:;
           if (__pyx_t_15) {
 
-            /* "pyFAI/ext/morphology.pyx":117
+            /* "pyFAI/ext/morphology.pyx":116
  *                     px = x + i
  *                     if (px < 0) or (px >= size_x):
  *                         continue             # <<<<<<<<<<<<<<
@@ -2988,7 +2985,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
             goto __pyx_L12_continue;
 
-            /* "pyFAI/ext/morphology.pyx":116
+            /* "pyFAI/ext/morphology.pyx":115
  *                 for i in range(-r_int, r_int + 1):
  *                     px = x + i
  *                     if (px < 0) or (px >= size_x):             # <<<<<<<<<<<<<<
@@ -2997,7 +2994,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
  */
           }
 
-          /* "pyFAI/ext/morphology.pyx":118
+          /* "pyFAI/ext/morphology.pyx":117
  *                     if (px < 0) or (px >= size_x):
  *                         continue
  *                     if i * i + j * j <= r2_int:             # <<<<<<<<<<<<<<
@@ -3007,7 +3004,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
           __pyx_t_15 = ((((__pyx_v_i * __pyx_v_i) + (__pyx_v_j * __pyx_v_j)) <= __pyx_v_r2_int) != 0);
           if (__pyx_t_15) {
 
-            /* "pyFAI/ext/morphology.pyx":119
+            /* "pyFAI/ext/morphology.pyx":118
  *                         continue
  *                     if i * i + j * j <= r2_int:
  *                         curr = image[py, px]             # <<<<<<<<<<<<<<
@@ -3018,7 +3015,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
             __pyx_t_20 = __pyx_v_px;
             __pyx_v_curr = (*((__pyx_t_5numpy_int8_t *) ( /* dim=1 */ ((char *) (((__pyx_t_5numpy_int8_t *) ( /* dim=0 */ (__pyx_v_image.data + __pyx_t_19 * __pyx_v_image.strides[0]) )) + __pyx_t_20)) )));
 
-            /* "pyFAI/ext/morphology.pyx":120
+            /* "pyFAI/ext/morphology.pyx":119
  *                     if i * i + j * j <= r2_int:
  *                         curr = image[py, px]
  *                         val = min(val, curr)             # <<<<<<<<<<<<<<
@@ -3034,7 +3031,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
             }
             __pyx_v_val = __pyx_t_23;
 
-            /* "pyFAI/ext/morphology.pyx":118
+            /* "pyFAI/ext/morphology.pyx":117
  *                     if (px < 0) or (px >= size_x):
  *                         continue
  *                     if i * i + j * j <= r2_int:             # <<<<<<<<<<<<<<
@@ -3047,7 +3044,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
         __pyx_L7_continue:;
       }
 
-      /* "pyFAI/ext/morphology.pyx":121
+      /* "pyFAI/ext/morphology.pyx":120
  *                         curr = image[py, px]
  *                         val = min(val, curr)
  *             result[y, x] = val             # <<<<<<<<<<<<<<
@@ -3059,18 +3056,18 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
     }
   }
 
-  /* "pyFAI/ext/morphology.pyx":122
+  /* "pyFAI/ext/morphology.pyx":121
  *                         val = min(val, curr)
  *             result[y, x] = val
  *     return numpy.asarray(result)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_numpy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_result, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_5numpy_int8_t, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_5numpy_int8_t, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_v_result, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_5numpy_int8_t, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_5numpy_int8_t, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -3083,14 +3080,14 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_5);
   } else {
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3099,20 +3096,20 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[2] = {__pyx_t_3, __pyx_t_1};
-      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else
     #endif
     {
-      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 122, __pyx_L1_error)
+      __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 121, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
       __Pyx_GIVEREF(__pyx_t_1);
       PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_1);
       __pyx_t_1 = 0;
-      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 121, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
@@ -3122,7 +3119,7 @@ static PyObject *__pyx_pf_5pyFAI_3ext_10morphology_2binary_erosion(CYTHON_UNUSED
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "pyFAI/ext/morphology.pyx":86
+  /* "pyFAI/ext/morphology.pyx":85
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_erosion(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
@@ -17993,7 +17990,7 @@ static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
   #endif
     "morphology",
-    0, /* m_doc */
+    __pyx_k_A_few_binary_morphology_operatio, /* m_doc */
     -1, /* m_size */
     __pyx_methods /* m_methods */,
     NULL, /* m_reload */
@@ -18004,9 +18001,8 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_kp_s_01_12_2016, __pyx_k_01_12_2016, sizeof(__pyx_k_01_12_2016), 0, 0, 1, 0},
+  {&__pyx_kp_s_10_07_2017, __pyx_k_10_07_2017, sizeof(__pyx_k_10_07_2017), 0, 0, 1, 0},
   {&__pyx_n_s_ASCII, __pyx_k_ASCII, sizeof(__pyx_k_ASCII), 0, 0, 1, 1},
-  {&__pyx_kp_s_A_few_binary_morphology_operati, __pyx_k_A_few_binary_morphology_operati, sizeof(__pyx_k_A_few_binary_morphology_operati), 0, 0, 1, 0},
   {&__pyx_kp_s_Buffer_view_does_not_expose_stri, __pyx_k_Buffer_view_does_not_expose_stri, sizeof(__pyx_k_Buffer_view_does_not_expose_stri), 0, 0, 1, 0},
   {&__pyx_kp_s_Can_only_create_a_buffer_that_is, __pyx_k_Can_only_create_a_buffer_that_is, sizeof(__pyx_k_Can_only_create_a_buffer_that_is), 0, 0, 1, 0},
   {&__pyx_kp_s_Cannot_index_with_type_s, __pyx_k_Cannot_index_with_type_s, sizeof(__pyx_k_Cannot_index_with_type_s), 0, 0, 1, 0},
@@ -18046,7 +18042,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_contiguous_and_indirect, __pyx_k_contiguous_and_indirect, sizeof(__pyx_k_contiguous_and_indirect), 0, 0, 1, 0},
   {&__pyx_n_s_curr, __pyx_k_curr, sizeof(__pyx_k_curr), 0, 0, 1, 1},
   {&__pyx_n_s_date, __pyx_k_date, sizeof(__pyx_k_date), 0, 0, 1, 1},
-  {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
   {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
@@ -18115,7 +18110,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 64, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 218, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 799, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 989, __pyx_L1_error)
@@ -18377,29 +18372,29 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "pyFAI/ext/morphology.pyx":44
+  /* "pyFAI/ext/morphology.pyx":43
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_dilation(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
  *                     float radius=1.0):
  *     """
  */
-  __pyx_tuple__23 = PyTuple_Pack(15, __pyx_n_s_image, __pyx_n_s_radius, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_size_x, __pyx_n_s_size_y, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_r_int, __pyx_n_s_r2_int, __pyx_n_s_val, __pyx_n_s_curr, __pyx_n_s_result); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_tuple__23 = PyTuple_Pack(15, __pyx_n_s_image, __pyx_n_s_radius, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_size_x, __pyx_n_s_size_y, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_r_int, __pyx_n_s_r2_int, __pyx_n_s_val, __pyx_n_s_curr, __pyx_n_s_result); if (unlikely(!__pyx_tuple__23)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__23);
   __Pyx_GIVEREF(__pyx_tuple__23);
-  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_users_kieffer_workspace_400_pyF, __pyx_n_s_binary_dilation, 44, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_users_kieffer_workspace_400_pyF, __pyx_n_s_binary_dilation, 43, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 43, __pyx_L1_error)
 
-  /* "pyFAI/ext/morphology.pyx":86
+  /* "pyFAI/ext/morphology.pyx":85
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_erosion(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
  *                    float radius=1.0):
  *     """Return fast binary morphological erosion of an image.
  */
-  __pyx_tuple__25 = PyTuple_Pack(15, __pyx_n_s_image, __pyx_n_s_radius, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_size_x, __pyx_n_s_size_y, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_r_int, __pyx_n_s_r2_int, __pyx_n_s_val, __pyx_n_s_curr, __pyx_n_s_result); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_tuple__25 = PyTuple_Pack(15, __pyx_n_s_image, __pyx_n_s_radius, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_size_x, __pyx_n_s_size_y, __pyx_n_s_px, __pyx_n_s_py, __pyx_n_s_r_int, __pyx_n_s_r2_int, __pyx_n_s_val, __pyx_n_s_curr, __pyx_n_s_result); if (unlikely(!__pyx_tuple__25)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
-  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_users_kieffer_workspace_400_pyF, __pyx_n_s_binary_erosion, 86, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_codeobj__26 = (PyObject*)__Pyx_PyCode_New(2, 0, 15, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__25, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_users_kieffer_workspace_400_pyF, __pyx_n_s_binary_erosion, 85, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__26)) __PYX_ERR(0, 85, __pyx_L1_error)
 
   /* "View.MemoryView":282
  *         return self.name
@@ -18521,7 +18516,7 @@ PyMODINIT_FUNC PyInit_morphology(void)
   #endif
   /*--- Module creation code ---*/
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("morphology", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("morphology", __pyx_methods, __pyx_k_A_few_binary_morphology_operatio, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -18612,94 +18607,85 @@ PyMODINIT_FUNC PyInit_morphology(void)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pyFAI/ext/morphology.pyx":28
- * #  THE SOFTWARE.
- * 
- * __doc__ = """             # <<<<<<<<<<<<<<
- * A few binary morphology operation
- * """
- */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_doc, __pyx_kp_s_A_few_binary_morphology_operati) < 0) __PYX_ERR(0, 28, __pyx_L1_error)
-
-  /* "pyFAI/ext/morphology.pyx":31
- * A few binary morphology operation
+  /* "pyFAI/ext/morphology.pyx":30
+ * """A few binary morphology operation
  * """
  * __author__ = "Jerome Kieffer"             # <<<<<<<<<<<<<<
  * __contact__ = "Jerome.kieffer@esrf.fr"
- * __date__ = "01/12/2016"
+ * __date__ = "10/07/2017"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_author, __pyx_kp_s_Jerome_Kieffer) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_author, __pyx_kp_s_Jerome_Kieffer) < 0) __PYX_ERR(0, 30, __pyx_L1_error)
 
-  /* "pyFAI/ext/morphology.pyx":32
+  /* "pyFAI/ext/morphology.pyx":31
  * """
  * __author__ = "Jerome Kieffer"
  * __contact__ = "Jerome.kieffer@esrf.fr"             # <<<<<<<<<<<<<<
- * __date__ = "01/12/2016"
+ * __date__ = "10/07/2017"
  * __status__ = "stable"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_contact, __pyx_kp_s_Jerome_kieffer_esrf_fr) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_contact, __pyx_kp_s_Jerome_kieffer_esrf_fr) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
 
-  /* "pyFAI/ext/morphology.pyx":33
+  /* "pyFAI/ext/morphology.pyx":32
  * __author__ = "Jerome Kieffer"
  * __contact__ = "Jerome.kieffer@esrf.fr"
- * __date__ = "01/12/2016"             # <<<<<<<<<<<<<<
+ * __date__ = "10/07/2017"             # <<<<<<<<<<<<<<
  * __status__ = "stable"
  * __license__ = "MIT"
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_date, __pyx_kp_s_01_12_2016) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_date, __pyx_kp_s_10_07_2017) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "pyFAI/ext/morphology.pyx":34
+  /* "pyFAI/ext/morphology.pyx":33
  * __contact__ = "Jerome.kieffer@esrf.fr"
- * __date__ = "01/12/2016"
+ * __date__ = "10/07/2017"
  * __status__ = "stable"             # <<<<<<<<<<<<<<
  * __license__ = "MIT"
  * import cython
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_status, __pyx_n_s_stable) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_status, __pyx_n_s_stable) < 0) __PYX_ERR(0, 33, __pyx_L1_error)
 
-  /* "pyFAI/ext/morphology.pyx":35
- * __date__ = "01/12/2016"
+  /* "pyFAI/ext/morphology.pyx":34
+ * __date__ = "10/07/2017"
  * __status__ = "stable"
  * __license__ = "MIT"             # <<<<<<<<<<<<<<
  * import cython
  * import numpy
  */
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_license, __pyx_n_s_MIT) < 0) __PYX_ERR(0, 35, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_license, __pyx_n_s_MIT) < 0) __PYX_ERR(0, 34, __pyx_L1_error)
 
-  /* "pyFAI/ext/morphology.pyx":37
+  /* "pyFAI/ext/morphology.pyx":36
  * __license__ = "MIT"
  * import cython
  * import numpy             # <<<<<<<<<<<<<<
  * cimport numpy
  * 
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 37, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_numpy, 0, -1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_numpy, __pyx_t_1) < 0) __PYX_ERR(0, 37, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_numpy, __pyx_t_1) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyFAI/ext/morphology.pyx":44
+  /* "pyFAI/ext/morphology.pyx":43
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_dilation(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
  *                     float radius=1.0):
  *     """
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5pyFAI_3ext_10morphology_1binary_dilation, NULL, __pyx_n_s_pyFAI_ext_morphology); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 44, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5pyFAI_3ext_10morphology_1binary_dilation, NULL, __pyx_n_s_pyFAI_ext_morphology); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_binary_dilation, __pyx_t_1) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_binary_dilation, __pyx_t_1) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyFAI/ext/morphology.pyx":86
+  /* "pyFAI/ext/morphology.pyx":85
  * @cython.wraparound(False)
  * @cython.initializedcheck(False)
  * def binary_erosion(numpy.int8_t[:, ::1] image,             # <<<<<<<<<<<<<<
  *                    float radius=1.0):
  *     """Return fast binary morphological erosion of an image.
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5pyFAI_3ext_10morphology_3binary_erosion, NULL, __pyx_n_s_pyFAI_ext_morphology); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5pyFAI_3ext_10morphology_3binary_erosion, NULL, __pyx_n_s_pyFAI_ext_morphology); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_binary_erosion, __pyx_t_1) < 0) __PYX_ERR(0, 86, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_binary_erosion, __pyx_t_1) < 0) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pyFAI/ext/morphology.pyx":1

@@ -31,17 +31,20 @@ Splitting is done on the pixel's bounding box similar to fit2D
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "02/02/2017"
+__date__ = "10/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
-include "regrid_common.pxi"
+cimport numpy
+cimport cython
+from regrid_common cimport get_bin_number, EPS32, fabs, pi
 
 import logging
-logger = logging.getLogger("pyFAI.ext.splitBBox")
+logger = logging.getLogger(__name__)
 
 from . import sparse_utils
 from .sparse_utils cimport ArrayBuilder
+
 
 @cython.cdivision(True)
 @cython.boundscheck(False)

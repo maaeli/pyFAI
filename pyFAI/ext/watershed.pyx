@@ -39,7 +39,7 @@ import numpy
 cimport numpy
 import sys
 import logging
-logger = logging.getLogger("pyFAI.ext.watershed")
+logger = logging.getLogger(__name__)
 from ..decorators import timeit
 from cython.parallel import prange
 
