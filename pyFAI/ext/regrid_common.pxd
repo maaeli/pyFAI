@@ -42,11 +42,11 @@ cimport numpy
 from cython cimport floating
 from libc.math cimport fabs, M_PI
 cdef:
-    float pi = <float> M_PI
-    float piover2 = <float> (pi * 0.5)
-    float onef = <float> 1.0
-    float zerof = <float> 1.0
-    double EPS32 = (1.0 + numpy.finfo(numpy.float32).eps)
+    float pi #= <float> M_PI
+    float piover2 #= <float> (pi * 0.5)
+    float onef #= <float> 1.0
+    float zerof #= <float> 1.0
+    double EPS32 #= (1.0 + numpy.finfo(numpy.float32).eps)
 
 
 #@cython.cdivision(True)

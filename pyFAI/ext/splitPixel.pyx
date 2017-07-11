@@ -32,10 +32,12 @@ Histogram (direct) implementation
 """
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "10/07/2017"
+__date__ = "11/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
+import logging
+logger = logging.getLogger(__name__)
 import cython
 cimport numpy
 import numpy
@@ -44,9 +46,16 @@ from libc.string cimport memset
 from cython cimport view
 
 from regrid_common cimport get_bin_number, EPS32, fabs, pi
+from isnan cimport isnan 
 
+# define some common types
 ctypedef double position_t
 ctypedef double data_t
+ctypedef double sum_t
+position_d = numpy.float64
+data_d = numpy.float64
+sum_d = numpy.float64
+
 
 cdef inline position_t area4(position_t a0,
                              position_t a1,
@@ -71,14 +80,15 @@ cdef inline position_t calc_area(position_t I1, position_t I2, position_t slope,
     "Calculate the area between I1 and I2 of a line with a given slope & intercept"
     return 0.5 * ((I2 - I1) * (slope * (I2 + I1) + 2 * intercept))
 
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cdef inline void integrate(position_t[:] buffer, int buffer_size, position_t start0, position_t start1, position_t stop0, position_t stop1) nogil:
+cdef inline void integrate(sum_t[:] buffer, int buffer_size, position_t start0, position_t start1, position_t stop0, position_t stop1) nogil:
     "Integrate in a box a line between start and stop"
 
     if stop0 == start0:
-        #slope is infinite, area is null: no change to the buffer
+        # slope is infinite, area is null: no change to the buffer
         return
     cdef position_t slope, intercept
     cdef int i, istart0 = <int> floor(start0), istop0 = <int> floor(stop0)
@@ -89,25 +99,25 @@ cdef inline void integrate(position_t[:] buffer, int buffer_size, position_t sta
     else:
         if stop0 > start0:
                 if 0 <= start0 < buffer_size:
-                    buffer[istart0] += calc_area(start0, floor(start0+1), slope, intercept)
+                    buffer[istart0] += calc_area(start0, floor(start0 + 1), slope, intercept)
                 for i in range(max(istart0 + 1, 0), min(istop0, buffer_size)):
-                    buffer[i] += calc_area(i, i+1, slope, intercept)
+                    buffer[i] += calc_area(i, i + 1, slope, intercept)
                 if buffer_size > stop0 >= 0:
                     buffer[istop0] += calc_area(istop0, stop0, slope, intercept)
         else:
             if 0 <= start0 < buffer_size:
                 buffer[istart0] += calc_area(start0, istart0, slope, intercept)
-            for i in range(min(istart0, buffer_size)-1, max(<int> floor(stop0), -1), -1):
-                buffer[i] += calc_area(i+1, i, slope, intercept)
+            for i in range(min(istart0, buffer_size) - 1, max(<int> floor(stop0), -1), -1):
+                buffer[i] += calc_area(i + 1, i, slope, intercept)
             if buffer_size > stop0 >= 0:
                 buffer[istop0] += calc_area(floor(stop0+1), stop0, slope, intercept)
 
 
-@cython.cdivision(True)
-@cython.boundscheck(False)
-@cython.wraparound(False)
-def fullSplit1D(numpy.ndarray pos not None,
-                numpy.ndarray weights not None,
+#@cython.cdivision(True)
+#@cython.boundscheck(False)
+#@cython.wraparound(False)
+def fullSplit1D(pos,
+                weights,
                 int bins=100,
                 pos0Range=None,
                 pos1Range=None,
@@ -146,22 +156,22 @@ def fullSplit1D(numpy.ndarray pos not None,
     :return: 2theta, I, weighted histogram, unweighted histogram
     """
     cdef int  size = weights.size
-    if pos.ndim>3: #create a view
-        pos = pos.reshape((-1,4,2))
+    if pos.ndim > 3:  # create a view
+        pos = pos.reshape((-1, 4, 2))
     assert pos.shape[0] == size, "pos.shape[0] == size"
     assert pos.shape[1] == 4, "pos.shape[1] == 4"
     assert pos.shape[2] == 2, "pos.shape[2] == 2"
     assert pos.ndim == 3, "pos.ndim == 3"
     assert bins > 1, "at lease one bin"
     cdef:
-        position_t[:,:,:] cpos = numpy.ascontiguousarray(pos,dtype=numpy.float64)
-        data_t[:] cdata = numpy.ascontiguousarray(weights.ravel(), dtype=numpy.float64)
-        numpy.ndarray[numpy.float64_t, ndim = 1] outData = numpy.zeros(bins, dtype=numpy.float64)
-        numpy.ndarray[numpy.float64_t, ndim = 1] outCount = numpy.zeros(bins, dtype=numpy.float64)
-        numpy.ndarray[numpy.float64_t, ndim = 1] outMerge = numpy.zeros(bins, dtype=numpy.float64)
-        numpy.int8_t[:] cmask
-        data_t[:] cflat, cdark, cpolarization, csolidangle
-        position_t[:] buffer
+        position_t[:, :, ::1] cpos = numpy.ascontiguousarray(pos, dtype=position_d)
+        data_t[:] cdata = numpy.ascontiguousarray(weights.ravel(), dtype=data_d)
+        sum_t[::1] outData = numpy.zeros(bins, dtype=sum_d)
+        sum_t[::1] outCount = numpy.zeros(bins, dtype=sum_d)
+        sum_t[::1] outMerge = numpy.zeros(bins, dtype=sum_d)
+        sum_t[::1] buffer = numpy.zeros(bins, dtype=sum_d)
+        numpy.int8_t[::1] cmask
+        data_t[::1] cflat, cdark, cpolarization, csolidangle
 
         data_t cdummy=0, cddummy=0, data=0
         position_t deltaR=0, deltaL=0, one_over_area=0
@@ -172,9 +182,7 @@ def fullSplit1D(numpy.ndarray pos not None,
 
         bint check_pos1=False, check_mask=False, do_dummy=False, do_dark=False, do_flat=False, do_polarization=False, do_solidangle=False
         int i=0, b=0, idx=0, bin=0, bin0_max=0, bin0_min=0
-    buffer = view.array(shape=(bins,),itemsize=sizeof(position_t), format="d")
-    buffer[:] = 0
-
+    
     if mask is not None:
         check_mask = True
         assert mask.size == size, "mask size"
@@ -203,20 +211,19 @@ def fullSplit1D(numpy.ndarray pos not None,
                 d1 = cpos[idx, 3, 1]
                 min0 = min(a0, b0, c0, d0)
                 max0 = max(a0, b0, c0, d0)
-                if max0>pos0_max:
+                if max0 > pos0_max:
                     pos0_max = max0
-                if min0<pos0_min:
+                if min0 < pos0_min:
                     pos0_min = min0
                 min1 = min(a1, b1, c1, d1)
                 max1 = max(a1, b1, c1, d1)
-                if max1>pos1_max:
+                if max1 > pos1_max:
                     pos1_max = max1
-                if min1<pos1_min:
+                if min1 < pos1_min:
                     pos1_min = min1
 
             pos0_maxin = pos0_max
-    if pos0_min<0:
-        pos0_min=0
+    pos0_min = max(0, pos0_min)
     pos0_max = pos0_maxin * EPS32
 
     if pos1Range is not None and len(pos1Range) > 1:
@@ -224,13 +231,13 @@ def fullSplit1D(numpy.ndarray pos not None,
         pos1_maxin = max(pos1Range)
         check_pos1 = True
     else:
-        if min1==max1==0:
+        if min1 == max1 == 0:
             pos1_min = pos[:, :, 1].min()
             pos1_maxin = pos[:, :, 1].max()
     pos1_max = pos1_maxin * EPS32
-    dpos = (pos0_max - pos0_min) / (<  double > (bins))
+    dpos = (pos0_max - pos0_min) / (<double> (bins))
 
-    outPos = numpy.linspace(pos0_min+0.5*dpos, pos0_maxin-0.5*dpos, bins)
+    outPos = numpy.linspace(pos0_min + 0.5 * dpos, pos0_maxin - 0.5 * dpos, bins)
 
     if (dummy is not None) and (delta_dummy is not None):
         check_dummy = True
@@ -269,7 +276,10 @@ def fullSplit1D(numpy.ndarray pos not None,
                 continue
 
             data = cdata[idx]
-            if check_dummy and ( (cddummy==0.0 and data==cdummy) or (cddummy!=0.0 and fabs(data-cdummy)<=cddummy)):
+            if isnan(data):
+                continue
+            
+            if check_dummy and ((cddummy==0.0 and data==cdummy) or (cddummy!=0.0 and fabs(data-cdummy)<=cddummy)):
                 continue
 
             # a0, b0, c0 and d0 are in bin number (2theta, q or r)
@@ -285,12 +295,12 @@ def fullSplit1D(numpy.ndarray pos not None,
             min0 = min(a0, b0, c0, d0)
             max0 = max(a0, b0, c0, d0)
 
-            if (max0<0) or (min0 >=bins):
+            if (max0 < 0) or (min0 >= bins):
                 continue
             if check_pos1:
                 min1 = min(a1, b1, c1, d1)
                 max1 = max(a1, b1, c1, d1)
-                if (max1<pos1_min) or (min1 > pos1_maxin):
+                if (max1 < pos1_min) or (min1 > pos1_maxin):
                     continue
 
             if do_dark:
@@ -302,10 +312,14 @@ def fullSplit1D(numpy.ndarray pos not None,
             if do_solidangle:
                 data /= csolidangle[idx]
 
-            bin0_min = < int > floor(min0)
-            bin0_max = < int > floor(max0)
+            bin0_min = <int> floor(min0)
+            bin0_max = <int> floor(max0)
 
             if bin0_min == bin0_max:
+                if bin0_min<0 or bin0_min>=bins:
+                    with gil:
+                        print(bins, bin0_min, min0, min0, data) 
+                        print(a0, a1, b0, b1, c0, c1, d0, d1)
                 # All pixel is within a single bin
                 outCount[bin0_min] += 1.0
                 outData[bin0_min] += data
@@ -317,12 +331,12 @@ def fullSplit1D(numpy.ndarray pos not None,
                 aera_pixel = area4(a0, a1, b0, b1, c0, c1, d0, d1)
                 one_over_area = 1.0 / aera_pixel
 
-                integrate(buffer, bins, a0, a1, b0, b1) #A-B
-                integrate(buffer, bins, b0, b1, c0, c1) #B-C
-                integrate(buffer, bins, c0, c1, d0, d1) #C-D
-                integrate(buffer, bins, d0, d1, a0, a1) #D-A
+                integrate(buffer, bins, a0, a1, b0, b1)  # A-B
+                integrate(buffer, bins, b0, b1, c0, c1)  # B-C
+                integrate(buffer, bins, c0, c1, d0, d1)  # C-D
+                integrate(buffer, bins, d0, d1, a0, a1)  # D-A
 
-                #Distribute pixel area
+                # Distribute pixel area
                 sum_area = 0.0
                 for i in range(bin0_min, bin0_max):
                     sub_area = fabs(buffer[i])
@@ -331,10 +345,12 @@ def fullSplit1D(numpy.ndarray pos not None,
                     outCount[i] += sub_area
                     outData[i] += sub_area * data
 
-                #check the total area:
-                if fabs(sum_area - aera_pixel) / aera_pixel>1e-6 and bin0_min != 0 and bin0_max != bins:
+                # check the total area:
+                if fabs(sum_area - aera_pixel) / aera_pixel > 1e-6 and (bin0_min != 0) and (bin0_max != bins):
                     with gil:
-                        print("area_pixel=%s area_sum=%s, Error= %s"%(aera_pixel,sum_area,(aera_pixel-sum_area)/aera_pixel))
+                        logger.waring("area_pixel=%s area_sum=%s, Error= %s",
+                                      aera_pixel, sum_area,
+                                      (aera_pixel - sum_area) / aera_pixel)
                 buffer[bin0_min:bin0_max] = 0
         for i in range(bins):
             if outCount[i] > epsilon:
@@ -342,11 +358,7 @@ def fullSplit1D(numpy.ndarray pos not None,
             else:
                 outMerge[i] = cdummy
 
-    return outPos, outMerge, outData, outCount
-
-
-
-
+    return numpy.asarray(outPos), numpy.asarray(outMerge), numpy.asarray(outData), numpy.asarray(outCount)
 
 
 @cython.cdivision(True)
@@ -576,11 +588,11 @@ def fullSplit2D(numpy.ndarray pos not None,
                 if bin1_min == bin1_max:
                     # All pixel fall on 1 bins in dim 1
                     aera_pixel = fbin0_max - fbin0_min
-                    deltaL = (< double > (bin0_min + 1)) - fbin0_min
+                    deltaL = (<double> (bin0_min + 1)) - fbin0_min
                     one_over_area = deltaL / aera_pixel
                     outCount[bin0_min, bin1_min] += one_over_area
                     outData[bin0_min, bin1_min] += data * one_over_area
-                    deltaR = fbin0_max - (< double > bin0_max)
+                    deltaR = fbin0_max - (<double> bin0_max)
                     one_over_area = deltaR / aera_pixel
                     outCount[bin0_max, bin1_min] += one_over_area
                     outData[bin0_max, bin1_min] += data * one_over_area
@@ -591,9 +603,9 @@ def fullSplit2D(numpy.ndarray pos not None,
                 else:
                     # spread on n pix in dim0 and m pixel in dim1:
                     aera_pixel = (fbin0_max - fbin0_min) * (fbin1_max - fbin1_min)
-                    deltaL = (< double > (bin0_min + 1.0)) - fbin0_min
-                    deltaR = fbin0_max - (< double > bin0_max)
-                    deltaD = (< double > (bin1_min + 1.0)) - fbin1_min
+                    deltaL = (<double> (bin0_min + 1.0)) - fbin0_min
+                    deltaR = fbin0_max - (<double> bin0_max)
+                    deltaD = (<double> (bin1_min + 1.0)) - fbin1_min
                     deltaU = fbin1_max - (< double > bin1_max)
                     one_over_area = 1.0 / aera_pixel
 

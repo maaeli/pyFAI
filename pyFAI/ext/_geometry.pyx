@@ -28,7 +28,7 @@
 
 __author__ = "Jerome Kieffer"
 __license__ = "MIT"
-__date__ = "02/02/2017"
+__date__ = "11/07/2017"
 __copyright__ = "2011-2016, ESRF"
 __contact__ = "jerome.kieffer@esrf.fr"
 
@@ -175,9 +175,9 @@ cdef inline double f_cosa(double p1, double p2, double L) nogil:
 @cython.cdivision(True)
 def calc_pos_zyx(double L, double poni1, double poni2,
                  double rot1, double rot2, double rot3,
-                 numpy.ndarray pos1 not None,
-                 numpy.ndarray pos2 not None,
-                 numpy.ndarray pos3=None):
+                 pos1,
+                 pos2,
+                 pos3=None):
     """Calculate the 3D coordinates in the sample's referential
 
     :param L: distance sample - PONI
@@ -250,9 +250,7 @@ def calc_pos_zyx(double L, double poni1, double poni2,
 @cython.initializedcheck(False)
 @cython.cdivision(True)
 def calc_tth(double L, double rot1, double rot2, double rot3,
-             numpy.ndarray pos1 not None,
-             numpy.ndarray pos2 not None,
-             numpy.ndarray pos3=None):
+             pos1, pos2, pos3=None):
     """
     Calculate the 2theta array (radial angle) in parallel
 
@@ -355,9 +353,7 @@ def calc_chi(double L, double rot1, double rot2, double rot3,
 @cython.initializedcheck(False)
 @cython.cdivision(True)
 def calc_q(double L, double rot1, double rot2, double rot3,
-           numpy.ndarray pos1 not None,
-           numpy.ndarray pos2 not None,
-           double wavelength, pos3=None):
+           pos1, pos2, double wavelength, pos3=None):
     """
     Calculate the q (scattering vector) array using OpenMP
 
@@ -412,8 +408,7 @@ def calc_q(double L, double rot1, double rot2, double rot3,
 @cython.initializedcheck(False)
 @cython.cdivision(True)
 def calc_r(double L, double rot1, double rot2, double rot3,
-           numpy.ndarray pos1 not None, numpy.ndarray pos2 not None,
-           numpy.ndarray pos3=None):
+           pos1, pos2, pos3=None):
     """
     Calculate the radius array (radial direction) in parallel
 
@@ -460,10 +455,7 @@ def calc_r(double L, double rot1, double rot2, double rot3,
 @cython.wraparound(False)
 @cython.initializedcheck(False)
 @cython.cdivision(True)
-def calc_cosa(double L,
-              numpy.ndarray pos1 not None,
-              numpy.ndarray pos2 not None,
-              numpy.ndarray pos3=None):
+def calc_cosa(double L, pos1, pos2, pos3=None):
     """Calculate the cosine of the incidence angle using OpenMP.
     Used for sensors thickness effect corrections
 
@@ -506,9 +498,9 @@ def calc_rad_azim(double L,
                   double rot1,
                   double rot2,
                   double rot3,
-                  numpy.ndarray pos1 not None,
-                  numpy.ndarray pos2 not None,
-                  numpy.ndarray pos3=None,
+                  pos1,
+                  pos2,
+                  pos3=None,
                   space="2th",
                   wavelength=None):
     """Calculate the radial & azimutal position for each pixel from pos1, pos2, pos3.
@@ -548,7 +540,7 @@ def calc_rad_azim(double L,
         cspace = 1
     elif space == "q":
         cspace = 2
-        if not wavelength:
+        if wavelength is None:
             raise ValueError("wavelength is needed for q calculation")
         else:
             fwavelength = float(wavelength)
@@ -607,11 +599,11 @@ def calc_delta_chi(cython.floating[:, ::1] centers,
     """
     cdef:
         int width, height, row, col, corn, nbcorn
-        double co, ce, delta0, delta1, delta2, delta, twopi = 2*M_PI
+        double co, ce, delta0, delta1, delta2, delta, twopi = 2 * M_PI
         double[:, ::1] res
 
     height = centers.shape[0]
-    width =  centers.shape[1]
+    width = centers.shape[1]
     assert corners.shape[0] == height, "height match"
     assert corners.shape[1] == width, "width match"
     nbcorn = corners.shape[2]
@@ -625,7 +617,7 @@ def calc_delta_chi(cython.floating[:, ::1] centers,
                 for corn in range(nbcorn):
                     co = corners[row, col, corn, 1]
                     delta1 = (co - ce + twopi) % twopi
-                    delta2 = (ce - co + twopi ) % twopi
+                    delta2 = (ce - co + twopi) % twopi
                     delta0 = min(delta1, delta2)
                     if delta0 > delta:
                         delta = delta0
