@@ -26,3 +26,4 @@
    
 cdef extern from "src/isnan.h":
     bint isnan(double x) nogil
+    bint isfinite(double x) nogil

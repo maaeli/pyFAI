@@ -40,6 +40,7 @@
 #include <float.h>
 
 #define isnan(v) _isnan(v)
+#define isfinite(v) _finite(v)
 #endif
 
 #endif /*__ISNAN_H__*/
