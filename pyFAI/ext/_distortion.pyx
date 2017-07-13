@@ -28,7 +28,7 @@
 
 __author__ = "Jerome Kieffer"
 __license__ = "MIT"
-__date__ = "10/07/2017"
+__date__ = "13/07/2017"
 __copyright__ = "2011-2016, ESRF"
 __contact__ = "jerome.kieffer@esrf.fr"
 
@@ -781,7 +781,7 @@ def calc_openmp(float[:, :, :, ::1] pos not None,
                     value = buffer[ms, ns] / area
                     if value == 0.0:
                         continue
-                    if value < 0.0 or value > 1.0001:
+                    if (value < 0.0) or (value > 1.0001):
                         # here we print pathological cases for debugging
                         if err_cnt < 1000:
                             with gil:
@@ -845,6 +845,148 @@ def calc_openmp(float[:, :, :, ::1] pos not None,
     else:
         raise RuntimeError("Unimplemented sparse matrix format: %s", format)
     return res
+
+
+@cython.boundscheck(False)
+@cython.boundscheck(False)
+@cython.cdivision(True)
+@cython.initializedcheck(False)
+def calc_array(float[:, :, :, ::1] pos not None,
+               shape,
+               max_pixel_size=(8, 8),
+               numpy.int8_t[:, ::1] mask=None,
+               format="csr",
+               int bins_per_pixel=8):
+    """Calculate the look-up table, or CSR, or ArrayBuilder array for the distortion
+
+    :param pos: 4D position array
+    :param shape: output shape
+    :param max_pixel_size: (2-tuple of int) size of a buffer covering the largest pixel
+    :param format: can be "CSR" or "LUT"
+    :param bins_per_pixel: average splitting factor (number of pixels per bin)
+    :return: look-up table in CSR/LUT format
+    """
+    cdef:
+        int shape_in0, shape_in1, shape_out0, shape_out1, size_in, delta0, delta1, bins
+        int i, j, ms, ml, ns, nl, idx, err_cnt, bin_number
+        int offset0, offset1, box_size0, box_size1
+        float A0, A1, B0, B1, C0, C1, D0, D1, pAB, pBC, pCD, pDA, cAB, cBC, cCD, cDA,
+        float area, value, foffset0, foffset1
+        float[:, ::1] buffer
+        bint do_mask = mask is not None
+        ArrayBuilder array
+
+    err_cnt = 0
+    format = format.lower()
+    shape_out0, shape_out1 = shape
+    delta0, delta1 = max_pixel_size
+    bins = shape_out0 * shape_out1
+    array = ArrayBuilder(bins, min_size=bins_per_pixel)
+    shape_in0 = pos.shape[0]
+    shape_in1 = pos.shape[1]
+    size_in = shape_in0 * shape_in1
+
+    if do_mask:
+        assert shape_in0 == mask.shape[0], "shape_in0 == mask.shape[0]"
+        assert shape_in1 == mask.shape[1], "shape_in1 == mask.shape[1]"
+
+    buffer = numpy.empty((delta0, delta1), dtype=numpy.float32)
+    counter = -1  # bin index
+    with nogil:
+        # i, j, idx are indices of the raw image uncorrected
+        for idx in range(size_in):
+            i = idx // shape_in1
+            j = idx % shape_in1
+            if do_mask and mask[i, j]:
+                continue
+            idx = i * shape_in1 + j  # pixel index
+            buffer[:, :] = 0.0
+            A0 = pos[i, j, 0, 0]
+            A1 = pos[i, j, 0, 1]
+            B0 = pos[i, j, 1, 0]
+            B1 = pos[i, j, 1, 1]
+            C0 = pos[i, j, 2, 0]
+            C1 = pos[i, j, 2, 1]
+            D0 = pos[i, j, 3, 0]
+            D1 = pos[i, j, 3, 1]
+            foffset0 = _floor_min4(A0, B0, C0, D0)
+            foffset1 = _floor_min4(A1, B1, C1, D1)
+            offset0 = <int> foffset0
+            offset1 = <int> foffset1
+            box_size0 = (<int> _ceil_max4(A0, B0, C0, D0)) - offset0
+            box_size1 = (<int> _ceil_max4(A1, B1, C1, D1)) - offset1
+            if (box_size0 > delta0) or (box_size1 > delta1):
+                # Increase size of the buffer
+                delta0 = offset0 if offset0 > delta0 else delta0
+                delta1 = offset1 if offset1 > delta1 else delta1
+                with gil:
+                    buffer = numpy.zeros((delta0, delta1), dtype=numpy.float32)
+
+            A0 = A0 - foffset0
+            A1 = A1 - foffset1
+            B0 = B0 - foffset0
+            B1 = B1 - foffset1
+            C0 = C0 - foffset0
+            C1 = C1 - foffset1
+            D0 = D0 - foffset0
+            D1 = D1 - foffset1
+            if B0 != A0:
+                pAB = (B1 - A1) / (B0 - A0)
+                cAB = A1 - pAB * A0
+            else:
+                pAB = cAB = 0.0
+            if C0 != B0:
+                pBC = (C1 - B1) / (C0 - B0)
+                cBC = B1 - pBC * B0
+            else:
+                pBC = cBC = 0.0
+            if D0 != C0:
+                pCD = (D1 - C1) / (D0 - C0)
+                cCD = C1 - pCD * C0
+            else:
+                pCD = cCD = 0.0
+            if A0 != D0:
+                pDA = (A1 - D1) / (A0 - D0)
+                cDA = D1 - pDA * D0
+            else:
+                pDA = cDA = 0.0
+
+            integrate(buffer, B0, A0, pAB, cAB)
+            integrate(buffer, A0, D0, pDA, cDA)
+            integrate(buffer, D0, C0, pCD, cCD)
+            integrate(buffer, C0, B0, pBC, cBC)
+            area = 0.5 * ((C0 - A0) * (D1 - B1) - (C1 - A1) * (D0 - B0))
+            for ms in range(box_size0):
+                ml = ms + offset0
+                if ml < 0 or ml >= shape_out0:
+                    continue
+                for ns in range(box_size1):
+                    # ms,ns are indexes of the corrected image in short form, ml & nl are the same
+                    nl = ns + offset1
+                    if nl < 0 or nl >= shape_out1:
+                        continue
+                    value = buffer[ms, ns] / area
+                    if value == 0.0:
+                        continue
+                    if value < 0.0 or value > 1.0001:
+                        # here we print pathological cases for debugging
+                        if err_cnt < 1000: # print at most 1000 lines
+                            with gil:
+                                print(i, j, ms, box_size0, ns, box_size1, buffer[ms, ns], area, value, buffer[0, 0], buffer[0, 1], buffer[1, 0], buffer[1, 1])
+                                print(" A0=%s; A1=%s; B0=%s; B1=%s; C0=%s; C1=%s; D0=%s; D1=%s" % (A0, A1, B0, B1, C0, C1, D0, D1))
+                            err_cnt += 1
+                        continue
+
+                    bin_number = ml * shape_out1 + nl
+                    with gil:
+                        array._append(bin_number, idx, value)
+
+    if format == "csr":
+        return array.as_CSR()
+    elif format == "lut":
+        return array.as_LUT()
+    else:
+        return array
 
 
 @cython.cdivision(True)

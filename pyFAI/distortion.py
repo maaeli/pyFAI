@@ -24,13 +24,16 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
+"""This modules deals with image distortion from detector geometry.
+"""
+
 from __future__ import absolute_import, print_function, division, with_statement
 
 __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "10/07/2017"
+__date__ = "12/07/2017"
 __status__ = "development"
 
 import logging

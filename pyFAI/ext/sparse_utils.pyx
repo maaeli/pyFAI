@@ -28,7 +28,7 @@
 """Common Look-Up table/CSR object creation tools and conversion"""
 __author__ = "Jerome Kieffer"
 __contact__ = "Jerome.kieffer@esrf.fr"
-__date__ = "10/07/2017"
+__date__ = "13/07/2017"
 __status__ = "stable"
 __license__ = "MIT"
 
@@ -181,10 +181,8 @@ cdef class ArrayBuilder:
     def __cinit__(self, int nlines, min_size=4):
         cdef int i
         self.size = nlines
-        nullarray = numpy.array([None] * nlines)
-        self.lines = nullarray
-        for i in range(nlines):
-            self.lines[i] = Vector(min_size=min_size)
+        lst = [Vector(min_size=min_size) for i in range(nlines)] 
+        self.lines = numpy.asarray(lst, dtype=object)
             
     def __dealloc__(self):
         for i in range(self.size):
@@ -214,6 +212,8 @@ cdef class ArrayBuilder:
     cdef inline void _append(self, int line, int col, float value):
         cdef: 
             Vector vector
+        if line >= self.size:
+            raise IndexError("ArrayBuilder: Accessing line %i>=nline(%s)" % (line, self.size))
         vector = self.lines[line]
         vector._append(col, value)
     
@@ -239,7 +239,7 @@ cdef class ArrayBuilder:
                 lut[i, j] = lut_point(local_idx[j], local_coef[j])
         return numpy.asarray(lut, dtype=dtype_lut)
 
-    def as_CSR(self):
+    def as_CSR(self): 
         cdef:
             int i, val, start, end, total_size = 0 
             Vector vector
