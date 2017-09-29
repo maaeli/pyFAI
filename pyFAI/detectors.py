@@ -690,9 +690,10 @@ class Detector(with_metaclass(DetectorMeta, object)):
 
     def set_mask(self, mask):
         with self._sem:
-            self._mask = mask
             if mask is not None:
                 self.guess_binning(mask)
+            self._mask = mask
+            if mask is not None:
                 self._mask_crc = crc32(mask)
             else:
                 self._mask_crc = None
