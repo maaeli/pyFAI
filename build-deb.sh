@@ -125,7 +125,7 @@ do
           ;;
       --debian9)
           debian_version=9
-      target_system=debian${debian_version}
+          target_system=debian${debian_version}
           dist_directory=${project_directory}/dist/${target_system}
           build_directory=${project_directory}/build/${target_system}
           shift
