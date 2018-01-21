@@ -32,7 +32,7 @@ Test coverage dependencies: coverage, lxml.
 """
 
 __authors__ = ["Jérôme Kieffer", "Thomas Vincent"]
-__date__ = "24/10/2017"
+__date__ = "10/01/2018"
 __license__ = "MIT"
 
 import distutils.util
@@ -265,6 +265,7 @@ def build_project(name, root_dir):
 
 
 try:
+    # pyFAI is not yet loaded, it is safer to use library from the system
     from argparse import ArgumentParser
 except ImportError:
     from pyFAI.third_party.argparse import ArgumentParser
@@ -272,17 +273,18 @@ except ImportError:
 epilog = """Environment variables:
 PYFAI_LOW_MEM: set to True to skip all tests >100Mb
 PYFAI_OPENCL=False to disable OpenCL tests.
-WITH_QT_TEST=False to disable graphical tests
 """
+# WITH_QT_TEST=False to disable graphical tests,
 # SILX_TEST_LOW_MEM=True to disable tests taking large amount of memory
 # GPU=False to disable the use of a GPU with OpenCL test
 # """
 parser = ArgumentParser(description='Run the tests.',
                         epilog=epilog)
 
-parser.add_argument("-i", "--insource",
-                    action="store_true", dest="insource", default=False,
-                    help="Use the build source and not the installed version")
+parser.add_argument("--installed",
+                    action="store_true", dest="installed", default=False,
+                    help=("Test the installed version instead of" +
+                          "building from the source"))
 parser.add_argument("-c", "--coverage", dest="coverage",
                     action="store_true", default=False,
                     help=("Report code coverage" +
@@ -301,15 +303,16 @@ parser.add_argument("-l", "--low-mem", default=False,
 parser.add_argument("-o", "--no-opencl", dest="opencl", default=True,
                     action="store_false",
                     help="Disable the test of the OpenCL part")
-parser.add_argument("-x", "--no-gui", dest="gui", default=True,
-                    action="store_false",
-                    help="Disable the test of the graphical use interface")
-parser.add_argument("--qt-binding", dest="qt_binding", default=None,
-                    help="Force using a Qt binding, from 'PyQt4', 'PyQt5', or 'PySide'")
 
+
+# parser.add_argument("-x", "--no-gui", dest="gui", default=True,
+#                    action="store_false",
+#                    help="Disable the test of the graphical use interface")
 # parser.add_argument("-l", "--low-mem", dest="low_mem", default=False,
 #                    action="store_true",
 #                    help="Disable test with large memory consumption (>100Mbyte")
+# parser.add_argument("--qt-binding", dest="qt_binding", default=None,
+#                    help="Force using a Qt binding, from 'PyQt4', 'PyQt5', or 'PySide'")
 
 default_test_name = "%s.test.suite" % PROJECT_NAME
 parser.add_argument("test_name", nargs='*',
@@ -332,9 +335,9 @@ elif options.verbose > 1:
     test_verbosity = 2
     use_buffer = False
 
-if not options.gui:
-    os.environ["WITH_QT_TEST"] = "False"
-
+# if not options.gui:
+#    os.environ["WITH_QT_TEST"] = "False"
+#
 # if not options.opencl:
 #    os.environ["SILX_OPENCL"] = "False"
 #
@@ -350,27 +353,6 @@ if options.coverage:
         cov = coverage.coverage(omit=["*test*", "*third_party*", "*/setup.py"])
     cov.start()
 
-if options.qt_binding:
-    binding = options.qt_binding.lower()
-    if binding == "pyqt4":
-        logger.info("Force using PyQt4")
-        if sys.version < "3.0.0":
-            try:
-                import sip
-                sip.setapi("QString", 2)
-                sip.setapi("QVariant", 2)
-            except:
-                logger.warning("Cannot set sip API")
-        import PyQt4.QtCore  # noqa
-    elif binding == "pyqt5":
-        logger.info("Force using PyQt5")
-        import PyQt5.QtCore  # noqa
-    elif binding == "pyside":
-        logger.info("Force using PySide")
-        import PySide.QtCore  # noqa
-    else:
-        raise ValueError("Qt binding '%s' is unknown" % options.qt_binding)
-
 
 # Prevent importing from source directory
 if (os.path.dirname(os.path.abspath(__file__)) ==
@@ -380,16 +362,14 @@ if (os.path.dirname(os.path.abspath(__file__)) ==
 
 
 # import module
-if not options.insource:
+if options.installed:  # Use installed version
     try:
         module = importer(PROJECT_NAME)
-    except ImportError:
-        logger.warning(
-            "%s missing, using built (i.e. not installed) version",
+    except:
+        raise ImportError(
+            "%s not installed: Cannot run tests on installed version" %
             PROJECT_NAME)
-        options.insource = True
-
-if options.insource:
+else:  # Use built source
     build_dir = build_project(PROJECT_NAME, PROJECT_DIR)
 
     sys.path.insert(0, build_dir)
@@ -420,10 +400,7 @@ if old_importer:
     test_module = getattr(test_module, "test")
     print(dir(test_module))
     utilstest = getattr(test_module, "utilstest")
-UtilsTest = getattr(utilstest, "UtilsTest")
-UtilsTest.image_home = os.path.join(PROJECT_DIR, 'testimages')
-UtilsTest.testimages = os.path.join(UtilsTest.image_home, "all_testimages.json")
-UtilsTest.script_dir = os.path.join(PROJECT_DIR, "scripts")
+UtilsTest = utilstest.UtilsTest
 
 if options.low_mem:
     logger.info("Switch to low_mem mode")

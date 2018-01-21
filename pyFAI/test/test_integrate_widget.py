@@ -27,20 +27,20 @@
 # THE SOFTWARE.
 
 from __future__ import absolute_import, division, print_function
-from unicodedata import decimal
 
-__doc__ = "test suite for worker"
+"""Test suite for worker"""
+
 __author__ = "Valentin Valls"
 __contact__ = "valentin.valls@esrf.fr"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "03/11/2017"
+__date__ = "10/01/2018"
 
 import os
 import sys
 import unittest
 import numpy
-from .utilstest import getLogger
+import logging
 
 try:
     from ..gui import qt
@@ -52,7 +52,7 @@ if qt is not None:
 
 from .utilstest import UtilsTest
 
-logger = getLogger(__file__)
+logger = logging.getLogger(__name__)
 
 
 class AIWidgetMocked():
@@ -71,9 +71,7 @@ class TestAIWidget(unittest.TestCase):
             logger.warning('pyFAI.integrate_widget tests disabled (DISPLAY env. variable not set)')
             cls.app = None
         elif qt is not None:
-            # Makes sure a QApplication exists and do it once for all
-            qapp = qt.QApplication.instance() or qt.QApplication([])
-            cls.app = qapp
+            cls.app = qt.QApplication([])
 
     def setUp(self):
         if qt is None:
