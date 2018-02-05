@@ -4,7 +4,7 @@
 #    Project: Azimuthal integration
 #             https://github.com/silx-kit/pyFAI
 #
-#    Copyright (C) European Synchrotron Radiation Facility, Grenoble, France
+#    Copyright (C) 2012-2018 European Synchrotron Radiation Facility, Grenoble, France
 #
 #    Principal author: Picca Frédéric-Emmanuel <picca@synchrotron-soleil.fr>
 #
@@ -57,7 +57,7 @@ from .third_party import six
 # A few physical constants
 ################################################################################
 
-hc = CONST_hc = scipy.constants.c * scipy.constants.h / scipy.constants.e * 1e5
+hc = CONST_hc = scipy.constants.c * scipy.constants.h / scipy.constants.e * 1e7
 """Product of h the Planck constant, and c the speed of light in vacuum
 in Angstrom.KeV. It is approximativly equal to 12.398419292004204."""
 

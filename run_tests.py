@@ -2,7 +2,7 @@
 # coding: utf-8
 # /*##########################################################################
 #
-# Copyright (c) 2015-2017 European Synchrotron Radiation Facility
+# Copyright (C) 2015-2018 European Synchrotron Radiation Facility
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -32,7 +32,7 @@ Test coverage dependencies: coverage, lxml.
 """
 
 __authors__ = ["Jérôme Kieffer", "Thomas Vincent"]
-__date__ = "10/01/2018"
+__date__ = "30/01/2018"
 __license__ = "MIT"
 
 import distutils.util
@@ -179,7 +179,7 @@ class ProfileTextTestResult(unittest.TextTestRunner.resultclass):
                          time.time() - self.__time_start, memusage, test.id())
 
 
-def report_rst(cov, package, version="0.0.0", base=""):
+def report_rst(cov, package, version="0.0.0", base="", inject_xml=None):
     """
     Generate a report of test coverage in RST (for Sphinx inclusion)
 
@@ -188,11 +188,13 @@ def report_rst(cov, package, version="0.0.0", base=""):
     :param str base: base directory of modules to include in the report
     :return: RST string
     """
-    import tempfile
-    fd, fn = tempfile.mkstemp(suffix=".xml")
-    os.close(fd)
-    cov.xml_report(outfile=fn)
-
+    if inject_xml is None:
+        import tempfile
+        fd, fn = tempfile.mkstemp(suffix=".xml")
+        os.close(fd)
+        cov.xml_report(outfile=fn)
+    else:
+        fn = inject_xml
     from lxml import etree
     xml = etree.parse(fn)
     classes = xml.xpath("//class")
@@ -401,6 +403,7 @@ if old_importer:
     print(dir(test_module))
     utilstest = getattr(test_module, "utilstest")
 UtilsTest = utilstest.UtilsTest
+UtilsTest.installed = options.installed
 
 if options.low_mem:
     logger.info("Switch to low_mem mode")
@@ -439,7 +442,7 @@ if options.coverage:
     cov.stop()
     cov.save()
     with open("coverage.rst", "w") as fn:
-        fn.write(report_rst(cov, PROJECT_NAME, PROJECT_VERSION, os.path.join(PROJECT_PATH, "build")))
+        fn.write(report_rst(cov, PROJECT_NAME, PROJECT_VERSION, PROJECT_PATH))
     print(cov.report())
 
 sys.exit(exit_status)
