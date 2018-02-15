@@ -34,7 +34,7 @@ separation on GPU.
 from __future__ import absolute_import, print_function, division
 __author__ = "Jérôme Kieffer"
 __license__ = "MIT"
-__date__ = "10/01/2018"
+__date__ = "13/02/2018"
 __copyright__ = "2015, ESRF, Grenoble"
 __contact__ = "jerome.kieffer@esrf.fr"
 
@@ -241,7 +241,6 @@ class Separator(OpenclProcessing):
         ws = self.npt_height // 8
         if self.block_size < ws:
             raise RuntimeError("Requested a workgoup size of %s, maximum is %s" % (ws, self.block_size))
-
         kargs = self.cl_kernel_args["bsort_vertical"]
         local_mem = kargs["l_data"]
         if not local_mem or local_mem.size < ws * 32:

@@ -28,26 +28,27 @@
 
 /*
  * Copy the content of a src array into a dst array,
- * padding if needed with the dummy value
+ * padding if needed with the dummy value. Works in 1D
 */
 kernel void copy_pad(global float *src,
-                       global float *dst,
-                       uint src_size,
-                       uint dst_size,
-                       float dummy)
+                     global float *dst,
+                     uint src_size,
+                     uint dst_size,
+                     float dummy)
 {
-  uint gid = get_global_id(0);
-  //Global memory guard for padding
-  if(gid < dst_size) {
-    if (gid < src_size)
+    uint gid = get_global_id(0);
+    //Global memory guard for padding
+    if(gid < dst_size)
     {
-      dst[gid] = src[gid];
+        if (gid < src_size)
+        {
+            dst[gid] = src[gid];
+        }
+        else
+        {
+            dst[gid] = dummy;
+        }
     }
-    else
-    {
-      dst[gid] = dummy;
-    }
-  }
 }
 
 /*

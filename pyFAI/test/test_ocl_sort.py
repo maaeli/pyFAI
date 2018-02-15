@@ -29,7 +29,7 @@
 
 from __future__ import absolute_import, print_function, division
 __license__ = "MIT"
-__date__ = "10/01/2018"
+__date__ = "15/02/2018"
 __copyright__ = "2015, ESRF, Grenoble"
 __contact__ = "jerome.kieffer@esrf.fr"
 
@@ -46,6 +46,7 @@ logger = logging.getLogger(__name__)
 from ..opencl import ocl
 if ocl:
     from ..opencl import sort as ocl_sort
+    from ..opencl.common import pyopencl
 
 as_strided = numpy.lib.stride_tricks.as_strided
 
@@ -98,6 +99,30 @@ class TestOclSort(unittest.TestCase):
         unittest.TestCase.tearDown(self)
         self.shape = self.ary = self.sorted_vert = self.sorted_hor = self.vector_vert = self.sorted_hor = None
 
+    def test_sort_simple(self):
+        "Tests only the bitonic sort on the largest WG size available on the system"
+        from ..opencl.utils import read_cl_file
+        from ..opencl import kernel_workgroup_size
+        devicetype = "CPU"
+        platformid, deviceid = None, None
+        ctx = ocl.create_context(devicetype=devicetype, platformid=platformid, deviceid=deviceid)
+        queue = pyopencl.CommandQueue(ctx)
+        prg = pyopencl.Program(ctx, read_cl_file("bitonic")).build()
+        wg = kernel_workgroup_size(prg, "bsort_all")
+        size = 8 * wg;
+        logger.info("Measued workgroup size: %s hence max array size:: %s", wg, size)
+        ary = numpy.random.random(size).astype(numpy.float32)
+        d_data = pyopencl.array.to_device(queue, ary)
+        sorted = numpy.sort(ary.copy())
+        local_data = pyopencl.LocalMemory(8 * 8 * wg)
+        ev = prg.bsort_all(queue, (wg,), (wg,), d_data.data, local_data)
+        # print(ev)
+        ev.wait()
+        res = d_data.get()
+        logger.debug("Is not ascending: %s", numpy.where((res[1:] - res[:-1]) < 0))
+        logger.debug("vs numpy: %s", numpy.where(res - sorted))
+        self.assertEqual(abs(res - sorted).max(), 0, "Results are the same")
+
     def test_sort_vert(self):
         s = ocl_sort.Separator(self.shape[0], self.shape[1], profile=self.PROFILE)
         res = s.sort_vertical(self.ary).get()
@@ -109,12 +134,13 @@ class TestOclSort(unittest.TestCase):
     def test_filter_vert(self):
         s = ocl_sort.Separator(self.shape[0], self.shape[1], profile=self.PROFILE)
         res = s.filter_vertical(self.ary).get()
-#         import pylab
-#         pylab.plot(self.vector_vert, label="ref")
-#         pylab.plot(res, label="obt")
-#         pylab.legend()
-#         pylab.show()
-#         six.moves.input()
+        import pylab
+        pylab.plot(self.vector_vert, label="ref")
+        pylab.plot(res, label="obt")
+        pylab.plot(res - self.vector_vert, label="delta")
+        pylab.legend()
+        pylab.show()
+        six.moves.input()
         self.assertTrue(numpy.allclose(self.vector_vert, res), "vertical filter is OK")
         if self.PROFILE:
             s.log_profile()
