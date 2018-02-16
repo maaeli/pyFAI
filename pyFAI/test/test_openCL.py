@@ -34,7 +34,7 @@ __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "12/01/2018"
+__date__ = "15/02/2018"
 
 
 import unittest
@@ -200,8 +200,6 @@ class TestSort(unittest.TestCase):
     """
     Test the kernels for vector and image sorting
     """
-    N = 1024
-    ws = N // 8
 
     def setUp(self):
         if not UtilsTest.opencl:
@@ -209,26 +207,18 @@ class TestSort(unittest.TestCase):
         if pyopencl is None or ocl is None:
             self.skipTest("OpenCL module (pyopencl) is not present or no device available")
 
-        self.h_data = numpy.random.random(self.N).astype("float32")
-        self.h2_data = numpy.random.random((self.N, self.N)).astype("float32").reshape((self.N, self.N))
-
         self.ctx = ocl.create_context(devicetype="GPU")
         device = self.ctx.devices[0]
-        try:
-            devtype = pyopencl.device_type.to_string(device.type).upper()
-        except ValueError:
-            # pocl does not describe itself as a CPU !
-            devtype = "CPU"
-        workgroup = device.max_work_group_size
-        if (devtype == "CPU") and (device.platform.vendor == "Apple"):
-            logger.info("For Apple's OpenCL on CPU: enforce max_work_goup_size=1")
-            workgroup = 1
-
-        self.ws = min(workgroup, self.ws)
-        self.queue = pyopencl.CommandQueue(self.ctx, properties=pyopencl.command_queue_properties.PROFILING_ENABLE)
-        self.local_mem = pyopencl.LocalMemory(self.ws * 32)  # 2float4 = 2*4*4 bytes per workgroup size
         src = read_cl_file("bitonic.cl")
         self.prg = pyopencl.Program(self.ctx, src).build()
+        kernel = self.prg.bsort_all
+        query_wg = pyopencl.kernel_work_group_info.WORK_GROUP_SIZE
+        self.workgroup = kernel.get_work_group_info(query_wg, device)
+        self.N = 8 * self.workgroup
+        self.h_data = numpy.random.random(self.N).astype("float32")
+        self.h2_data = numpy.random.random((self.N, self.N)).astype("float32").reshape((self.N, self.N))
+        self.local_mem = pyopencl.LocalMemory(self.workgroup * 32)  # 2float4 = 2*4*4 bytes per workgroup size
+        self.queue = pyopencl.CommandQueue(self.ctx, properties=pyopencl.command_queue_properties.PROFILING_ENABLE)
 
     def tearDown(self):
         self.h_data = None
@@ -237,40 +227,40 @@ class TestSort(unittest.TestCase):
         self.local_mem = None
         self.h2_data = None
 
-    def test_reference_book(self):
-        d_data = pyopencl.array.to_device(self.queue, self.h_data)
-        t0 = time.time()
-        hs_data = numpy.sort(self.h_data)
-        t1 = time.time()
-        time_sort = 1e3 * (t1 - t0)
-
-        evt = self.prg.bsort_book(self.queue, (self.ws,), (self.ws,), d_data.data, self.local_mem)
-        evt.wait()
-        err = abs(hs_data - d_data.get()).max()
-        logger.info("test_reference_book")
-        logger.info("Numpy sort on %s element took %s ms", self.N, time_sort)
-        logger.info("Reference sort time: %s ms, err=%s ", 1e-6 * (evt.profile.end - evt.profile.start), err)
-        # this test works under linux:
-        if platform.system() == "Linux":
-            self.assertTrue(err == 0.0)
-        else:
-            logger.warning("Measured error on %s is %s", platform.system(), err)
-
-    def test_reference_file(self):
-        d_data = pyopencl.array.to_device(self.queue, self.h_data)
-        t0 = time.time()
-        hs_data = numpy.sort(self.h_data)
-        t1 = time.time()
-        time_sort = 1e3 * (t1 - t0)
-
-        evt = self.prg.bsort_file(self.queue, (self.ws,), (self.ws,), d_data.data, self.local_mem)
-        evt.wait()
-        err = abs(hs_data - d_data.get()).max()
-        logger.info("test_reference_file")
-        logger.info("Numpy sort on %s element took %s ms", self.N, time_sort)
-        logger.info("Reference sort time: %s ms, err=%s", 1e-6 * (evt.profile.end - evt.profile.start), err)
-        # this test works anywhere !
-        self.assertTrue(err == 0.0)
+#     def test_reference_book(self):
+#         d_data = pyopencl.array.to_device(self.queue, self.h_data)
+#         t0 = time.time()
+#         hs_data = numpy.sort(self.h_data)
+#         t1 = time.time()
+#         time_sort = 1e3 * (t1 - t0)
+#
+#         evt = self.prg.bsort_all(self.queue, (self.ws,), (self.ws,), d_data.data, self.local_mem)
+#         evt.wait()
+#         err = abs(hs_data - d_data.get()).max()
+#         logger.info("test_reference_book")
+#         logger.info("Numpy sort on %s element took %s ms", self.N, time_sort)
+#         logger.info("Reference sort time: %s ms, err=%s ", 1e-6 * (evt.profile.end - evt.profile.start), err)
+#         # this test works under linux:
+#         if platform.system() == "Linux":
+#             self.assertTrue(err == 0.0)
+#         else:
+#             logger.warning("Measured error on %s is %s", platform.system(), err)
+#
+#     def test_reference_file(self):
+#         d_data = pyopencl.array.to_device(self.queue, self.h_data)
+#         t0 = time.time()
+#         hs_data = numpy.sort(self.h_data)
+#         t1 = time.time()
+#         time_sort = 1e3 * (t1 - t0)
+#
+#         evt = self.prg.bsort_all(self.queue, (self.ws,), (self.ws,), d_data.data, self.local_mem)
+#         evt.wait()
+#         err = abs(hs_data - d_data.get()).max()
+#         logger.info("test_reference_file")
+#         logger.info("Numpy sort on %s element took %s ms", self.N, time_sort)
+#         logger.info("Reference sort time: %s ms, err=%s", 1e-6 * (evt.profile.end - evt.profile.start), err)
+#         # this test works anywhere !
+#         self.assertTrue(err == 0.0)
 
     def test_sort_all(self):
         d_data = pyopencl.array.to_device(self.queue, self.h_data)
@@ -279,13 +269,13 @@ class TestSort(unittest.TestCase):
         t1 = time.time()
         time_sort = 1e3 * (t1 - t0)
 
-        evt = self.prg.bsort_all(self.queue, (self.ws,), (self.ws,), d_data.data, self.local_mem)
+        evt = self.prg.bsort_all(self.queue, (self.workgroup,), (self.workgroup,), d_data.data, self.local_mem)
         evt.wait()
         err = abs(hs_data - d_data.get()).max()
         logger.info("test_sort_all")
         logger.info("Numpy sort on %s element took %s ms", self.N, time_sort)
         logger.info("modified function execution time: %s ms, err=%s", 1e-6 * (evt.profile.end - evt.profile.start), err)
-        self.assertTrue(err == 0.0)
+        self.assertEqual(err, 0.0, msg="on device %s" % self.ctx.devices[0])
 
     def test_sort_horizontal(self):
         d2_data = pyopencl.array.to_device(self.queue, self.h2_data)
@@ -293,12 +283,12 @@ class TestSort(unittest.TestCase):
         h2s_data = numpy.sort(self.h2_data, axis=-1)
         t1 = time.time()
         time_sort = 1e3 * (t1 - t0)
-        evt = self.prg.bsort_horizontal(self.queue, (self.N, self.ws), (1, self.ws), d2_data.data, self.local_mem)
+        evt = self.prg.bsort_horizontal(self.queue, (self.N, self.workgroup), (1, self.workgroup), d2_data.data, self.local_mem)
         evt.wait()
         err = abs(h2s_data - d2_data.get()).max()
         logger.info("Numpy horizontal sort on %sx%s elements took %s ms", self.N, self.N, time_sort)
         logger.info("Horizontal execution time: %s ms, err=%s", 1e-6 * (evt.profile.end - evt.profile.start), err)
-        self.assertTrue(err == 0.0)
+        self.assertEqual(err, 0.0, msg="on device %s" % self.ctx.devices[0])
 
     def test_sort_vertical(self):
         d2_data = pyopencl.array.to_device(self.queue, self.h2_data)
@@ -306,12 +296,12 @@ class TestSort(unittest.TestCase):
         h2s_data = numpy.sort(self.h2_data, axis=0)
         t1 = time.time()
         time_sort = 1e3 * (t1 - t0)
-        evt = self.prg.bsort_vertical(self.queue, (self.ws, self.N), (self.ws, 1), d2_data.data, self.local_mem)
+        evt = self.prg.bsort_vertical(self.queue, (self.workgroup, self.N), (self.workgroup, 1), d2_data.data, self.local_mem)
         evt.wait()
         err = abs(h2s_data - d2_data.get()).max()
         logger.info("Numpy vertical sort on %sx%s elements took %s ms", self.N, self.N, time_sort)
         logger.info("Vertical execution time: %s ms, err=%s ", 1e-6 * (evt.profile.end - evt.profile.start), err)
-        self.assertTrue(err == 0.0)
+        self.assertEqual(err, 0.0, msg="on device %s" % self.ctx.devices[0])
 
 
 def suite():

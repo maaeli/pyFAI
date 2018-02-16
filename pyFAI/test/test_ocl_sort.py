@@ -121,7 +121,7 @@ class TestOclSort(unittest.TestCase):
         res = d_data.get()
         logger.debug("Is not ascending: %s", numpy.where((res[1:] - res[:-1]) < 0))
         logger.debug("vs numpy: %s", numpy.where(res - sorted))
-        self.assertEqual(abs(res - sorted).max(), 0, "Results are the same")
+        self.assertEqual(abs(res - sorted).max(), 0, "Results are the same on %s" % ctx.devices[0])
 
     def test_sort_vert(self):
         s = ocl_sort.Separator(self.shape[0], self.shape[1], profile=self.PROFILE)
@@ -134,13 +134,13 @@ class TestOclSort(unittest.TestCase):
     def test_filter_vert(self):
         s = ocl_sort.Separator(self.shape[0], self.shape[1], profile=self.PROFILE)
         res = s.filter_vertical(self.ary).get()
-        import pylab
-        pylab.plot(self.vector_vert, label="ref")
-        pylab.plot(res, label="obt")
-        pylab.plot(res - self.vector_vert, label="delta")
-        pylab.legend()
-        pylab.show()
-        six.moves.input()
+#         import pylab
+#         pylab.plot(self.vector_vert, label="ref")
+#         pylab.plot(res, label="obt")
+#         pylab.plot(res - self.vector_vert, label="delta")
+#         pylab.legend()
+#         pylab.show()
+#         six.moves.input()
         self.assertTrue(numpy.allclose(self.vector_vert, res), "vertical filter is OK")
         if self.PROFILE:
             s.log_profile()
