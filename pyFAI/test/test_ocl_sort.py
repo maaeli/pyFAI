@@ -29,7 +29,7 @@
 
 from __future__ import absolute_import, print_function, division
 __license__ = "MIT"
-__date__ = "15/02/2018"
+__date__ = "16/02/2018"
 __copyright__ = "2015, ESRF, Grenoble"
 __contact__ = "jerome.kieffer@esrf.fr"
 
@@ -141,7 +141,8 @@ class TestOclSort(unittest.TestCase):
 #         pylab.legend()
 #         pylab.show()
 #         six.moves.input()
-        self.assertTrue(numpy.allclose(self.vector_vert, res), "vertical filter is OK")
+        self.assertTrue(numpy.allclose(self.vector_vert, res),
+                        "vertical filter is OK on %s" % s.ctx.devices[0])
         if self.PROFILE:
             s.log_profile()
             s.reset_timer()
@@ -149,7 +150,8 @@ class TestOclSort(unittest.TestCase):
     def test_sort_hor(self):
         s = ocl_sort.Separator(self.shape[0], self.shape[1], profile=self.PROFILE)
         res = s.sort_horizontal(self.ary).get()
-        self.assertTrue(numpy.allclose(self.sorted_hor, res), "horizontal sort is OK")
+        self.assertTrue(numpy.allclose(self.sorted_hor, res),
+                        "horizontal sort is OK on %s" % s.ctx.devices[0])
         if self.PROFILE:
             s.log_profile()
             s.reset_timer()
@@ -163,7 +165,8 @@ class TestOclSort(unittest.TestCase):
 #         pylab.legend()
 #         pylab.show()
 #         six.moves.input()
-        self.assertTrue(numpy.allclose(self.vector_hor, res), "horizontal filter is OK")
+        self.assertTrue(numpy.allclose(self.vector_hor, res),
+                        "horizontal filter is OK on %s" % s.ctx.devices[0])
         if self.PROFILE:
             s.log_profile()
             s.reset_timer()
@@ -182,8 +185,10 @@ class TestOclSort(unittest.TestCase):
 #         pylab.show()
 #         six.moves.input()
 #         print(abs(self.ary.mean(axis=0, dtype="float64") - m).max())
-        self.assertTrue(numpy.allclose(self.ary.mean(axis=0, dtype="float64"), m,), "vertical mean is OK")
-        self.assertTrue(numpy.allclose(self.ary.std(axis=0, dtype="float64"), d), "vertical std is OK")
+        self.assertTrue(numpy.allclose(self.ary.mean(axis=0, dtype="float64"), m,),
+                        "vertical mean is OK on %s" % s.ctx.devices[0])
+        self.assertTrue(numpy.allclose(self.ary.std(axis=0, dtype="float64"), d),
+                        "vertical std is OK on %s" % s.ctx.devices[0])
         if self.PROFILE:
             s.log_profile()
             s.reset_timer()
@@ -202,8 +207,10 @@ class TestOclSort(unittest.TestCase):
 #         pylab.show()
 #         six.moves.input()
 #         print(abs(self.ary.mean(axis=1, dtype="float64") - m).max())
-        self.assertTrue(numpy.allclose(self.ary.mean(axis=1, dtype="float64"), m,), "horizontal mean is OK")
-        self.assertTrue(numpy.allclose(self.ary.std(axis=1, dtype="float64"), d), "horizontal std is OK")
+        self.assertTrue(numpy.allclose(self.ary.mean(axis=1, dtype="float64"), m,),
+                        "horizontal mean is OK on %s" % s.ctx.devices[0])
+        self.assertTrue(numpy.allclose(self.ary.std(axis=1, dtype="float64"), d),
+                        "horizontal std is OK on %s" % s.ctx.devices[0])
         if self.PROFILE:
             s.log_profile()
             s.reset_timer()
@@ -224,8 +231,10 @@ class TestOclSort(unittest.TestCase):
 #         pylab.show()
 #         six.moves.input()
 #         print(abs(self.ary.mean(axis=0, dtype="float64") - m).max())
-        self.assertTrue(numpy.allclose(mn, m), "sigma_clipvertical mean is OK")
-        self.assertTrue(numpy.allclose(dn, d), "sigma_clipvertical std is OK")
+        self.assertTrue(numpy.allclose(mn, m),
+                        "sigma_clipvertical mean is OK on %s" % s.ctx.devices[0])
+        self.assertTrue(numpy.allclose(dn, d),
+                        "sigma_clipvertical std is OK on %s" % s.ctx.devices[0])
         if self.PROFILE:
             s.log_profile()
             s.reset_timer()
@@ -246,8 +255,10 @@ class TestOclSort(unittest.TestCase):
 #         six.moves.input()
 #         print(abs(self.ary.mean(axis=1, dtype="float64") - m).max())
 
-        self.assertTrue(numpy.allclose(mn, m,), "sigma_clip horizontal mean is OK")
-        self.assertTrue(numpy.allclose(dn, d), "sigma_clip horizontal std is OK")
+        self.assertTrue(numpy.allclose(mn, m,),
+                        "sigma_clip horizontal mean is OK on %s" % s.ctx.devices[0])
+        self.assertTrue(numpy.allclose(dn, d),
+                        "sigma_clip horizontal std is OK on %s" % s.ctx.devices[0])
         if self.PROFILE:
             s.log_profile()
             s.reset_timer()
