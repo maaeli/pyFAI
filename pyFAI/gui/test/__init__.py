@@ -1,7 +1,12 @@
+#!/usr/bin/env python
 # coding: utf-8
-# /*##########################################################################
 #
-# Copyright (c) 2016-2017 European Synchrotron Radiation Facility
+#    Project: Azimuthal integration
+#             https://github.com/silx-kit/pyFAI
+#
+#    Copyright (C) 2016-2018 European Synchrotron Radiation Facility, Grenoble, France
+#
+#    Principal author:       Jérôme Kieffer (Jerome.Kieffer@ESRF.eu)
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,54 +25,67 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
-# ###########################################################################*/
-__authors__ = ["T. Vincent", "P. Knobel"]
+
+"""Test module for pyFAI GUI"""
+
+from __future__ import absolute_import, division, print_function
+
 __license__ = "MIT"
-__date__ = "24/10/2017"
+__copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
+__date__ = "06/03/2018"
 
-
-import logging
-import os
 import sys
+import os
 import unittest
+import logging
+from pyFAI.test.utilstest import test_options
 
 
 _logger = logging.getLogger(__name__)
+
+
+class SkipGuiTest(unittest.TestCase):
+    def __init__(self, methodName='runTest', reason=None):
+        self._reason = reason
+        unittest.TestCase.__init__(self, methodName=methodName)
+
+    def runTest(self):
+        self.skipTest("pyFAI.gui tests disabled (%s)" % self._reason)
 
 
 def suite():
 
     test_suite = unittest.TestSuite()
 
+    if not test_options.WITH_QT_TEST:
+        test_suite.addTest(SkipGuiTest(reason=test_options.WITH_QT_TEST_REASON))
+        return test_suite
+
     if sys.platform.startswith('linux') and not os.environ.get('DISPLAY', ''):
         # On Linux and no DISPLAY available (e.g., ssh without -X)
-        _logger.warning('pyfai.gui tests disabled (DISPLAY env. variable not set)')
-
-        class SkipGUITest(unittest.TestCase):
-            def runTest(self):
-                self.skipTest(
-                    'pyfai.gui tests disabled (DISPLAY env. variable not set)')
-
-        test_suite.addTest(SkipGUITest())
+        reason = 'DISPLAY env. variable not set'
+        _logger.warning("pyFAI.gui tests disabled (%s)", reason)
+        test_suite.addTest(SkipGuiTest(reason=reason))
         return test_suite
 
-    elif os.environ.get('WITH_QT_TEST', 'True') == 'False':
-        # Explicitly disabled tests
-        _logger.warning(
-            "pyfai.gui tests disabled (env. variable WITH_QT_TEST=False)")
-
-        class SkipGUITest(unittest.TestCase):
-            def runTest(self):
-                self.skipTest(
-                    "pyfai.gui tests disabled (env. variable WITH_QT_TEST=False)")
-
-        test_suite.addTest(SkipGUITest())
+    try:
+        import silx.gui.qt
+    except ImportError as e:
+        _logger.debug("Backtrace", exc_info=True)
+        # No Qt binding found
+        reason = e.args[0]
+        _logger.warning("pyFAI.gui tests disabled (%s)", reason)
+        test_suite.addTest(SkipGuiTest(reason=reason))
         return test_suite
 
-    # Import here to avoid loading QT if tests are disabled
-
-    from ..dialog import test as test_dialog
-
-    test_suite.addTest(test_dialog.suite())
+    from . import test_integrate_widget
+    from . import test_scripts
+    test_suite = unittest.TestSuite()
+    test_suite.addTest(test_integrate_widget.suite())
+    test_suite.addTest(test_scripts.suite())
     return test_suite
+
+
+if __name__ == "__main__":
+    runner = unittest.TextTestRunner()
+    runner.run(suite())
