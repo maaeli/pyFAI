@@ -36,7 +36,7 @@ from __future__ import print_function, division
 __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@esrf.eu"
 __license__ = "MIT"
-__date__ = "20/02/2018"
+__date__ = "06/06/2018"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
 
 import os
@@ -51,7 +51,7 @@ logger = logging.getLogger(__name__)
 
 try:
     # multithreaded version in Cython: about 2x faster on large array evaluation
-    from . import _bispev as fitpack
+    from .ext import _bispev as fitpack
 except ImportError:
     logger.debug("Backtrace", exc_info=True)
     from scipy.interpolate import fitpack
@@ -302,8 +302,8 @@ class Spline(object):
         :param timing: profile the calculation or not
         :type timing: bool
 
-        :return: Nothing !
-        :rtype: float or ndarray
+        :return: xDispArray, yDispArray
+        :rtype: 2-tuple of ndarray
 
         Evaluate a bivariate B-spline and its derivatives. Return a
         rank-2 array of spline function values (or spline derivative
@@ -335,6 +335,7 @@ class Spline(object):
                             " Y-Displacement Spline evaluation:  %.3f sec." %
                             ((intermediateTime - startTime),
                              (time.time() - intermediateTime)))
+        return self.xDispArray, self.yDispArray
 
     def splineFuncX(self, x, y, list_of_points=False):
         """
@@ -434,15 +435,15 @@ class Spline(object):
         """
         self.xmin = 0.0
         self.ymin = 0.0
-        self.xmax = float(self.xDispArray.shape[0] - 1)
-        self.ymax = float(self.yDispArray.shape[1] - 1)
+        self.xmax = self.xDispArray.shape[1] - 1.0
+        self.ymax = self.yDispArray.shape[0] - 1.0
 
         if timing:
             startTime = time.time()
 
         xRectBivariateSpline = scipy.interpolate.fitpack2.RectBivariateSpline(
             numpy.arange(self.xmax + 1.0),
-            numpy.arange(self.ymax + 1),
+            numpy.arange(self.ymax + 1.0),
             self.xDispArray.transpose(),
             s=smoothing)
 
@@ -451,7 +452,7 @@ class Spline(object):
 
         yRectBivariateSpline = scipy.interpolate.fitpack2.RectBivariateSpline(
             numpy.arange(self.xmax + 1.0),
-            numpy.arange(self.ymax + 1),
+            numpy.arange(self.ymax + 1.0),
             self.yDispArray.transpose(),
             s=smoothing)
 
@@ -696,9 +697,11 @@ class Spline(object):
                                  dx=0, dy=0)
         return delta0 + pos[0], delta1 + pos[1]
 
-    def flipud(self):
-        """
-        Flip the spline up-down
+    def flipud(self, fit=True):
+        """Flip the spline upside-down
+        
+        :param fit: set to False to disable fitting of the coef, 
+                    or provide a value for the smoothing factor 
         :return: new spline object
         """
         self.spline2array()
@@ -711,12 +714,18 @@ class Spline(object):
         other.yDispArray = -numpy.flipud(self.yDispArray)
         other.pixelSize = self.pixelSize
         other.grid = self.grid
-        other.array2spline()
+        if fit is not False:
+            if fit is True:
+                other.array2spline()
+            else:
+                other.array2spline(fit)
         return other
 
-    def fliplr(self):
-        """
-        Flip the spline
+    def fliplr(self, fit=True):
+        """Flip the spline horizontally
+        
+        :param fit: set to False to disable fitting of the coef, 
+            or provide a value for the smoothing factor 
         :return: new spline object
         """
         self.spline2array()
@@ -729,12 +738,18 @@ class Spline(object):
         other.yDispArray = numpy.fliplr(self.yDispArray)
         other.pixelSize = self.pixelSize
         other.grid = self.grid
-        other.array2spline()
+        if fit is not False:
+            if fit is True:
+                other.array2spline()
+            else:
+                other.array2spline(fit)
         return other
 
-    def fliplrud(self):
-        """
-        Flip the spline left-right and up-down
+    def fliplrud(self, fit=True):
+        """Flip the spline upside-down and horizontally
+        
+        :param fit: set to False to disable fitting of the coef, 
+            or provide a value for the smoothing factor         
         :return: new spline object
         """
         self.spline2array()
@@ -747,5 +762,9 @@ class Spline(object):
         other.yDispArray = -numpy.flipud(numpy.fliplr(self.yDispArray))
         other.pixelSize = self.pixelSize
         other.grid = self.grid
-        other.array2spline()
+        if fit is not False:
+            if fit is True:
+                other.array2spline()
+            else:
+                other.array2spline(fit)
         return other

@@ -32,7 +32,7 @@ __author__ = "Jérôme Kieffer"
 __contact__ = "Jerome.Kieffer@ESRF.eu"
 __license__ = "MIT"
 __copyright__ = "European Synchrotron Radiation Facility, Grenoble, France"
-__date__ = "05/03/2018"
+__date__ = "03/05/2018"
 __status__ = "stable"
 __docformat__ = 'restructuredtext'
 
@@ -641,7 +641,7 @@ class AzimuthalIntegrator(Geometry):
         if mask is None:
             mask = self.mask
 
-        # outPos, outMerge, outData, outCount
+        # bin_centers, outMerge, outData, outCount
         tthAxis, I, _, _ = splitBBox.histoBBox1d(weights=data,
                                                  pos0=tth,
                                                  delta_pos0=dtth,
@@ -2374,7 +2374,7 @@ class AzimuthalIntegrator(Geometry):
                                                                       polarization=polarization,
                                                                       polarization_checksum=polarization_checksum,
                                                                       normalization_factor=normalization_factor)
-                                qAxis = integr.outPos  # this will be copied later
+                                qAxis = integr.bin_centers  # this will be copied later
                                 if error_model == "azimuthal":
 
                                     variance = (data - self.calcfrom1d(qAxis * pos0_scale, I, dim1_unit=unit, shape=shape)) ** 2
@@ -2513,7 +2513,7 @@ class AzimuthalIntegrator(Geometry):
                                                                   polarization=polarization,
                                                                   polarization_checksum=polarization_checksum,
                                                                   normalization_factor=normalization_factor)
-                            qAxis = integr.outPos  # this will be copied later
+                            qAxis = integr.bin_centers  # this will be copied later
                             if error_model == "azimuthal":
                                 variance = (data - self.calcfrom1d(qAxis * pos0_scale, I, dim1_unit=unit, shape=shape)) ** 2
                             if variance is not None:
@@ -2637,7 +2637,9 @@ class AzimuthalIntegrator(Geometry):
             data = data.astype(numpy.float32)
             mask = self.create_mask(data, mask, dummy, delta_dummy, mode="numpy")
             pos0 = self.array_from_unit(shape, "center", unit, scale=False)
-            if radial_range is not None:
+            if radial_range is None:
+                radial_range = (pos0.min(), pos0.max() * EPS32)
+            else:
                 mask *= (pos0 >= min(radial_range))
                 mask *= (pos0 <= max(radial_range))
             if azimuth_range is not None:
@@ -2657,15 +2659,14 @@ class AzimuthalIntegrator(Geometry):
             data = data[mask]
             if variance is not None:
                 variance = variance[mask]
-            if radial_range is None:
-                radial_range = (pos0.min(), pos0.max() * EPS32)
 
-            if ("cython" in method):
+            if ("cython" in method) or ("histogram" in method):
                 if histogram is not None:
                     logger.debug("integrate1d uses cython implementation")
                     qAxis, I, sum_, count = histogram.histogram(pos=pos0,
                                                                 weights=data,
                                                                 bins=npt,
+                                                                bin_range=radial_range,
                                                                 pixelSize_in_Pos=0,
                                                                 empty=dummy if dummy is not None else self._empty,
                                                                 normalization_factor=normalization_factor)
@@ -2675,6 +2676,7 @@ class AzimuthalIntegrator(Geometry):
                         _, var1d, a, b = histogram.histogram(pos=pos0,
                                                              weights=variance,
                                                              bins=npt,
+                                                             bin_range=radial_range,
                                                              pixelSize_in_Pos=1,
                                                              empty=dummy if dummy is not None else self._empty)
                         with numpy.errstate(divide='ignore'):
@@ -3018,8 +3020,8 @@ class AzimuthalIntegrator(Geometry):
                                                                       safe=safe)
                                 I.shape = npt
                                 I = I.T
-                                bins_rad = integr.outPos0  # this will be copied later
-                                bins_azim = integr.outPos1
+                                bins_rad = integr.bin_centers0  # this will be copied later
+                                bins_azim = integr.bin_centers1
                     else:
                         I, bins_rad, bins_azim, sum_, count = integr.integrate(data, dark=dark, flat=flat,
                                                                                solidAngle=solidangle,
@@ -3128,8 +3130,8 @@ class AzimuthalIntegrator(Geometry):
                                                                       normalization_factor=normalization_factor)
                                 I.shape = npt
                                 I = I.T
-                                bins_rad = integr.outPos0  # this will be copied later
-                                bins_azim = integr.outPos1
+                                bins_rad = integr.bin_centers0  # this will be copied later
+                                bins_azim = integr.bin_centers1
                     else:
                         I, bins_rad, bins_azim, sum_, count = integr.integrate(data, dark=dark, flat=flat,
                                                                                solidAngle=solidangle,
@@ -3158,7 +3160,9 @@ class AzimuthalIntegrator(Geometry):
                                                                              flat=flat,
                                                                              solidangle=solidangle,
                                                                              polarization=polarization,
-                                                                             normalization_factor=normalization_factor)
+                                                                             normalization_factor=normalization_factor,
+                                                                             chiDiscAtPi=self.chiDiscAtPi,
+                                                                             empty=dummy if dummy is not None else self._empty)
         if (I is None) and ("bbox" in method):
             if splitBBox is None:
                 logger.warning("splitBBox is not available;"
@@ -3185,7 +3189,9 @@ class AzimuthalIntegrator(Geometry):
                                                                             flat=flat,
                                                                             solidangle=solidangle,
                                                                             polarization=polarization,
-                                                                            normalization_factor=normalization_factor)
+                                                                            normalization_factor=normalization_factor,
+                                                                            chiDiscAtPi=self.chiDiscAtPi,
+                                                                            empty=dummy if dummy is not None else self._empty)
 
         if (I is None):
             logger.debug("integrate2d uses cython implementation")
@@ -3493,7 +3499,8 @@ class AzimuthalIntegrator(Geometry):
                   correctSolidAngle=True,
                   polarization_factor=None, dark=None, flat=None,
                   method="splitpixel", unit=units.Q,
-                  percentile=50, mask=None, normalization_factor=1.0, metadata=None):
+                  percentile=50, dummy=None, delta_dummy=None,
+                  mask=None, normalization_factor=1.0, metadata=None):
         """Perform the 2D integration and filter along each row using a median
         filter
 
@@ -3523,8 +3530,9 @@ class AzimuthalIntegrator(Geometry):
         :type metadata: JSON serializable dict
         :return: Integrate1D like result like
         """
-
-        dummy = numpy.finfo(numpy.float32).min
+        if dummy is None:
+            dummy = numpy.finfo(numpy.float32).min
+            delta_dummy = None
 
         if "ocl" in method and npt_azim and (npt_azim - 1):
             old = npt_azim
@@ -3535,7 +3543,7 @@ class AzimuthalIntegrator(Geometry):
         res2d = self.integrate2d(data, npt_rad, npt_azim, mask=mask,
                                  flat=flat, dark=dark,
                                  unit=unit, method=method,
-                                 dummy=dummy,
+                                 dummy=dummy, delta_dummy=delta_dummy,
                                  correctSolidAngle=correctSolidAngle,
                                  polarization_factor=polarization_factor,
                                  normalization_factor=normalization_factor)
@@ -3629,7 +3637,7 @@ class AzimuthalIntegrator(Geometry):
                    correctSolidAngle=True,
                    polarization_factor=None, dark=None, flat=None,
                    method="splitpixel", unit=units.Q,
-                   thres=3, max_iter=5,
+                   thres=3, max_iter=5, dummy=None, delta_dummy=None,
                    mask=None, normalization_factor=1.0, metadata=None):
         """Perform the 2D integration and perform a sigm-clipping iterative
         filter along each row. see the doc of scipy.stats.sigmaclip for the
@@ -3659,7 +3667,9 @@ class AzimuthalIntegrator(Geometry):
         :return: Integrate1D like result like
         """
         # We use NaN as dummies
-        dummy = numpy.NaN
+        if dummy is None:
+            dummy = numpy.NaN
+            delta_dummy = None
 
         if "__len__" in dir(thres) and len(thres) > 0:
             sigma_lo = thres[0]
@@ -3677,7 +3687,7 @@ class AzimuthalIntegrator(Geometry):
         res2d = self.integrate2d(data, npt_rad, npt_azim, mask=mask,
                                  flat=flat, dark=dark,
                                  unit=unit, method=method,
-                                 dummy=dummy,
+                                 dummy=dummy, delta_dummy=delta_dummy,
                                  correctSolidAngle=correctSolidAngle,
                                  polarization_factor=polarization_factor,
                                  normalization_factor=normalization_factor)
