@@ -841,40 +841,6 @@ def calc_sparse(cnp.float32_t[:, :, :, ::1] pos not None,
         raise RuntimeError("Unimplemented sparse matrix format: %s", format)
     return res
 
-
-def resize_image_2D(image not None,
-                    shape=None):
-    """
-    Reshape the image in such a way it has the required shape
-
-    :param image: 2D-array with the image
-    :param shape: expected shape of input image
-    :return: 2D image with the proper shape
-    """
-    if shape is None:
-        return image
-    assert image.ndim == 2, "image is 2D"
-    shape_in0, shape_in1 = shape
-    shape_img0, shape_img1 = image.shape
-    if (shape_img0 == shape_in0) and (shape_img1 == shape_in1):
-        return image
-
-    new_image = numpy.zeros((shape_in0, shape_in1), dtype=numpy.float32)
-    if shape_img0 < shape_in0:
-        if shape_img1 < shape_in1:
-            new_image[:shape_img0, :shape_img1] = image
-        else:
-            new_image[:shape_img0, :] = image[:, :shape_in1]
-    else:
-        if shape_img1 < shape_in1:
-            new_image[:, :shape_img1] = image[:shape_in0, :]
-        else:
-            new_image[:, :] = image[:shape_in0, :shape_in1]
-    logger.warning("Patching image of shape %ix%i on expected size of %ix%i",
-                   shape_img1, shape_img0, shape_in1, shape_in0)
-    return new_image
-
-
 @cython.boundscheck(False)
 @cython.boundscheck(False)
 @cython.cdivision(True)
